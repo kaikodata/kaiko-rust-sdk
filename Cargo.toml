@@ -1,0 +1,18 @@
+[package]
+name = "kaikosdk"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "kaikosdk"
+
+[dependencies]
+prost = { version = "0.12", default-features = false }
+pbjson = { version = "0.6", default-features = false }
+pbjson-types = { version = "0.6", default-features = false }
+serde = { version = "1.0", default-features = false }
+tonic = { version = "0.10", default-features = false, features = [
+    "transport",
+    "prost",
+    "codegen",
+] } #currently equivalent to default-features
