@@ -3664,6 +3664,9 @@ impl serde::Serialize for StreamIndexMultiAssetsServiceResponseV1 {
         if self.ts_event.is_some() {
             len += 1;
         }
+        if self.ts_compute.is_some() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamIndexMultiAssetsServiceResponseV1", len)?;
         if self.commodity != 0 {
             let v = StreamIndexCommodity::from_i32(self.commodity)
@@ -3688,6 +3691,9 @@ impl serde::Serialize for StreamIndexMultiAssetsServiceResponseV1 {
         if let Some(v) = self.ts_event.as_ref() {
             struct_ser.serialize_field("tsEvent", v)?;
         }
+        if let Some(v) = self.ts_compute.as_ref() {
+            struct_ser.serialize_field("tsCompute", v)?;
+        }
         struct_ser.end()
     }
 }
@@ -3708,6 +3714,8 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
             "price",
             "ts_event",
             "tsEvent",
+            "ts_compute",
+            "tsCompute",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -3719,6 +3727,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
             Compositions,
             Price,
             TsEvent,
+            TsCompute,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -3747,6 +3756,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
                             "compositions" => Ok(GeneratedField::Compositions),
                             "price" => Ok(GeneratedField::Price),
                             "tsEvent" | "ts_event" => Ok(GeneratedField::TsEvent),
+                            "tsCompute" | "ts_compute" => Ok(GeneratedField::TsCompute),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -3773,6 +3783,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
                 let mut compositions__ = None;
                 let mut price__ = None;
                 let mut ts_event__ = None;
+                let mut ts_compute__ = None;
                 while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Commodity => {
@@ -3817,6 +3828,12 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
                             }
                             ts_event__ = map.next_value()?;
                         }
+                        GeneratedField::TsCompute => {
+                            if ts_compute__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tsCompute"));
+                            }
+                            ts_compute__ = map.next_value()?;
+                        }
                     }
                 }
                 Ok(StreamIndexMultiAssetsServiceResponseV1 {
@@ -3827,6 +3844,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
                     compositions: compositions__.unwrap_or_default(),
                     price: price__,
                     ts_event: ts_event__,
+                    ts_compute: ts_compute__,
                 })
             }
         }
