@@ -328,8 +328,6 @@ pub mod stream_aggregates_ohlcv_service_v1_client {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
         }
-        /** Subscribe
-*/
         pub async fn subscribe(
             &mut self,
             request: impl tonic::IntoRequest<super::StreamAggregatesOhlcvRequestV1>,
@@ -967,6 +965,268 @@ pub mod stream_market_update_service_v1_client {
             req.extensions_mut()
                 .insert(
                     GrpcMethod::new("kaikosdk.StreamMarketUpdateServiceV1", "Subscribe"),
+                );
+            self.inner.server_streaming(req, path, codec).await
+        }
+    }
+}
+/// Generated client implementations.
+pub mod stream_aggregates_spot_exchange_rate_v1_service_v2_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /** Service for streaming Spot exchange rate V2
+*/
+    #[derive(Debug, Clone)]
+    pub struct StreamAggregatesSpotExchangeRateV1ServiceV2Client<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl StreamAggregatesSpotExchangeRateV1ServiceV2Client<tonic::transport::Channel> {
+        /// Attempt to create a new client by connecting to a given endpoint.
+        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
+        where
+            D: TryInto<tonic::transport::Endpoint>,
+            D::Error: Into<StdError>,
+        {
+            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
+            Ok(Self::new(conn))
+        }
+    }
+    impl<T> StreamAggregatesSpotExchangeRateV1ServiceV2Client<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> StreamAggregatesSpotExchangeRateV1ServiceV2Client<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
+        {
+            StreamAggregatesSpotExchangeRateV1ServiceV2Client::new(
+                InterceptedService::new(inner, interceptor),
+            )
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /** Subscribe
+*/
+        pub async fn subscribe(
+            &mut self,
+            request: impl tonic::IntoRequest<
+                super::StreamAggregatesSpotExchangeRateV1RequestV2,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                tonic::codec::Streaming<
+                    super::StreamAggregatesSpotExchangeRateV1ResponseV2,
+                >,
+            >,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/kaikosdk.StreamAggregatesSpotExchangeRateV1ServiceV2/Subscribe",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "kaikosdk.StreamAggregatesSpotExchangeRateV1ServiceV2",
+                        "Subscribe",
+                    ),
+                );
+            self.inner.server_streaming(req, path, codec).await
+        }
+    }
+}
+/// Generated client implementations.
+pub mod stream_aggregates_spot_direct_exchange_rate_v1_service_v2_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /** Service for streaming Direct exchange rate V2
+*/
+    #[derive(Debug, Clone)]
+    pub struct StreamAggregatesSpotDirectExchangeRateV1ServiceV2Client<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl StreamAggregatesSpotDirectExchangeRateV1ServiceV2Client<
+        tonic::transport::Channel,
+    > {
+        /// Attempt to create a new client by connecting to a given endpoint.
+        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
+        where
+            D: TryInto<tonic::transport::Endpoint>,
+            D::Error: Into<StdError>,
+        {
+            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
+            Ok(Self::new(conn))
+        }
+    }
+    impl<T> StreamAggregatesSpotDirectExchangeRateV1ServiceV2Client<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> StreamAggregatesSpotDirectExchangeRateV1ServiceV2Client<
+            InterceptedService<T, F>,
+        >
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
+        {
+            StreamAggregatesSpotDirectExchangeRateV1ServiceV2Client::new(
+                InterceptedService::new(inner, interceptor),
+            )
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /** Subscribe
+*/
+        pub async fn subscribe(
+            &mut self,
+            request: impl tonic::IntoRequest<
+                super::StreamAggregatesDirectExchangeRateV1RequestV2,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                tonic::codec::Streaming<
+                    super::StreamAggregatesDirectExchangeRateV1ResponseV2,
+                >,
+            >,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/kaikosdk.StreamAggregatesSpotDirectExchangeRateV1ServiceV2/Subscribe",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "kaikosdk.StreamAggregatesSpotDirectExchangeRateV1ServiceV2",
+                        "Subscribe",
+                    ),
                 );
             self.inner.server_streaming(req, path, codec).await
         }

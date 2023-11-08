@@ -1,4 +1,112 @@
 // @generated
+impl serde::Serialize for Assets {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.base.is_empty() {
+            len += 1;
+        }
+        if !self.quote.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.Assets", len)?;
+        if !self.base.is_empty() {
+            struct_ser.serialize_field("base", &self.base)?;
+        }
+        if !self.quote.is_empty() {
+            struct_ser.serialize_field("quote", &self.quote)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for Assets {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "base",
+            "quote",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Base,
+            Quote,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "base" => Ok(GeneratedField::Base),
+                            "quote" => Ok(GeneratedField::Quote),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = Assets;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.Assets")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<Assets, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut base__ = None;
+                let mut quote__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Base => {
+                            if base__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("base"));
+                            }
+                            base__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Quote => {
+                            if quote__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("quote"));
+                            }
+                            quote__ = Some(map.next_value()?);
+                        }
+                    }
+                }
+                Ok(Assets {
+                    base: base__.unwrap_or_default(),
+                    quote: quote__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.Assets", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for DataInterval {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1581,6 +1689,312 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedQuoteValue {
         deserializer.deserialize_struct("kaikosdk.StreamAggregatedQuoteValue", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for StreamAggregatesDirectExchangeRateV1RequestV2 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.assets.is_some() {
+            len += 1;
+        }
+        if self.window.is_some() {
+            len += 1;
+        }
+        if !self.include_exchanges.is_empty() {
+            len += 1;
+        }
+        if !self.exclude_exchanges.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesDirectExchangeRateV1RequestV2", len)?;
+        if let Some(v) = self.assets.as_ref() {
+            struct_ser.serialize_field("assets", v)?;
+        }
+        if let Some(v) = self.window.as_ref() {
+            struct_ser.serialize_field("window", v)?;
+        }
+        if !self.include_exchanges.is_empty() {
+            struct_ser.serialize_field("includeExchanges", &self.include_exchanges)?;
+        }
+        if !self.exclude_exchanges.is_empty() {
+            struct_ser.serialize_field("excludeExchanges", &self.exclude_exchanges)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV1RequestV2 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "assets",
+            "window",
+            "include_exchanges",
+            "includeExchanges",
+            "exclude_exchanges",
+            "excludeExchanges",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Assets,
+            Window,
+            IncludeExchanges,
+            ExcludeExchanges,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "assets" => Ok(GeneratedField::Assets),
+                            "window" => Ok(GeneratedField::Window),
+                            "includeExchanges" | "include_exchanges" => Ok(GeneratedField::IncludeExchanges),
+                            "excludeExchanges" | "exclude_exchanges" => Ok(GeneratedField::ExcludeExchanges),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamAggregatesDirectExchangeRateV1RequestV2;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamAggregatesDirectExchangeRateV1RequestV2")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesDirectExchangeRateV1RequestV2, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut assets__ = None;
+                let mut window__ = None;
+                let mut include_exchanges__ = None;
+                let mut exclude_exchanges__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Assets => {
+                            if assets__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("assets"));
+                            }
+                            assets__ = map.next_value()?;
+                        }
+                        GeneratedField::Window => {
+                            if window__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("window"));
+                            }
+                            window__ = map.next_value()?;
+                        }
+                        GeneratedField::IncludeExchanges => {
+                            if include_exchanges__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("includeExchanges"));
+                            }
+                            include_exchanges__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::ExcludeExchanges => {
+                            if exclude_exchanges__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("excludeExchanges"));
+                            }
+                            exclude_exchanges__ = Some(map.next_value()?);
+                        }
+                    }
+                }
+                Ok(StreamAggregatesDirectExchangeRateV1RequestV2 {
+                    assets: assets__,
+                    window: window__,
+                    include_exchanges: include_exchanges__.unwrap_or_default(),
+                    exclude_exchanges: exclude_exchanges__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamAggregatesDirectExchangeRateV1RequestV2", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamAggregatesDirectExchangeRateV1ResponseV2 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.assets.is_some() {
+            len += 1;
+        }
+        if self.price != 0. {
+            len += 1;
+        }
+        if self.timestamp.is_some() {
+            len += 1;
+        }
+        if self.window.is_some() {
+            len += 1;
+        }
+        if self.no_trade {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesDirectExchangeRateV1ResponseV2", len)?;
+        if let Some(v) = self.assets.as_ref() {
+            struct_ser.serialize_field("assets", v)?;
+        }
+        if self.price != 0. {
+            struct_ser.serialize_field("price", &self.price)?;
+        }
+        if let Some(v) = self.timestamp.as_ref() {
+            struct_ser.serialize_field("timestamp", v)?;
+        }
+        if let Some(v) = self.window.as_ref() {
+            struct_ser.serialize_field("window", v)?;
+        }
+        if self.no_trade {
+            struct_ser.serialize_field("noTrade", &self.no_trade)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV1ResponseV2 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "assets",
+            "price",
+            "timestamp",
+            "window",
+            "no_trade",
+            "noTrade",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Assets,
+            Price,
+            Timestamp,
+            Window,
+            NoTrade,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "assets" => Ok(GeneratedField::Assets),
+                            "price" => Ok(GeneratedField::Price),
+                            "timestamp" => Ok(GeneratedField::Timestamp),
+                            "window" => Ok(GeneratedField::Window),
+                            "noTrade" | "no_trade" => Ok(GeneratedField::NoTrade),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamAggregatesDirectExchangeRateV1ResponseV2;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamAggregatesDirectExchangeRateV1ResponseV2")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesDirectExchangeRateV1ResponseV2, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut assets__ = None;
+                let mut price__ = None;
+                let mut timestamp__ = None;
+                let mut window__ = None;
+                let mut no_trade__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Assets => {
+                            if assets__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("assets"));
+                            }
+                            assets__ = map.next_value()?;
+                        }
+                        GeneratedField::Price => {
+                            if price__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("price"));
+                            }
+                            price__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Timestamp => {
+                            if timestamp__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("timestamp"));
+                            }
+                            timestamp__ = map.next_value()?;
+                        }
+                        GeneratedField::Window => {
+                            if window__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("window"));
+                            }
+                            window__ = map.next_value()?;
+                        }
+                        GeneratedField::NoTrade => {
+                            if no_trade__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("noTrade"));
+                            }
+                            no_trade__ = Some(map.next_value()?);
+                        }
+                    }
+                }
+                Ok(StreamAggregatesDirectExchangeRateV1ResponseV2 {
+                    assets: assets__,
+                    price: price__.unwrap_or_default(),
+                    timestamp: timestamp__,
+                    window: window__,
+                    no_trade: no_trade__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamAggregatesDirectExchangeRateV1ResponseV2", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for StreamAggregatesOhlcvRequestV1 {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1967,6 +2381,312 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesOhlcvResponseV1 {
             }
         }
         deserializer.deserialize_struct("kaikosdk.StreamAggregatesOHLCVResponseV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamAggregatesSpotExchangeRateV1RequestV2 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.assets.is_some() {
+            len += 1;
+        }
+        if self.window.is_some() {
+            len += 1;
+        }
+        if !self.include_exchanges.is_empty() {
+            len += 1;
+        }
+        if !self.exclude_exchanges.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesSpotExchangeRateV1RequestV2", len)?;
+        if let Some(v) = self.assets.as_ref() {
+            struct_ser.serialize_field("assets", v)?;
+        }
+        if let Some(v) = self.window.as_ref() {
+            struct_ser.serialize_field("window", v)?;
+        }
+        if !self.include_exchanges.is_empty() {
+            struct_ser.serialize_field("includeExchanges", &self.include_exchanges)?;
+        }
+        if !self.exclude_exchanges.is_empty() {
+            struct_ser.serialize_field("excludeExchanges", &self.exclude_exchanges)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV1RequestV2 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "assets",
+            "window",
+            "include_exchanges",
+            "includeExchanges",
+            "exclude_exchanges",
+            "excludeExchanges",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Assets,
+            Window,
+            IncludeExchanges,
+            ExcludeExchanges,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "assets" => Ok(GeneratedField::Assets),
+                            "window" => Ok(GeneratedField::Window),
+                            "includeExchanges" | "include_exchanges" => Ok(GeneratedField::IncludeExchanges),
+                            "excludeExchanges" | "exclude_exchanges" => Ok(GeneratedField::ExcludeExchanges),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamAggregatesSpotExchangeRateV1RequestV2;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamAggregatesSpotExchangeRateV1RequestV2")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesSpotExchangeRateV1RequestV2, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut assets__ = None;
+                let mut window__ = None;
+                let mut include_exchanges__ = None;
+                let mut exclude_exchanges__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Assets => {
+                            if assets__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("assets"));
+                            }
+                            assets__ = map.next_value()?;
+                        }
+                        GeneratedField::Window => {
+                            if window__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("window"));
+                            }
+                            window__ = map.next_value()?;
+                        }
+                        GeneratedField::IncludeExchanges => {
+                            if include_exchanges__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("includeExchanges"));
+                            }
+                            include_exchanges__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::ExcludeExchanges => {
+                            if exclude_exchanges__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("excludeExchanges"));
+                            }
+                            exclude_exchanges__ = Some(map.next_value()?);
+                        }
+                    }
+                }
+                Ok(StreamAggregatesSpotExchangeRateV1RequestV2 {
+                    assets: assets__,
+                    window: window__,
+                    include_exchanges: include_exchanges__.unwrap_or_default(),
+                    exclude_exchanges: exclude_exchanges__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamAggregatesSpotExchangeRateV1RequestV2", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamAggregatesSpotExchangeRateV1ResponseV2 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.assets.is_some() {
+            len += 1;
+        }
+        if self.price != 0. {
+            len += 1;
+        }
+        if self.timestamp.is_some() {
+            len += 1;
+        }
+        if self.window.is_some() {
+            len += 1;
+        }
+        if self.no_trade {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesSpotExchangeRateV1ResponseV2", len)?;
+        if let Some(v) = self.assets.as_ref() {
+            struct_ser.serialize_field("assets", v)?;
+        }
+        if self.price != 0. {
+            struct_ser.serialize_field("price", &self.price)?;
+        }
+        if let Some(v) = self.timestamp.as_ref() {
+            struct_ser.serialize_field("timestamp", v)?;
+        }
+        if let Some(v) = self.window.as_ref() {
+            struct_ser.serialize_field("window", v)?;
+        }
+        if self.no_trade {
+            struct_ser.serialize_field("noTrade", &self.no_trade)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV1ResponseV2 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "assets",
+            "price",
+            "timestamp",
+            "window",
+            "no_trade",
+            "noTrade",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Assets,
+            Price,
+            Timestamp,
+            Window,
+            NoTrade,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "assets" => Ok(GeneratedField::Assets),
+                            "price" => Ok(GeneratedField::Price),
+                            "timestamp" => Ok(GeneratedField::Timestamp),
+                            "window" => Ok(GeneratedField::Window),
+                            "noTrade" | "no_trade" => Ok(GeneratedField::NoTrade),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamAggregatesSpotExchangeRateV1ResponseV2;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamAggregatesSpotExchangeRateV1ResponseV2")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesSpotExchangeRateV1ResponseV2, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut assets__ = None;
+                let mut price__ = None;
+                let mut timestamp__ = None;
+                let mut window__ = None;
+                let mut no_trade__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Assets => {
+                            if assets__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("assets"));
+                            }
+                            assets__ = map.next_value()?;
+                        }
+                        GeneratedField::Price => {
+                            if price__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("price"));
+                            }
+                            price__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Timestamp => {
+                            if timestamp__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("timestamp"));
+                            }
+                            timestamp__ = map.next_value()?;
+                        }
+                        GeneratedField::Window => {
+                            if window__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("window"));
+                            }
+                            window__ = map.next_value()?;
+                        }
+                        GeneratedField::NoTrade => {
+                            if no_trade__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("noTrade"));
+                            }
+                            no_trade__ = Some(map.next_value()?);
+                        }
+                    }
+                }
+                Ok(StreamAggregatesSpotExchangeRateV1ResponseV2 {
+                    assets: assets__,
+                    price: price__.unwrap_or_default(),
+                    timestamp: timestamp__,
+                    window: window__,
+                    no_trade: no_trade__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamAggregatesSpotExchangeRateV1ResponseV2", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for StreamAggregatesVwapRequestV1 {
@@ -6308,5 +7028,132 @@ impl<'de> serde::Deserialize<'de> for TimestampValue {
             }
         }
         deserializer.deserialize_struct("kaikosdk.TimestampValue", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for Window {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.start_time.is_some() {
+            len += 1;
+        }
+        if self.end_time.is_some() {
+            len += 1;
+        }
+        if self.duration.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.Window", len)?;
+        if let Some(v) = self.start_time.as_ref() {
+            struct_ser.serialize_field("startTime", v)?;
+        }
+        if let Some(v) = self.end_time.as_ref() {
+            struct_ser.serialize_field("endTime", v)?;
+        }
+        if let Some(v) = self.duration.as_ref() {
+            struct_ser.serialize_field("duration", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for Window {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "start_time",
+            "startTime",
+            "end_time",
+            "endTime",
+            "duration",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            StartTime,
+            EndTime,
+            Duration,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "startTime" | "start_time" => Ok(GeneratedField::StartTime),
+                            "endTime" | "end_time" => Ok(GeneratedField::EndTime),
+                            "duration" => Ok(GeneratedField::Duration),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = Window;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.Window")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<Window, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut start_time__ = None;
+                let mut end_time__ = None;
+                let mut duration__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::StartTime => {
+                            if start_time__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("startTime"));
+                            }
+                            start_time__ = map.next_value()?;
+                        }
+                        GeneratedField::EndTime => {
+                            if end_time__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("endTime"));
+                            }
+                            end_time__ = map.next_value()?;
+                        }
+                        GeneratedField::Duration => {
+                            if duration__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("duration"));
+                            }
+                            duration__ = map.next_value()?;
+                        }
+                    }
+                }
+                Ok(Window {
+                    start_time: start_time__,
+                    end_time: end_time__,
+                    duration: duration__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.Window", FIELDS, GeneratedVisitor)
     }
 }
