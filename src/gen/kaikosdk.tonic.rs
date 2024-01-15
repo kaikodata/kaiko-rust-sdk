@@ -975,7 +975,7 @@ pub mod stream_aggregates_spot_exchange_rate_v1_service_v2_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
-    /** Service for streaming Spot exchange rate V2
+    /** Service for streaming Spot exchange rate V1 service V2
 */
     #[derive(Debug, Clone)]
     pub struct StreamAggregatesSpotExchangeRateV1ServiceV2Client<T> {
@@ -1104,7 +1104,7 @@ pub mod stream_aggregates_spot_direct_exchange_rate_v1_service_v2_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
-    /** Service for streaming Direct exchange rate V2
+    /** Service for streaming Direct exchange rate V1 service V2
 */
     #[derive(Debug, Clone)]
     pub struct StreamAggregatesSpotDirectExchangeRateV1ServiceV2Client<T> {

@@ -5368,6 +5368,9 @@ impl serde::Serialize for StreamIndexServiceResponseV1 {
         if self.ts_event.is_some() {
             len += 1;
         }
+        if !self.sequence_id.is_empty() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamIndexServiceResponseV1", len)?;
         if !self.index_code.is_empty() {
             struct_ser.serialize_field("indexCode", &self.index_code)?;
@@ -5395,6 +5398,9 @@ impl serde::Serialize for StreamIndexServiceResponseV1 {
         if let Some(v) = self.ts_event.as_ref() {
             struct_ser.serialize_field("tsEvent", v)?;
         }
+        if !self.sequence_id.is_empty() {
+            struct_ser.serialize_field("sequenceId", &self.sequence_id)?;
+        }
         struct_ser.end()
     }
 }
@@ -5415,6 +5421,8 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
             "percentages",
             "ts_event",
             "tsEvent",
+            "sequence_id",
+            "sequenceId",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -5427,6 +5435,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
             Exchanges,
             Percentages,
             TsEvent,
+            SequenceId,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -5456,6 +5465,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                             "exchanges" => Ok(GeneratedField::Exchanges),
                             "percentages" => Ok(GeneratedField::Percentages),
                             "tsEvent" | "ts_event" => Ok(GeneratedField::TsEvent),
+                            "sequenceId" | "sequence_id" => Ok(GeneratedField::SequenceId),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -5483,6 +5493,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                 let mut exchanges__ = None;
                 let mut percentages__ = None;
                 let mut ts_event__ = None;
+                let mut sequence_id__ = None;
                 while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::IndexCode => {
@@ -5533,6 +5544,12 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                             }
                             ts_event__ = map.next_value()?;
                         }
+                        GeneratedField::SequenceId => {
+                            if sequence_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("sequenceId"));
+                            }
+                            sequence_id__ = Some(map.next_value()?);
+                        }
                     }
                 }
                 Ok(StreamIndexServiceResponseV1 {
@@ -5544,6 +5561,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                     exchanges: exchanges__.unwrap_or_default(),
                     percentages: percentages__.unwrap_or_default(),
                     ts_event: ts_event__,
+                    sequence_id: sequence_id__.unwrap_or_default(),
                 })
             }
         }
