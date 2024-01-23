@@ -5920,6 +5920,9 @@ impl serde::Serialize for StreamMarketUpdateResponseV1 {
         if self.snapshot.is_some() {
             len += 1;
         }
+        if !self.additional_properties.is_empty() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamMarketUpdateResponseV1", len)?;
         if self.commodity != 0 {
             let v = StreamMarketUpdateCommodity::from_i32(self.commodity)
@@ -5964,6 +5967,9 @@ impl serde::Serialize for StreamMarketUpdateResponseV1 {
         if let Some(v) = self.snapshot.as_ref() {
             struct_ser.serialize_field("snapshot", v)?;
         }
+        if !self.additional_properties.is_empty() {
+            struct_ser.serialize_field("additionalProperties", &self.additional_properties)?;
+        }
         struct_ser.end()
     }
 }
@@ -5992,6 +5998,8 @@ impl<'de> serde::Deserialize<'de> for StreamMarketUpdateResponseV1 {
             "update_type",
             "updateType",
             "snapshot",
+            "additional_properties",
+            "additionalProperties",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -6009,6 +6017,7 @@ impl<'de> serde::Deserialize<'de> for StreamMarketUpdateResponseV1 {
             TsEvent,
             UpdateType,
             Snapshot,
+            AdditionalProperties,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -6043,6 +6052,7 @@ impl<'de> serde::Deserialize<'de> for StreamMarketUpdateResponseV1 {
                             "tsEvent" | "ts_event" => Ok(GeneratedField::TsEvent),
                             "updateType" | "update_type" => Ok(GeneratedField::UpdateType),
                             "snapshot" => Ok(GeneratedField::Snapshot),
+                            "additionalProperties" | "additional_properties" => Ok(GeneratedField::AdditionalProperties),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -6075,6 +6085,7 @@ impl<'de> serde::Deserialize<'de> for StreamMarketUpdateResponseV1 {
                 let mut ts_event__ = None;
                 let mut update_type__ = None;
                 let mut snapshot__ = None;
+                let mut additional_properties__ = None;
                 while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Commodity => {
@@ -6159,6 +6170,14 @@ impl<'de> serde::Deserialize<'de> for StreamMarketUpdateResponseV1 {
                             }
                             snapshot__ = map.next_value()?;
                         }
+                        GeneratedField::AdditionalProperties => {
+                            if additional_properties__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("additionalProperties"));
+                            }
+                            additional_properties__ = Some(
+                                map.next_value::<std::collections::HashMap<_, _>>()?
+                            );
+                        }
                     }
                 }
                 Ok(StreamMarketUpdateResponseV1 {
@@ -6175,6 +6194,7 @@ impl<'de> serde::Deserialize<'de> for StreamMarketUpdateResponseV1 {
                     ts_event: ts_event__,
                     update_type: update_type__.unwrap_or_default(),
                     snapshot: snapshot__,
+                    additional_properties: additional_properties__.unwrap_or_default(),
                 })
             }
         }
