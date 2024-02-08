@@ -5389,6 +5389,9 @@ impl serde::Serialize for StreamIndexServiceResponseV1 {
         if !self.sequence_id.is_empty() {
             len += 1;
         }
+        if self.last_ingest_time.is_some() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamIndexServiceResponseV1", len)?;
         if !self.index_code.is_empty() {
             struct_ser.serialize_field("indexCode", &self.index_code)?;
@@ -5419,6 +5422,9 @@ impl serde::Serialize for StreamIndexServiceResponseV1 {
         if !self.sequence_id.is_empty() {
             struct_ser.serialize_field("sequenceId", &self.sequence_id)?;
         }
+        if let Some(v) = self.last_ingest_time.as_ref() {
+            struct_ser.serialize_field("lastIngestTime", v)?;
+        }
         struct_ser.end()
     }
 }
@@ -5441,6 +5447,8 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
             "tsEvent",
             "sequence_id",
             "sequenceId",
+            "last_ingest_time",
+            "lastIngestTime",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -5454,6 +5462,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
             Percentages,
             TsEvent,
             SequenceId,
+            LastIngestTime,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -5484,6 +5493,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                             "percentages" => Ok(GeneratedField::Percentages),
                             "tsEvent" | "ts_event" => Ok(GeneratedField::TsEvent),
                             "sequenceId" | "sequence_id" => Ok(GeneratedField::SequenceId),
+                            "lastIngestTime" | "last_ingest_time" => Ok(GeneratedField::LastIngestTime),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -5512,6 +5522,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                 let mut percentages__ = None;
                 let mut ts_event__ = None;
                 let mut sequence_id__ = None;
+                let mut last_ingest_time__ = None;
                 while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::IndexCode => {
@@ -5568,6 +5579,12 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                             }
                             sequence_id__ = Some(map.next_value()?);
                         }
+                        GeneratedField::LastIngestTime => {
+                            if last_ingest_time__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("lastIngestTime"));
+                            }
+                            last_ingest_time__ = map.next_value()?;
+                        }
                     }
                 }
                 Ok(StreamIndexServiceResponseV1 {
@@ -5580,6 +5597,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                     percentages: percentages__.unwrap_or_default(),
                     ts_event: ts_event__,
                     sequence_id: sequence_id__.unwrap_or_default(),
+                    last_ingest_time: last_ingest_time__,
                 })
             }
         }
