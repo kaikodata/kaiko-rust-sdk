@@ -971,17 +971,17 @@ pub mod stream_market_update_service_v1_client {
     }
 }
 /// Generated client implementations.
-pub mod stream_aggregates_spot_exchange_rate_v1_service_v2_client {
+pub mod stream_aggregates_spot_exchange_rate_v2_service_v1_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
-    /** Service for streaming Spot exchange rate V1 service V2
+    /** Service for streaming Spot exchange rate V2 service V1
 */
     #[derive(Debug, Clone)]
-    pub struct StreamAggregatesSpotExchangeRateV1ServiceV2Client<T> {
+    pub struct StreamAggregatesSpotExchangeRateV2ServiceV1Client<T> {
         inner: tonic::client::Grpc<T>,
     }
-    impl StreamAggregatesSpotExchangeRateV1ServiceV2Client<tonic::transport::Channel> {
+    impl StreamAggregatesSpotExchangeRateV2ServiceV1Client<tonic::transport::Channel> {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
@@ -992,7 +992,7 @@ pub mod stream_aggregates_spot_exchange_rate_v1_service_v2_client {
             Ok(Self::new(conn))
         }
     }
-    impl<T> StreamAggregatesSpotExchangeRateV1ServiceV2Client<T>
+    impl<T> StreamAggregatesSpotExchangeRateV2ServiceV1Client<T>
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
@@ -1010,7 +1010,7 @@ pub mod stream_aggregates_spot_exchange_rate_v1_service_v2_client {
         pub fn with_interceptor<F>(
             inner: T,
             interceptor: F,
-        ) -> StreamAggregatesSpotExchangeRateV1ServiceV2Client<InterceptedService<T, F>>
+        ) -> StreamAggregatesSpotExchangeRateV2ServiceV1Client<InterceptedService<T, F>>
         where
             F: tonic::service::Interceptor,
             T::ResponseBody: Default,
@@ -1024,7 +1024,7 @@ pub mod stream_aggregates_spot_exchange_rate_v1_service_v2_client {
                 http::Request<tonic::body::BoxBody>,
             >>::Error: Into<StdError> + Send + Sync,
         {
-            StreamAggregatesSpotExchangeRateV1ServiceV2Client::new(
+            StreamAggregatesSpotExchangeRateV2ServiceV1Client::new(
                 InterceptedService::new(inner, interceptor),
             )
         }
@@ -1064,12 +1064,12 @@ pub mod stream_aggregates_spot_exchange_rate_v1_service_v2_client {
         pub async fn subscribe(
             &mut self,
             request: impl tonic::IntoRequest<
-                super::StreamAggregatesSpotExchangeRateV1RequestV2,
+                super::StreamAggregatesSpotExchangeRateV2RequestV1,
             >,
         ) -> std::result::Result<
             tonic::Response<
                 tonic::codec::Streaming<
-                    super::StreamAggregatesSpotExchangeRateV1ResponseV2,
+                    super::StreamAggregatesSpotExchangeRateV2ResponseV1,
                 >,
             >,
             tonic::Status,
@@ -1085,13 +1085,13 @@ pub mod stream_aggregates_spot_exchange_rate_v1_service_v2_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/kaikosdk.StreamAggregatesSpotExchangeRateV1ServiceV2/Subscribe",
+                "/kaikosdk.StreamAggregatesSpotExchangeRateV2ServiceV1/Subscribe",
             );
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(
                     GrpcMethod::new(
-                        "kaikosdk.StreamAggregatesSpotExchangeRateV1ServiceV2",
+                        "kaikosdk.StreamAggregatesSpotExchangeRateV2ServiceV1",
                         "Subscribe",
                     ),
                 );
@@ -1100,17 +1100,17 @@ pub mod stream_aggregates_spot_exchange_rate_v1_service_v2_client {
     }
 }
 /// Generated client implementations.
-pub mod stream_aggregates_spot_direct_exchange_rate_v1_service_v2_client {
+pub mod stream_aggregates_spot_direct_exchange_rate_v2_service_v1_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
-    /** Service for streaming Direct exchange rate V1 service V2
+    /** Service for streaming Direct exchange rate V2 service V1
 */
     #[derive(Debug, Clone)]
-    pub struct StreamAggregatesSpotDirectExchangeRateV1ServiceV2Client<T> {
+    pub struct StreamAggregatesSpotDirectExchangeRateV2ServiceV1Client<T> {
         inner: tonic::client::Grpc<T>,
     }
-    impl StreamAggregatesSpotDirectExchangeRateV1ServiceV2Client<
+    impl StreamAggregatesSpotDirectExchangeRateV2ServiceV1Client<
         tonic::transport::Channel,
     > {
         /// Attempt to create a new client by connecting to a given endpoint.
@@ -1123,7 +1123,7 @@ pub mod stream_aggregates_spot_direct_exchange_rate_v1_service_v2_client {
             Ok(Self::new(conn))
         }
     }
-    impl<T> StreamAggregatesSpotDirectExchangeRateV1ServiceV2Client<T>
+    impl<T> StreamAggregatesSpotDirectExchangeRateV2ServiceV1Client<T>
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
@@ -1141,7 +1141,7 @@ pub mod stream_aggregates_spot_direct_exchange_rate_v1_service_v2_client {
         pub fn with_interceptor<F>(
             inner: T,
             interceptor: F,
-        ) -> StreamAggregatesSpotDirectExchangeRateV1ServiceV2Client<
+        ) -> StreamAggregatesSpotDirectExchangeRateV2ServiceV1Client<
             InterceptedService<T, F>,
         >
         where
@@ -1157,7 +1157,7 @@ pub mod stream_aggregates_spot_direct_exchange_rate_v1_service_v2_client {
                 http::Request<tonic::body::BoxBody>,
             >>::Error: Into<StdError> + Send + Sync,
         {
-            StreamAggregatesSpotDirectExchangeRateV1ServiceV2Client::new(
+            StreamAggregatesSpotDirectExchangeRateV2ServiceV1Client::new(
                 InterceptedService::new(inner, interceptor),
             )
         }
@@ -1197,12 +1197,12 @@ pub mod stream_aggregates_spot_direct_exchange_rate_v1_service_v2_client {
         pub async fn subscribe(
             &mut self,
             request: impl tonic::IntoRequest<
-                super::StreamAggregatesDirectExchangeRateV1RequestV2,
+                super::StreamAggregatesDirectExchangeRateV2RequestV1,
             >,
         ) -> std::result::Result<
             tonic::Response<
                 tonic::codec::Streaming<
-                    super::StreamAggregatesDirectExchangeRateV1ResponseV2,
+                    super::StreamAggregatesDirectExchangeRateV2ResponseV1,
                 >,
             >,
             tonic::Status,
@@ -1218,13 +1218,13 @@ pub mod stream_aggregates_spot_direct_exchange_rate_v1_service_v2_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/kaikosdk.StreamAggregatesSpotDirectExchangeRateV1ServiceV2/Subscribe",
+                "/kaikosdk.StreamAggregatesSpotDirectExchangeRateV2ServiceV1/Subscribe",
             );
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(
                     GrpcMethod::new(
-                        "kaikosdk.StreamAggregatesSpotDirectExchangeRateV1ServiceV2",
+                        "kaikosdk.StreamAggregatesSpotDirectExchangeRateV2ServiceV1",
                         "Subscribe",
                     ),
                 );

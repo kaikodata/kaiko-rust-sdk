@@ -1689,7 +1689,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedQuoteValue {
         deserializer.deserialize_struct("kaikosdk.StreamAggregatedQuoteValue", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for StreamAggregatesDirectExchangeRateV1RequestV2 {
+impl serde::Serialize for StreamAggregatesDirectExchangeRateV2RequestV1 {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1709,7 +1709,7 @@ impl serde::Serialize for StreamAggregatesDirectExchangeRateV1RequestV2 {
         if !self.exclude_exchanges.is_empty() {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesDirectExchangeRateV1RequestV2", len)?;
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesDirectExchangeRateV2RequestV1", len)?;
         if let Some(v) = self.assets.as_ref() {
             struct_ser.serialize_field("assets", v)?;
         }
@@ -1725,7 +1725,7 @@ impl serde::Serialize for StreamAggregatesDirectExchangeRateV1RequestV2 {
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV1RequestV2 {
+impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV2RequestV1 {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -1780,13 +1780,13 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV1Reques
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = StreamAggregatesDirectExchangeRateV1RequestV2;
+            type Value = StreamAggregatesDirectExchangeRateV2RequestV1;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct kaikosdk.StreamAggregatesDirectExchangeRateV1RequestV2")
+                formatter.write_str("struct kaikosdk.StreamAggregatesDirectExchangeRateV2RequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesDirectExchangeRateV1RequestV2, V::Error>
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesDirectExchangeRateV2RequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1822,7 +1822,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV1Reques
                         }
                     }
                 }
-                Ok(StreamAggregatesDirectExchangeRateV1RequestV2 {
+                Ok(StreamAggregatesDirectExchangeRateV2RequestV1 {
                     assets: assets__,
                     window: window__,
                     include_exchanges: include_exchanges__.unwrap_or_default(),
@@ -1830,10 +1830,10 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV1Reques
                 })
             }
         }
-        deserializer.deserialize_struct("kaikosdk.StreamAggregatesDirectExchangeRateV1RequestV2", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("kaikosdk.StreamAggregatesDirectExchangeRateV2RequestV1", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for StreamAggregatesDirectExchangeRateV1ResponseV2 {
+impl serde::Serialize for StreamAggregatesDirectExchangeRateV2ResponseV1 {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1856,7 +1856,7 @@ impl serde::Serialize for StreamAggregatesDirectExchangeRateV1ResponseV2 {
         if self.no_trade {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesDirectExchangeRateV1ResponseV2", len)?;
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesDirectExchangeRateV2ResponseV1", len)?;
         if let Some(v) = self.assets.as_ref() {
             struct_ser.serialize_field("assets", v)?;
         }
@@ -1875,7 +1875,7 @@ impl serde::Serialize for StreamAggregatesDirectExchangeRateV1ResponseV2 {
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV1ResponseV2 {
+impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV2ResponseV1 {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -1932,13 +1932,13 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV1Respon
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = StreamAggregatesDirectExchangeRateV1ResponseV2;
+            type Value = StreamAggregatesDirectExchangeRateV2ResponseV1;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct kaikosdk.StreamAggregatesDirectExchangeRateV1ResponseV2")
+                formatter.write_str("struct kaikosdk.StreamAggregatesDirectExchangeRateV2ResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesDirectExchangeRateV1ResponseV2, V::Error>
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesDirectExchangeRateV2ResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1983,7 +1983,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV1Respon
                         }
                     }
                 }
-                Ok(StreamAggregatesDirectExchangeRateV1ResponseV2 {
+                Ok(StreamAggregatesDirectExchangeRateV2ResponseV1 {
                     assets: assets__,
                     price: price__.unwrap_or_default(),
                     timestamp: timestamp__,
@@ -1992,7 +1992,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV1Respon
                 })
             }
         }
-        deserializer.deserialize_struct("kaikosdk.StreamAggregatesDirectExchangeRateV1ResponseV2", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("kaikosdk.StreamAggregatesDirectExchangeRateV2ResponseV1", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for StreamAggregatesOhlcvRequestV1 {
@@ -2383,7 +2383,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesOhlcvResponseV1 {
         deserializer.deserialize_struct("kaikosdk.StreamAggregatesOHLCVResponseV1", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for StreamAggregatesSpotExchangeRateV1RequestV2 {
+impl serde::Serialize for StreamAggregatesSpotExchangeRateV2RequestV1 {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2403,7 +2403,7 @@ impl serde::Serialize for StreamAggregatesSpotExchangeRateV1RequestV2 {
         if !self.exclude_exchanges.is_empty() {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesSpotExchangeRateV1RequestV2", len)?;
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesSpotExchangeRateV2RequestV1", len)?;
         if let Some(v) = self.assets.as_ref() {
             struct_ser.serialize_field("assets", v)?;
         }
@@ -2419,7 +2419,7 @@ impl serde::Serialize for StreamAggregatesSpotExchangeRateV1RequestV2 {
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV1RequestV2 {
+impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV2RequestV1 {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -2474,13 +2474,13 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV1RequestV
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = StreamAggregatesSpotExchangeRateV1RequestV2;
+            type Value = StreamAggregatesSpotExchangeRateV2RequestV1;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct kaikosdk.StreamAggregatesSpotExchangeRateV1RequestV2")
+                formatter.write_str("struct kaikosdk.StreamAggregatesSpotExchangeRateV2RequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesSpotExchangeRateV1RequestV2, V::Error>
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesSpotExchangeRateV2RequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2516,7 +2516,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV1RequestV
                         }
                     }
                 }
-                Ok(StreamAggregatesSpotExchangeRateV1RequestV2 {
+                Ok(StreamAggregatesSpotExchangeRateV2RequestV1 {
                     assets: assets__,
                     window: window__,
                     include_exchanges: include_exchanges__.unwrap_or_default(),
@@ -2524,10 +2524,10 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV1RequestV
                 })
             }
         }
-        deserializer.deserialize_struct("kaikosdk.StreamAggregatesSpotExchangeRateV1RequestV2", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("kaikosdk.StreamAggregatesSpotExchangeRateV2RequestV1", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for StreamAggregatesSpotExchangeRateV1ResponseV2 {
+impl serde::Serialize for StreamAggregatesSpotExchangeRateV2ResponseV1 {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2550,7 +2550,7 @@ impl serde::Serialize for StreamAggregatesSpotExchangeRateV1ResponseV2 {
         if self.no_trade {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesSpotExchangeRateV1ResponseV2", len)?;
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesSpotExchangeRateV2ResponseV1", len)?;
         if let Some(v) = self.assets.as_ref() {
             struct_ser.serialize_field("assets", v)?;
         }
@@ -2569,7 +2569,7 @@ impl serde::Serialize for StreamAggregatesSpotExchangeRateV1ResponseV2 {
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV1ResponseV2 {
+impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV2ResponseV1 {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -2626,13 +2626,13 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV1Response
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = StreamAggregatesSpotExchangeRateV1ResponseV2;
+            type Value = StreamAggregatesSpotExchangeRateV2ResponseV1;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct kaikosdk.StreamAggregatesSpotExchangeRateV1ResponseV2")
+                formatter.write_str("struct kaikosdk.StreamAggregatesSpotExchangeRateV2ResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesSpotExchangeRateV1ResponseV2, V::Error>
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesSpotExchangeRateV2ResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2677,7 +2677,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV1Response
                         }
                     }
                 }
-                Ok(StreamAggregatesSpotExchangeRateV1ResponseV2 {
+                Ok(StreamAggregatesSpotExchangeRateV2ResponseV1 {
                     assets: assets__,
                     price: price__.unwrap_or_default(),
                     timestamp: timestamp__,
@@ -2686,7 +2686,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV1Response
                 })
             }
         }
-        deserializer.deserialize_struct("kaikosdk.StreamAggregatesSpotExchangeRateV1ResponseV2", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("kaikosdk.StreamAggregatesSpotExchangeRateV2ResponseV1", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for StreamAggregatesVwapRequestV1 {
