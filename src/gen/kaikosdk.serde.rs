@@ -1709,6 +1709,9 @@ impl serde::Serialize for StreamAggregatesDirectExchangeRateV2RequestV1 {
         if !self.exclude_exchanges.is_empty() {
             len += 1;
         }
+        if self.update_frequency.is_some() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesDirectExchangeRateV2RequestV1", len)?;
         if let Some(v) = self.assets.as_ref() {
             struct_ser.serialize_field("assets", v)?;
@@ -1721,6 +1724,9 @@ impl serde::Serialize for StreamAggregatesDirectExchangeRateV2RequestV1 {
         }
         if !self.exclude_exchanges.is_empty() {
             struct_ser.serialize_field("excludeExchanges", &self.exclude_exchanges)?;
+        }
+        if let Some(v) = self.update_frequency.as_ref() {
+            struct_ser.serialize_field("updateFrequency", v)?;
         }
         struct_ser.end()
     }
@@ -1738,6 +1744,8 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV2Reques
             "includeExchanges",
             "exclude_exchanges",
             "excludeExchanges",
+            "update_frequency",
+            "updateFrequency",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -1746,6 +1754,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV2Reques
             Window,
             IncludeExchanges,
             ExcludeExchanges,
+            UpdateFrequency,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -1771,6 +1780,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV2Reques
                             "window" => Ok(GeneratedField::Window),
                             "includeExchanges" | "include_exchanges" => Ok(GeneratedField::IncludeExchanges),
                             "excludeExchanges" | "exclude_exchanges" => Ok(GeneratedField::ExcludeExchanges),
+                            "updateFrequency" | "update_frequency" => Ok(GeneratedField::UpdateFrequency),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -1794,6 +1804,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV2Reques
                 let mut window__ = None;
                 let mut include_exchanges__ = None;
                 let mut exclude_exchanges__ = None;
+                let mut update_frequency__ = None;
                 while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Assets => {
@@ -1820,6 +1831,12 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV2Reques
                             }
                             exclude_exchanges__ = Some(map.next_value()?);
                         }
+                        GeneratedField::UpdateFrequency => {
+                            if update_frequency__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("updateFrequency"));
+                            }
+                            update_frequency__ = map.next_value()?;
+                        }
                     }
                 }
                 Ok(StreamAggregatesDirectExchangeRateV2RequestV1 {
@@ -1827,6 +1844,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV2Reques
                     window: window__,
                     include_exchanges: include_exchanges__.unwrap_or_default(),
                     exclude_exchanges: exclude_exchanges__.unwrap_or_default(),
+                    update_frequency: update_frequency__,
                 })
             }
         }
@@ -2403,6 +2421,9 @@ impl serde::Serialize for StreamAggregatesSpotExchangeRateV2RequestV1 {
         if !self.exclude_exchanges.is_empty() {
             len += 1;
         }
+        if self.update_frequency.is_some() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatesSpotExchangeRateV2RequestV1", len)?;
         if let Some(v) = self.assets.as_ref() {
             struct_ser.serialize_field("assets", v)?;
@@ -2415,6 +2436,9 @@ impl serde::Serialize for StreamAggregatesSpotExchangeRateV2RequestV1 {
         }
         if !self.exclude_exchanges.is_empty() {
             struct_ser.serialize_field("excludeExchanges", &self.exclude_exchanges)?;
+        }
+        if let Some(v) = self.update_frequency.as_ref() {
+            struct_ser.serialize_field("updateFrequency", v)?;
         }
         struct_ser.end()
     }
@@ -2432,6 +2456,8 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV2RequestV
             "includeExchanges",
             "exclude_exchanges",
             "excludeExchanges",
+            "update_frequency",
+            "updateFrequency",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -2440,6 +2466,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV2RequestV
             Window,
             IncludeExchanges,
             ExcludeExchanges,
+            UpdateFrequency,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -2465,6 +2492,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV2RequestV
                             "window" => Ok(GeneratedField::Window),
                             "includeExchanges" | "include_exchanges" => Ok(GeneratedField::IncludeExchanges),
                             "excludeExchanges" | "exclude_exchanges" => Ok(GeneratedField::ExcludeExchanges),
+                            "updateFrequency" | "update_frequency" => Ok(GeneratedField::UpdateFrequency),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -2488,6 +2516,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV2RequestV
                 let mut window__ = None;
                 let mut include_exchanges__ = None;
                 let mut exclude_exchanges__ = None;
+                let mut update_frequency__ = None;
                 while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Assets => {
@@ -2514,6 +2543,12 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV2RequestV
                             }
                             exclude_exchanges__ = Some(map.next_value()?);
                         }
+                        GeneratedField::UpdateFrequency => {
+                            if update_frequency__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("updateFrequency"));
+                            }
+                            update_frequency__ = map.next_value()?;
+                        }
                     }
                 }
                 Ok(StreamAggregatesSpotExchangeRateV2RequestV1 {
@@ -2521,6 +2556,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV2RequestV
                     window: window__,
                     include_exchanges: include_exchanges__.unwrap_or_default(),
                     exclude_exchanges: exclude_exchanges__.unwrap_or_default(),
+                    update_frequency: update_frequency__,
                 })
             }
         }
