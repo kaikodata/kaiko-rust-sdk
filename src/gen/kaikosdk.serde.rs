@@ -3048,6 +3048,394 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesVwapResponseV1 {
         deserializer.deserialize_struct("kaikosdk.StreamAggregatesVWAPResponseV1", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for StreamDerivativesInstrumentCommodityKindV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let variant = match self {
+            Self::SdickUnknown => "SDICK_UNKNOWN",
+            Self::SdickPrice => "SDICK_PRICE",
+            Self::SdickRisk => "SDICK_RISK",
+        };
+        serializer.serialize_str(variant)
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamDerivativesInstrumentCommodityKindV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "SDICK_UNKNOWN",
+            "SDICK_PRICE",
+            "SDICK_RISK",
+        ];
+
+        struct GeneratedVisitor;
+
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamDerivativesInstrumentCommodityKindV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                write!(formatter, "expected one of: {:?}", &FIELDS)
+            }
+
+            fn visit_i64<E>(self, v: i64) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                use std::convert::TryFrom;
+                i32::try_from(v)
+                    .ok()
+                    .and_then(StreamDerivativesInstrumentCommodityKindV1::from_i32)
+                    .ok_or_else(|| {
+                        serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
+                    })
+            }
+
+            fn visit_u64<E>(self, v: u64) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                use std::convert::TryFrom;
+                i32::try_from(v)
+                    .ok()
+                    .and_then(StreamDerivativesInstrumentCommodityKindV1::from_i32)
+                    .ok_or_else(|| {
+                        serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
+                    })
+            }
+
+            fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                match value {
+                    "SDICK_UNKNOWN" => Ok(StreamDerivativesInstrumentCommodityKindV1::SdickUnknown),
+                    "SDICK_PRICE" => Ok(StreamDerivativesInstrumentCommodityKindV1::SdickPrice),
+                    "SDICK_RISK" => Ok(StreamDerivativesInstrumentCommodityKindV1::SdickRisk),
+                    _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
+                }
+            }
+        }
+        deserializer.deserialize_any(GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamDerivativesInstrumentMetricsRequestV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.instrument_criteria.is_some() {
+            len += 1;
+        }
+        if !self.commodities.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamDerivativesInstrumentMetricsRequestV1", len)?;
+        if let Some(v) = self.instrument_criteria.as_ref() {
+            struct_ser.serialize_field("instrumentCriteria", v)?;
+        }
+        if !self.commodities.is_empty() {
+            let v = self.commodities.iter().cloned().map(|v| {
+                StreamDerivativesInstrumentCommodityKindV1::from_i32(v)
+                    .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", v)))
+                }).collect::<Result<Vec<_>, _>>()?;
+            struct_ser.serialize_field("commodities", &v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamDerivativesInstrumentMetricsRequestV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "instrument_criteria",
+            "instrumentCriteria",
+            "commodities",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            InstrumentCriteria,
+            Commodities,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "instrumentCriteria" | "instrument_criteria" => Ok(GeneratedField::InstrumentCriteria),
+                            "commodities" => Ok(GeneratedField::Commodities),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamDerivativesInstrumentMetricsRequestV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamDerivativesInstrumentMetricsRequestV1")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamDerivativesInstrumentMetricsRequestV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut instrument_criteria__ = None;
+                let mut commodities__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::InstrumentCriteria => {
+                            if instrument_criteria__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("instrumentCriteria"));
+                            }
+                            instrument_criteria__ = map.next_value()?;
+                        }
+                        GeneratedField::Commodities => {
+                            if commodities__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("commodities"));
+                            }
+                            commodities__ = Some(map.next_value::<Vec<StreamDerivativesInstrumentCommodityKindV1>>()?.into_iter().map(|x| x as i32).collect());
+                        }
+                    }
+                }
+                Ok(StreamDerivativesInstrumentMetricsRequestV1 {
+                    instrument_criteria: instrument_criteria__,
+                    commodities: commodities__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamDerivativesInstrumentMetricsRequestV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamDerivativesInstrumentMetricsResponseV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.value.is_empty() {
+            len += 1;
+        }
+        if !self.legacy_symbol.is_empty() {
+            len += 1;
+        }
+        if !self.exchange.is_empty() {
+            len += 1;
+        }
+        if !self.commodity.is_empty() {
+            len += 1;
+        }
+        if self.commodity_kind != 0 {
+            len += 1;
+        }
+        if self.ts_collection.is_some() {
+            len += 1;
+        }
+        if self.ts_event.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamDerivativesInstrumentMetricsResponseV1", len)?;
+        if !self.value.is_empty() {
+            struct_ser.serialize_field("value", &self.value)?;
+        }
+        if !self.legacy_symbol.is_empty() {
+            struct_ser.serialize_field("legacySymbol", &self.legacy_symbol)?;
+        }
+        if !self.exchange.is_empty() {
+            struct_ser.serialize_field("exchange", &self.exchange)?;
+        }
+        if !self.commodity.is_empty() {
+            struct_ser.serialize_field("commodity", &self.commodity)?;
+        }
+        if self.commodity_kind != 0 {
+            let v = StreamDerivativesInstrumentCommodityKindV1::from_i32(self.commodity_kind)
+                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity_kind)))?;
+            struct_ser.serialize_field("commodityKind", &v)?;
+        }
+        if let Some(v) = self.ts_collection.as_ref() {
+            struct_ser.serialize_field("tsCollection", v)?;
+        }
+        if let Some(v) = self.ts_event.as_ref() {
+            struct_ser.serialize_field("tsEvent", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamDerivativesInstrumentMetricsResponseV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "value",
+            "legacy_symbol",
+            "legacySymbol",
+            "exchange",
+            "commodity",
+            "commodity_kind",
+            "commodityKind",
+            "ts_collection",
+            "tsCollection",
+            "ts_event",
+            "tsEvent",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Value,
+            LegacySymbol,
+            Exchange,
+            Commodity,
+            CommodityKind,
+            TsCollection,
+            TsEvent,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "value" => Ok(GeneratedField::Value),
+                            "legacySymbol" | "legacy_symbol" => Ok(GeneratedField::LegacySymbol),
+                            "exchange" => Ok(GeneratedField::Exchange),
+                            "commodity" => Ok(GeneratedField::Commodity),
+                            "commodityKind" | "commodity_kind" => Ok(GeneratedField::CommodityKind),
+                            "tsCollection" | "ts_collection" => Ok(GeneratedField::TsCollection),
+                            "tsEvent" | "ts_event" => Ok(GeneratedField::TsEvent),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamDerivativesInstrumentMetricsResponseV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamDerivativesInstrumentMetricsResponseV1")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamDerivativesInstrumentMetricsResponseV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut value__ = None;
+                let mut legacy_symbol__ = None;
+                let mut exchange__ = None;
+                let mut commodity__ = None;
+                let mut commodity_kind__ = None;
+                let mut ts_collection__ = None;
+                let mut ts_event__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Value => {
+                            if value__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("value"));
+                            }
+                            value__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::LegacySymbol => {
+                            if legacy_symbol__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("legacySymbol"));
+                            }
+                            legacy_symbol__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Exchange => {
+                            if exchange__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("exchange"));
+                            }
+                            exchange__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Commodity => {
+                            if commodity__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("commodity"));
+                            }
+                            commodity__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::CommodityKind => {
+                            if commodity_kind__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("commodityKind"));
+                            }
+                            commodity_kind__ = Some(map.next_value::<StreamDerivativesInstrumentCommodityKindV1>()? as i32);
+                        }
+                        GeneratedField::TsCollection => {
+                            if ts_collection__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tsCollection"));
+                            }
+                            ts_collection__ = map.next_value()?;
+                        }
+                        GeneratedField::TsEvent => {
+                            if ts_event__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tsEvent"));
+                            }
+                            ts_event__ = map.next_value()?;
+                        }
+                    }
+                }
+                Ok(StreamDerivativesInstrumentMetricsResponseV1 {
+                    value: value__.unwrap_or_default(),
+                    legacy_symbol: legacy_symbol__.unwrap_or_default(),
+                    exchange: exchange__.unwrap_or_default(),
+                    commodity: commodity__.unwrap_or_default(),
+                    commodity_kind: commodity_kind__.unwrap_or_default(),
+                    ts_collection: ts_collection__,
+                    ts_event: ts_event__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamDerivativesInstrumentMetricsResponseV1", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for StreamForexIndexDetail {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -5782,6 +6170,454 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceUnderlyingTrade {
             }
         }
         deserializer.deserialize_struct("kaikosdk.StreamIndexServiceUnderlyingTrade", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamIvSviParametersRequestV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.assets.is_some() {
+            len += 1;
+        }
+        if !self.exchanges.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamIvSviParametersRequestV1", len)?;
+        if let Some(v) = self.assets.as_ref() {
+            struct_ser.serialize_field("assets", v)?;
+        }
+        if !self.exchanges.is_empty() {
+            struct_ser.serialize_field("exchanges", &self.exchanges)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamIvSviParametersRequestV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "assets",
+            "exchanges",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Assets,
+            Exchanges,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "assets" => Ok(GeneratedField::Assets),
+                            "exchanges" => Ok(GeneratedField::Exchanges),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamIvSviParametersRequestV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamIvSviParametersRequestV1")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIvSviParametersRequestV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut assets__ = None;
+                let mut exchanges__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Assets => {
+                            if assets__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("assets"));
+                            }
+                            assets__ = map.next_value()?;
+                        }
+                        GeneratedField::Exchanges => {
+                            if exchanges__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("exchanges"));
+                            }
+                            exchanges__ = Some(map.next_value()?);
+                        }
+                    }
+                }
+                Ok(StreamIvSviParametersRequestV1 {
+                    assets: assets__,
+                    exchanges: exchanges__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamIvSviParametersRequestV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamIvSviParametersResponseV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.data_start_time.is_some() {
+            len += 1;
+        }
+        if self.data_end_time.is_some() {
+            len += 1;
+        }
+        if self.expiry.is_some() {
+            len += 1;
+        }
+        if !self.exchanges.is_empty() {
+            len += 1;
+        }
+        if !self.base.is_empty() {
+            len += 1;
+        }
+        if !self.quote.is_empty() {
+            len += 1;
+        }
+        if !self.time_to_expiry.is_empty() {
+            len += 1;
+        }
+        if !self.atm_implied_variance.is_empty() {
+            len += 1;
+        }
+        if !self.atm_skew.is_empty() {
+            len += 1;
+        }
+        if !self.left_slope.is_empty() {
+            len += 1;
+        }
+        if !self.right_slope.is_empty() {
+            len += 1;
+        }
+        if !self.min_implied_variance.is_empty() {
+            len += 1;
+        }
+        if !self.current_spot.is_empty() {
+            len += 1;
+        }
+        if !self.interest_rate.is_empty() {
+            len += 1;
+        }
+        if self.ts_event.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamIvSviParametersResponseV1", len)?;
+        if let Some(v) = self.data_start_time.as_ref() {
+            struct_ser.serialize_field("dataStartTime", v)?;
+        }
+        if let Some(v) = self.data_end_time.as_ref() {
+            struct_ser.serialize_field("dataEndTime", v)?;
+        }
+        if let Some(v) = self.expiry.as_ref() {
+            struct_ser.serialize_field("expiry", v)?;
+        }
+        if !self.exchanges.is_empty() {
+            struct_ser.serialize_field("exchanges", &self.exchanges)?;
+        }
+        if !self.base.is_empty() {
+            struct_ser.serialize_field("base", &self.base)?;
+        }
+        if !self.quote.is_empty() {
+            struct_ser.serialize_field("quote", &self.quote)?;
+        }
+        if !self.time_to_expiry.is_empty() {
+            struct_ser.serialize_field("timeToExpiry", &self.time_to_expiry)?;
+        }
+        if !self.atm_implied_variance.is_empty() {
+            struct_ser.serialize_field("atmImpliedVariance", &self.atm_implied_variance)?;
+        }
+        if !self.atm_skew.is_empty() {
+            struct_ser.serialize_field("atmSkew", &self.atm_skew)?;
+        }
+        if !self.left_slope.is_empty() {
+            struct_ser.serialize_field("leftSlope", &self.left_slope)?;
+        }
+        if !self.right_slope.is_empty() {
+            struct_ser.serialize_field("rightSlope", &self.right_slope)?;
+        }
+        if !self.min_implied_variance.is_empty() {
+            struct_ser.serialize_field("minImpliedVariance", &self.min_implied_variance)?;
+        }
+        if !self.current_spot.is_empty() {
+            struct_ser.serialize_field("currentSpot", &self.current_spot)?;
+        }
+        if !self.interest_rate.is_empty() {
+            struct_ser.serialize_field("interestRate", &self.interest_rate)?;
+        }
+        if let Some(v) = self.ts_event.as_ref() {
+            struct_ser.serialize_field("tsEvent", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamIvSviParametersResponseV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "data_start_time",
+            "dataStartTime",
+            "data_end_time",
+            "dataEndTime",
+            "expiry",
+            "exchanges",
+            "base",
+            "quote",
+            "time_to_expiry",
+            "timeToExpiry",
+            "atm_implied_variance",
+            "atmImpliedVariance",
+            "atm_skew",
+            "atmSkew",
+            "left_slope",
+            "leftSlope",
+            "right_slope",
+            "rightSlope",
+            "min_implied_variance",
+            "minImpliedVariance",
+            "current_spot",
+            "currentSpot",
+            "interest_rate",
+            "interestRate",
+            "ts_event",
+            "tsEvent",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            DataStartTime,
+            DataEndTime,
+            Expiry,
+            Exchanges,
+            Base,
+            Quote,
+            TimeToExpiry,
+            AtmImpliedVariance,
+            AtmSkew,
+            LeftSlope,
+            RightSlope,
+            MinImpliedVariance,
+            CurrentSpot,
+            InterestRate,
+            TsEvent,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "dataStartTime" | "data_start_time" => Ok(GeneratedField::DataStartTime),
+                            "dataEndTime" | "data_end_time" => Ok(GeneratedField::DataEndTime),
+                            "expiry" => Ok(GeneratedField::Expiry),
+                            "exchanges" => Ok(GeneratedField::Exchanges),
+                            "base" => Ok(GeneratedField::Base),
+                            "quote" => Ok(GeneratedField::Quote),
+                            "timeToExpiry" | "time_to_expiry" => Ok(GeneratedField::TimeToExpiry),
+                            "atmImpliedVariance" | "atm_implied_variance" => Ok(GeneratedField::AtmImpliedVariance),
+                            "atmSkew" | "atm_skew" => Ok(GeneratedField::AtmSkew),
+                            "leftSlope" | "left_slope" => Ok(GeneratedField::LeftSlope),
+                            "rightSlope" | "right_slope" => Ok(GeneratedField::RightSlope),
+                            "minImpliedVariance" | "min_implied_variance" => Ok(GeneratedField::MinImpliedVariance),
+                            "currentSpot" | "current_spot" => Ok(GeneratedField::CurrentSpot),
+                            "interestRate" | "interest_rate" => Ok(GeneratedField::InterestRate),
+                            "tsEvent" | "ts_event" => Ok(GeneratedField::TsEvent),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamIvSviParametersResponseV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamIvSviParametersResponseV1")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIvSviParametersResponseV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut data_start_time__ = None;
+                let mut data_end_time__ = None;
+                let mut expiry__ = None;
+                let mut exchanges__ = None;
+                let mut base__ = None;
+                let mut quote__ = None;
+                let mut time_to_expiry__ = None;
+                let mut atm_implied_variance__ = None;
+                let mut atm_skew__ = None;
+                let mut left_slope__ = None;
+                let mut right_slope__ = None;
+                let mut min_implied_variance__ = None;
+                let mut current_spot__ = None;
+                let mut interest_rate__ = None;
+                let mut ts_event__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::DataStartTime => {
+                            if data_start_time__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("dataStartTime"));
+                            }
+                            data_start_time__ = map.next_value()?;
+                        }
+                        GeneratedField::DataEndTime => {
+                            if data_end_time__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("dataEndTime"));
+                            }
+                            data_end_time__ = map.next_value()?;
+                        }
+                        GeneratedField::Expiry => {
+                            if expiry__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("expiry"));
+                            }
+                            expiry__ = map.next_value()?;
+                        }
+                        GeneratedField::Exchanges => {
+                            if exchanges__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("exchanges"));
+                            }
+                            exchanges__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Base => {
+                            if base__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("base"));
+                            }
+                            base__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Quote => {
+                            if quote__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("quote"));
+                            }
+                            quote__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::TimeToExpiry => {
+                            if time_to_expiry__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("timeToExpiry"));
+                            }
+                            time_to_expiry__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::AtmImpliedVariance => {
+                            if atm_implied_variance__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("atmImpliedVariance"));
+                            }
+                            atm_implied_variance__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::AtmSkew => {
+                            if atm_skew__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("atmSkew"));
+                            }
+                            atm_skew__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::LeftSlope => {
+                            if left_slope__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("leftSlope"));
+                            }
+                            left_slope__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::RightSlope => {
+                            if right_slope__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("rightSlope"));
+                            }
+                            right_slope__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::MinImpliedVariance => {
+                            if min_implied_variance__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("minImpliedVariance"));
+                            }
+                            min_implied_variance__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::CurrentSpot => {
+                            if current_spot__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("currentSpot"));
+                            }
+                            current_spot__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::InterestRate => {
+                            if interest_rate__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("interestRate"));
+                            }
+                            interest_rate__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::TsEvent => {
+                            if ts_event__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tsEvent"));
+                            }
+                            ts_event__ = map.next_value()?;
+                        }
+                    }
+                }
+                Ok(StreamIvSviParametersResponseV1 {
+                    data_start_time: data_start_time__,
+                    data_end_time: data_end_time__,
+                    expiry: expiry__,
+                    exchanges: exchanges__.unwrap_or_default(),
+                    base: base__.unwrap_or_default(),
+                    quote: quote__.unwrap_or_default(),
+                    time_to_expiry: time_to_expiry__.unwrap_or_default(),
+                    atm_implied_variance: atm_implied_variance__.unwrap_or_default(),
+                    atm_skew: atm_skew__.unwrap_or_default(),
+                    left_slope: left_slope__.unwrap_or_default(),
+                    right_slope: right_slope__.unwrap_or_default(),
+                    min_implied_variance: min_implied_variance__.unwrap_or_default(),
+                    current_spot: current_spot__.unwrap_or_default(),
+                    interest_rate: interest_rate__.unwrap_or_default(),
+                    ts_event: ts_event__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamIvSviParametersResponseV1", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for StreamMarketUpdateCommodity {
