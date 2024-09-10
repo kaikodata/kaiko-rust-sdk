@@ -3436,6 +3436,909 @@ impl<'de> serde::Deserialize<'de> for StreamDerivativesInstrumentMetricsResponse
         deserializer.deserialize_struct("kaikosdk.StreamDerivativesInstrumentMetricsResponseV1", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for StreamExoticIndicesPosition {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let variant = match self {
+            Self::SeipPositionUnknown => "SEIP_POSITION_UNKNOWN",
+            Self::SeipLong => "SEIP_LONG",
+            Self::SeipShort => "SEIP_SHORT",
+        };
+        serializer.serialize_str(variant)
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamExoticIndicesPosition {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "SEIP_POSITION_UNKNOWN",
+            "SEIP_LONG",
+            "SEIP_SHORT",
+        ];
+
+        struct GeneratedVisitor;
+
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamExoticIndicesPosition;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                write!(formatter, "expected one of: {:?}", &FIELDS)
+            }
+
+            fn visit_i64<E>(self, v: i64) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                use std::convert::TryFrom;
+                i32::try_from(v)
+                    .ok()
+                    .and_then(StreamExoticIndicesPosition::from_i32)
+                    .ok_or_else(|| {
+                        serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
+                    })
+            }
+
+            fn visit_u64<E>(self, v: u64) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                use std::convert::TryFrom;
+                i32::try_from(v)
+                    .ok()
+                    .and_then(StreamExoticIndicesPosition::from_i32)
+                    .ok_or_else(|| {
+                        serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
+                    })
+            }
+
+            fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                match value {
+                    "SEIP_POSITION_UNKNOWN" => Ok(StreamExoticIndicesPosition::SeipPositionUnknown),
+                    "SEIP_LONG" => Ok(StreamExoticIndicesPosition::SeipLong),
+                    "SEIP_SHORT" => Ok(StreamExoticIndicesPosition::SeipShort),
+                    _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
+                }
+            }
+        }
+        deserializer.deserialize_any(GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamExoticIndicesServiceRequestV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.index_code.is_empty() {
+            len += 1;
+        }
+        if !self.commodities.is_empty() {
+            len += 1;
+        }
+        if self.interval.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamExoticIndicesServiceRequestV1", len)?;
+        if !self.index_code.is_empty() {
+            struct_ser.serialize_field("indexCode", &self.index_code)?;
+        }
+        if !self.commodities.is_empty() {
+            let v = self.commodities.iter().cloned().map(|v| {
+                StreamIndexCommodity::from_i32(v)
+                    .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", v)))
+                }).collect::<Result<Vec<_>, _>>()?;
+            struct_ser.serialize_field("commodities", &v)?;
+        }
+        if let Some(v) = self.interval.as_ref() {
+            struct_ser.serialize_field("interval", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceRequestV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "index_code",
+            "indexCode",
+            "commodities",
+            "interval",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            IndexCode,
+            Commodities,
+            Interval,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "indexCode" | "index_code" => Ok(GeneratedField::IndexCode),
+                            "commodities" => Ok(GeneratedField::Commodities),
+                            "interval" => Ok(GeneratedField::Interval),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamExoticIndicesServiceRequestV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamExoticIndicesServiceRequestV1")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamExoticIndicesServiceRequestV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut index_code__ = None;
+                let mut commodities__ = None;
+                let mut interval__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::IndexCode => {
+                            if index_code__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("indexCode"));
+                            }
+                            index_code__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Commodities => {
+                            if commodities__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("commodities"));
+                            }
+                            commodities__ = Some(map.next_value::<Vec<StreamIndexCommodity>>()?.into_iter().map(|x| x as i32).collect());
+                        }
+                        GeneratedField::Interval => {
+                            if interval__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("interval"));
+                            }
+                            interval__ = map.next_value()?;
+                        }
+                    }
+                }
+                Ok(StreamExoticIndicesServiceRequestV1 {
+                    index_code: index_code__.unwrap_or_default(),
+                    commodities: commodities__.unwrap_or_default(),
+                    interval: interval__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamExoticIndicesServiceRequestV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamExoticIndicesServiceResponseComposition {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.underlying_instrument.is_empty() {
+            len += 1;
+        }
+        if !self.base.is_empty() {
+            len += 1;
+        }
+        if !self.quote.is_empty() {
+            len += 1;
+        }
+        if !self.currency_conversion.is_empty() {
+            len += 1;
+        }
+        if self.ts_event.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamExoticIndicesServiceResponseComposition", len)?;
+        if !self.underlying_instrument.is_empty() {
+            struct_ser.serialize_field("underlyingInstrument", &self.underlying_instrument)?;
+        }
+        if !self.base.is_empty() {
+            struct_ser.serialize_field("base", &self.base)?;
+        }
+        if !self.quote.is_empty() {
+            struct_ser.serialize_field("quote", &self.quote)?;
+        }
+        if !self.currency_conversion.is_empty() {
+            struct_ser.serialize_field("currencyConversion", &self.currency_conversion)?;
+        }
+        if let Some(v) = self.ts_event.as_ref() {
+            struct_ser.serialize_field("tsEvent", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponseComposition {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "underlying_instrument",
+            "underlyingInstrument",
+            "base",
+            "quote",
+            "currency_conversion",
+            "currencyConversion",
+            "ts_event",
+            "tsEvent",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            UnderlyingInstrument,
+            Base,
+            Quote,
+            CurrencyConversion,
+            TsEvent,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "underlyingInstrument" | "underlying_instrument" => Ok(GeneratedField::UnderlyingInstrument),
+                            "base" => Ok(GeneratedField::Base),
+                            "quote" => Ok(GeneratedField::Quote),
+                            "currencyConversion" | "currency_conversion" => Ok(GeneratedField::CurrencyConversion),
+                            "tsEvent" | "ts_event" => Ok(GeneratedField::TsEvent),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamExoticIndicesServiceResponseComposition;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamExoticIndicesServiceResponseComposition")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamExoticIndicesServiceResponseComposition, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut underlying_instrument__ = None;
+                let mut base__ = None;
+                let mut quote__ = None;
+                let mut currency_conversion__ = None;
+                let mut ts_event__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::UnderlyingInstrument => {
+                            if underlying_instrument__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("underlyingInstrument"));
+                            }
+                            underlying_instrument__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Base => {
+                            if base__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("base"));
+                            }
+                            base__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Quote => {
+                            if quote__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("quote"));
+                            }
+                            quote__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::CurrencyConversion => {
+                            if currency_conversion__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("currencyConversion"));
+                            }
+                            currency_conversion__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::TsEvent => {
+                            if ts_event__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tsEvent"));
+                            }
+                            ts_event__ = map.next_value()?;
+                        }
+                    }
+                }
+                Ok(StreamExoticIndicesServiceResponseComposition {
+                    underlying_instrument: underlying_instrument__.unwrap_or_default(),
+                    base: base__.unwrap_or_default(),
+                    quote: quote__.unwrap_or_default(),
+                    currency_conversion: currency_conversion__.unwrap_or_default(),
+                    ts_event: ts_event__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamExoticIndicesServiceResponseComposition", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamExoticIndicesServiceResponsePair {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.underlying_instrument.is_empty() {
+            len += 1;
+        }
+        if self.underlying_price.is_some() {
+            len += 1;
+        }
+        if self.weighting_factor != 0. {
+            len += 1;
+        }
+        if self.capping_factor != 0. {
+            len += 1;
+        }
+        if self.currency_conversion_factor != 0. {
+            len += 1;
+        }
+        if self.position != 0 {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamExoticIndicesServiceResponsePair", len)?;
+        if !self.underlying_instrument.is_empty() {
+            struct_ser.serialize_field("underlyingInstrument", &self.underlying_instrument)?;
+        }
+        if let Some(v) = self.underlying_price.as_ref() {
+            struct_ser.serialize_field("underlyingPrice", v)?;
+        }
+        if self.weighting_factor != 0. {
+            struct_ser.serialize_field("weightingFactor", &self.weighting_factor)?;
+        }
+        if self.capping_factor != 0. {
+            struct_ser.serialize_field("cappingFactor", &self.capping_factor)?;
+        }
+        if self.currency_conversion_factor != 0. {
+            struct_ser.serialize_field("currencyConversionFactor", &self.currency_conversion_factor)?;
+        }
+        if self.position != 0 {
+            let v = StreamExoticIndicesPosition::from_i32(self.position)
+                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.position)))?;
+            struct_ser.serialize_field("position", &v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponsePair {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "underlying_instrument",
+            "underlyingInstrument",
+            "underlying_price",
+            "underlyingPrice",
+            "weighting_factor",
+            "weightingFactor",
+            "capping_factor",
+            "cappingFactor",
+            "currency_conversion_factor",
+            "currencyConversionFactor",
+            "position",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            UnderlyingInstrument,
+            UnderlyingPrice,
+            WeightingFactor,
+            CappingFactor,
+            CurrencyConversionFactor,
+            Position,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "underlyingInstrument" | "underlying_instrument" => Ok(GeneratedField::UnderlyingInstrument),
+                            "underlyingPrice" | "underlying_price" => Ok(GeneratedField::UnderlyingPrice),
+                            "weightingFactor" | "weighting_factor" => Ok(GeneratedField::WeightingFactor),
+                            "cappingFactor" | "capping_factor" => Ok(GeneratedField::CappingFactor),
+                            "currencyConversionFactor" | "currency_conversion_factor" => Ok(GeneratedField::CurrencyConversionFactor),
+                            "position" => Ok(GeneratedField::Position),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamExoticIndicesServiceResponsePair;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamExoticIndicesServiceResponsePair")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamExoticIndicesServiceResponsePair, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut underlying_instrument__ = None;
+                let mut underlying_price__ = None;
+                let mut weighting_factor__ = None;
+                let mut capping_factor__ = None;
+                let mut currency_conversion_factor__ = None;
+                let mut position__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::UnderlyingInstrument => {
+                            if underlying_instrument__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("underlyingInstrument"));
+                            }
+                            underlying_instrument__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::UnderlyingPrice => {
+                            if underlying_price__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("underlyingPrice"));
+                            }
+                            underlying_price__ = map.next_value()?;
+                        }
+                        GeneratedField::WeightingFactor => {
+                            if weighting_factor__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("weightingFactor"));
+                            }
+                            weighting_factor__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::CappingFactor => {
+                            if capping_factor__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("cappingFactor"));
+                            }
+                            capping_factor__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::CurrencyConversionFactor => {
+                            if currency_conversion_factor__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("currencyConversionFactor"));
+                            }
+                            currency_conversion_factor__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Position => {
+                            if position__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("position"));
+                            }
+                            position__ = Some(map.next_value::<StreamExoticIndicesPosition>()? as i32);
+                        }
+                    }
+                }
+                Ok(StreamExoticIndicesServiceResponsePair {
+                    underlying_instrument: underlying_instrument__.unwrap_or_default(),
+                    underlying_price: underlying_price__,
+                    weighting_factor: weighting_factor__.unwrap_or_default(),
+                    capping_factor: capping_factor__.unwrap_or_default(),
+                    currency_conversion_factor: currency_conversion_factor__.unwrap_or_default(),
+                    position: position__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamExoticIndicesServiceResponsePair", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamExoticIndicesServiceResponsePrices {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.index_value != 0. {
+            len += 1;
+        }
+        if self.divisor != 0. {
+            len += 1;
+        }
+        if !self.pairs.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamExoticIndicesServiceResponsePrices", len)?;
+        if self.index_value != 0. {
+            struct_ser.serialize_field("indexValue", &self.index_value)?;
+        }
+        if self.divisor != 0. {
+            struct_ser.serialize_field("divisor", &self.divisor)?;
+        }
+        if !self.pairs.is_empty() {
+            struct_ser.serialize_field("pairs", &self.pairs)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponsePrices {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "index_value",
+            "indexValue",
+            "divisor",
+            "pairs",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            IndexValue,
+            Divisor,
+            Pairs,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "indexValue" | "index_value" => Ok(GeneratedField::IndexValue),
+                            "divisor" => Ok(GeneratedField::Divisor),
+                            "pairs" => Ok(GeneratedField::Pairs),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamExoticIndicesServiceResponsePrices;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamExoticIndicesServiceResponsePrices")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamExoticIndicesServiceResponsePrices, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut index_value__ = None;
+                let mut divisor__ = None;
+                let mut pairs__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::IndexValue => {
+                            if index_value__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("indexValue"));
+                            }
+                            index_value__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Divisor => {
+                            if divisor__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("divisor"));
+                            }
+                            divisor__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Pairs => {
+                            if pairs__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("pairs"));
+                            }
+                            pairs__ = Some(map.next_value()?);
+                        }
+                    }
+                }
+                Ok(StreamExoticIndicesServiceResponsePrices {
+                    index_value: index_value__.unwrap_or_default(),
+                    divisor: divisor__.unwrap_or_default(),
+                    pairs: pairs__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamExoticIndicesServiceResponsePrices", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamExoticIndicesServiceResponseV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.commodity != 0 {
+            len += 1;
+        }
+        if !self.index_code.is_empty() {
+            len += 1;
+        }
+        if self.interval.is_some() {
+            len += 1;
+        }
+        if !self.main_quote.is_empty() {
+            len += 1;
+        }
+        if !self.compositions.is_empty() {
+            len += 1;
+        }
+        if self.price.is_some() {
+            len += 1;
+        }
+        if self.ts_event.is_some() {
+            len += 1;
+        }
+        if self.ts_compute.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamExoticIndicesServiceResponseV1", len)?;
+        if self.commodity != 0 {
+            let v = StreamIndexCommodity::from_i32(self.commodity)
+                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
+            struct_ser.serialize_field("commodity", &v)?;
+        }
+        if !self.index_code.is_empty() {
+            struct_ser.serialize_field("indexCode", &self.index_code)?;
+        }
+        if let Some(v) = self.interval.as_ref() {
+            struct_ser.serialize_field("interval", v)?;
+        }
+        if !self.main_quote.is_empty() {
+            struct_ser.serialize_field("mainQuote", &self.main_quote)?;
+        }
+        if !self.compositions.is_empty() {
+            struct_ser.serialize_field("compositions", &self.compositions)?;
+        }
+        if let Some(v) = self.price.as_ref() {
+            struct_ser.serialize_field("price", v)?;
+        }
+        if let Some(v) = self.ts_event.as_ref() {
+            struct_ser.serialize_field("tsEvent", v)?;
+        }
+        if let Some(v) = self.ts_compute.as_ref() {
+            struct_ser.serialize_field("tsCompute", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponseV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "commodity",
+            "index_code",
+            "indexCode",
+            "interval",
+            "main_quote",
+            "mainQuote",
+            "compositions",
+            "price",
+            "ts_event",
+            "tsEvent",
+            "ts_compute",
+            "tsCompute",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Commodity,
+            IndexCode,
+            Interval,
+            MainQuote,
+            Compositions,
+            Price,
+            TsEvent,
+            TsCompute,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "commodity" => Ok(GeneratedField::Commodity),
+                            "indexCode" | "index_code" => Ok(GeneratedField::IndexCode),
+                            "interval" => Ok(GeneratedField::Interval),
+                            "mainQuote" | "main_quote" => Ok(GeneratedField::MainQuote),
+                            "compositions" => Ok(GeneratedField::Compositions),
+                            "price" => Ok(GeneratedField::Price),
+                            "tsEvent" | "ts_event" => Ok(GeneratedField::TsEvent),
+                            "tsCompute" | "ts_compute" => Ok(GeneratedField::TsCompute),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamExoticIndicesServiceResponseV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamExoticIndicesServiceResponseV1")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamExoticIndicesServiceResponseV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut commodity__ = None;
+                let mut index_code__ = None;
+                let mut interval__ = None;
+                let mut main_quote__ = None;
+                let mut compositions__ = None;
+                let mut price__ = None;
+                let mut ts_event__ = None;
+                let mut ts_compute__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Commodity => {
+                            if commodity__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("commodity"));
+                            }
+                            commodity__ = Some(map.next_value::<StreamIndexCommodity>()? as i32);
+                        }
+                        GeneratedField::IndexCode => {
+                            if index_code__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("indexCode"));
+                            }
+                            index_code__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Interval => {
+                            if interval__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("interval"));
+                            }
+                            interval__ = map.next_value()?;
+                        }
+                        GeneratedField::MainQuote => {
+                            if main_quote__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("mainQuote"));
+                            }
+                            main_quote__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Compositions => {
+                            if compositions__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("compositions"));
+                            }
+                            compositions__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Price => {
+                            if price__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("price"));
+                            }
+                            price__ = map.next_value()?;
+                        }
+                        GeneratedField::TsEvent => {
+                            if ts_event__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tsEvent"));
+                            }
+                            ts_event__ = map.next_value()?;
+                        }
+                        GeneratedField::TsCompute => {
+                            if ts_compute__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tsCompute"));
+                            }
+                            ts_compute__ = map.next_value()?;
+                        }
+                    }
+                }
+                Ok(StreamExoticIndicesServiceResponseV1 {
+                    commodity: commodity__.unwrap_or_default(),
+                    index_code: index_code__.unwrap_or_default(),
+                    interval: interval__,
+                    main_quote: main_quote__.unwrap_or_default(),
+                    compositions: compositions__.unwrap_or_default(),
+                    price: price__,
+                    ts_event: ts_event__,
+                    ts_compute: ts_compute__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamExoticIndicesServiceResponseV1", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for StreamForexIndexDetail {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
