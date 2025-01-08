@@ -343,6 +343,118 @@ impl<'de> serde::Deserialize<'de> for InstrumentCriteria {
         deserializer.deserialize_struct("kaikosdk.InstrumentCriteria", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for Order {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.amount != 0. {
+            len += 1;
+        }
+        if self.price != 0. {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.Order", len)?;
+        if self.amount != 0. {
+            struct_ser.serialize_field("amount", &self.amount)?;
+        }
+        if self.price != 0. {
+            struct_ser.serialize_field("price", &self.price)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for Order {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "amount",
+            "price",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Amount,
+            Price,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "amount" => Ok(GeneratedField::Amount),
+                            "price" => Ok(GeneratedField::Price),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = Order;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.Order")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<Order, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut amount__ = None;
+                let mut price__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Amount => {
+                            if amount__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("amount"));
+                            }
+                            amount__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Price => {
+                            if price__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("price"));
+                            }
+                            price__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                    }
+                }
+                Ok(Order {
+                    amount: amount__.unwrap_or_default(),
+                    price: price__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.Order", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for SortCriteria {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -8737,6 +8849,554 @@ impl<'de> serde::Deserialize<'de> for stream_market_update_response_v1::StreamMa
                     "UPDATED_BID" => Ok(stream_market_update_response_v1::StreamMarketUpdateType::UpdatedBid),
                     "SNAPSHOT" => Ok(stream_market_update_response_v1::StreamMarketUpdateType::Snapshot),
                     "FORCE_SNAPSHOT" => Ok(stream_market_update_response_v1::StreamMarketUpdateType::ForceSnapshot),
+                    _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
+                }
+            }
+        }
+        deserializer.deserialize_any(GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamOrderBookL2ReplayRequestV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.instrument_criteria.is_some() {
+            len += 1;
+        }
+        if self.interval.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamOrderBookL2ReplayRequestV1", len)?;
+        if let Some(v) = self.instrument_criteria.as_ref() {
+            struct_ser.serialize_field("instrumentCriteria", v)?;
+        }
+        if let Some(v) = self.interval.as_ref() {
+            struct_ser.serialize_field("interval", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamOrderBookL2ReplayRequestV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "instrument_criteria",
+            "instrumentCriteria",
+            "interval",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            InstrumentCriteria,
+            Interval,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "instrumentCriteria" | "instrument_criteria" => Ok(GeneratedField::InstrumentCriteria),
+                            "interval" => Ok(GeneratedField::Interval),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamOrderBookL2ReplayRequestV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamOrderBookL2ReplayRequestV1")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamOrderBookL2ReplayRequestV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut instrument_criteria__ = None;
+                let mut interval__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::InstrumentCriteria => {
+                            if instrument_criteria__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("instrumentCriteria"));
+                            }
+                            instrument_criteria__ = map.next_value()?;
+                        }
+                        GeneratedField::Interval => {
+                            if interval__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("interval"));
+                            }
+                            interval__ = map.next_value()?;
+                        }
+                    }
+                }
+                Ok(StreamOrderBookL2ReplayRequestV1 {
+                    instrument_criteria: instrument_criteria__,
+                    interval: interval__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamOrderBookL2ReplayRequestV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamOrderBookL2RequestV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.instrument_criteria.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamOrderBookL2RequestV1", len)?;
+        if let Some(v) = self.instrument_criteria.as_ref() {
+            struct_ser.serialize_field("instrumentCriteria", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamOrderBookL2RequestV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "instrument_criteria",
+            "instrumentCriteria",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            InstrumentCriteria,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "instrumentCriteria" | "instrument_criteria" => Ok(GeneratedField::InstrumentCriteria),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamOrderBookL2RequestV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamOrderBookL2RequestV1")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamOrderBookL2RequestV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut instrument_criteria__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::InstrumentCriteria => {
+                            if instrument_criteria__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("instrumentCriteria"));
+                            }
+                            instrument_criteria__ = map.next_value()?;
+                        }
+                    }
+                }
+                Ok(StreamOrderBookL2RequestV1 {
+                    instrument_criteria: instrument_criteria__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamOrderBookL2RequestV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamOrderBookL2ResponseV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.class.is_empty() {
+            len += 1;
+        }
+        if !self.code.is_empty() {
+            len += 1;
+        }
+        if !self.exchange.is_empty() {
+            len += 1;
+        }
+        if !self.sequence_id.is_empty() {
+            len += 1;
+        }
+        if self.update_type != 0 {
+            len += 1;
+        }
+        if !self.asks.is_empty() {
+            len += 1;
+        }
+        if !self.bids.is_empty() {
+            len += 1;
+        }
+        if self.ts_exchange.is_some() {
+            len += 1;
+        }
+        if self.ts_collection.is_some() {
+            len += 1;
+        }
+        if self.ts_event.is_some() {
+            len += 1;
+        }
+        if !self.additional_properties.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamOrderBookL2ResponseV1", len)?;
+        if !self.class.is_empty() {
+            struct_ser.serialize_field("class", &self.class)?;
+        }
+        if !self.code.is_empty() {
+            struct_ser.serialize_field("code", &self.code)?;
+        }
+        if !self.exchange.is_empty() {
+            struct_ser.serialize_field("exchange", &self.exchange)?;
+        }
+        if !self.sequence_id.is_empty() {
+            struct_ser.serialize_field("sequenceId", &self.sequence_id)?;
+        }
+        if self.update_type != 0 {
+            let v = StreamOrderBookL2UpdateType::from_i32(self.update_type)
+                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.update_type)))?;
+            struct_ser.serialize_field("updateType", &v)?;
+        }
+        if !self.asks.is_empty() {
+            struct_ser.serialize_field("asks", &self.asks)?;
+        }
+        if !self.bids.is_empty() {
+            struct_ser.serialize_field("bids", &self.bids)?;
+        }
+        if let Some(v) = self.ts_exchange.as_ref() {
+            struct_ser.serialize_field("tsExchange", v)?;
+        }
+        if let Some(v) = self.ts_collection.as_ref() {
+            struct_ser.serialize_field("tsCollection", v)?;
+        }
+        if let Some(v) = self.ts_event.as_ref() {
+            struct_ser.serialize_field("tsEvent", v)?;
+        }
+        if !self.additional_properties.is_empty() {
+            struct_ser.serialize_field("additionalProperties", &self.additional_properties)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamOrderBookL2ResponseV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "class",
+            "code",
+            "exchange",
+            "sequence_id",
+            "sequenceId",
+            "update_type",
+            "updateType",
+            "asks",
+            "bids",
+            "ts_exchange",
+            "tsExchange",
+            "ts_collection",
+            "tsCollection",
+            "ts_event",
+            "tsEvent",
+            "additional_properties",
+            "additionalProperties",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Class,
+            Code,
+            Exchange,
+            SequenceId,
+            UpdateType,
+            Asks,
+            Bids,
+            TsExchange,
+            TsCollection,
+            TsEvent,
+            AdditionalProperties,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "class" => Ok(GeneratedField::Class),
+                            "code" => Ok(GeneratedField::Code),
+                            "exchange" => Ok(GeneratedField::Exchange),
+                            "sequenceId" | "sequence_id" => Ok(GeneratedField::SequenceId),
+                            "updateType" | "update_type" => Ok(GeneratedField::UpdateType),
+                            "asks" => Ok(GeneratedField::Asks),
+                            "bids" => Ok(GeneratedField::Bids),
+                            "tsExchange" | "ts_exchange" => Ok(GeneratedField::TsExchange),
+                            "tsCollection" | "ts_collection" => Ok(GeneratedField::TsCollection),
+                            "tsEvent" | "ts_event" => Ok(GeneratedField::TsEvent),
+                            "additionalProperties" | "additional_properties" => Ok(GeneratedField::AdditionalProperties),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamOrderBookL2ResponseV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamOrderBookL2ResponseV1")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamOrderBookL2ResponseV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut class__ = None;
+                let mut code__ = None;
+                let mut exchange__ = None;
+                let mut sequence_id__ = None;
+                let mut update_type__ = None;
+                let mut asks__ = None;
+                let mut bids__ = None;
+                let mut ts_exchange__ = None;
+                let mut ts_collection__ = None;
+                let mut ts_event__ = None;
+                let mut additional_properties__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Class => {
+                            if class__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("class"));
+                            }
+                            class__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Code => {
+                            if code__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("code"));
+                            }
+                            code__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Exchange => {
+                            if exchange__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("exchange"));
+                            }
+                            exchange__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::SequenceId => {
+                            if sequence_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("sequenceId"));
+                            }
+                            sequence_id__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::UpdateType => {
+                            if update_type__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("updateType"));
+                            }
+                            update_type__ = Some(map.next_value::<StreamOrderBookL2UpdateType>()? as i32);
+                        }
+                        GeneratedField::Asks => {
+                            if asks__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("asks"));
+                            }
+                            asks__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Bids => {
+                            if bids__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("bids"));
+                            }
+                            bids__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::TsExchange => {
+                            if ts_exchange__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tsExchange"));
+                            }
+                            ts_exchange__ = map.next_value()?;
+                        }
+                        GeneratedField::TsCollection => {
+                            if ts_collection__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tsCollection"));
+                            }
+                            ts_collection__ = map.next_value()?;
+                        }
+                        GeneratedField::TsEvent => {
+                            if ts_event__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tsEvent"));
+                            }
+                            ts_event__ = map.next_value()?;
+                        }
+                        GeneratedField::AdditionalProperties => {
+                            if additional_properties__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("additionalProperties"));
+                            }
+                            additional_properties__ = Some(
+                                map.next_value::<std::collections::HashMap<_, _>>()?
+                            );
+                        }
+                    }
+                }
+                Ok(StreamOrderBookL2ResponseV1 {
+                    class: class__.unwrap_or_default(),
+                    code: code__.unwrap_or_default(),
+                    exchange: exchange__.unwrap_or_default(),
+                    sequence_id: sequence_id__.unwrap_or_default(),
+                    update_type: update_type__.unwrap_or_default(),
+                    asks: asks__.unwrap_or_default(),
+                    bids: bids__.unwrap_or_default(),
+                    ts_exchange: ts_exchange__,
+                    ts_collection: ts_collection__,
+                    ts_event: ts_event__,
+                    additional_properties: additional_properties__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamOrderBookL2ResponseV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamOrderBookL2UpdateType {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let variant = match self {
+            Self::Unknown => "UNKNOWN",
+            Self::Snapshot => "SNAPSHOT",
+            Self::Update => "UPDATE",
+        };
+        serializer.serialize_str(variant)
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamOrderBookL2UpdateType {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "UNKNOWN",
+            "SNAPSHOT",
+            "UPDATE",
+        ];
+
+        struct GeneratedVisitor;
+
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamOrderBookL2UpdateType;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                write!(formatter, "expected one of: {:?}", &FIELDS)
+            }
+
+            fn visit_i64<E>(self, v: i64) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                use std::convert::TryFrom;
+                i32::try_from(v)
+                    .ok()
+                    .and_then(StreamOrderBookL2UpdateType::from_i32)
+                    .ok_or_else(|| {
+                        serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
+                    })
+            }
+
+            fn visit_u64<E>(self, v: u64) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                use std::convert::TryFrom;
+                i32::try_from(v)
+                    .ok()
+                    .and_then(StreamOrderBookL2UpdateType::from_i32)
+                    .ok_or_else(|| {
+                        serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
+                    })
+            }
+
+            fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                match value {
+                    "UNKNOWN" => Ok(StreamOrderBookL2UpdateType::Unknown),
+                    "SNAPSHOT" => Ok(StreamOrderBookL2UpdateType::Snapshot),
+                    "UPDATE" => Ok(StreamOrderBookL2UpdateType::Update),
                     _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
                 }
             }
