@@ -107,6 +107,452 @@ impl<'de> serde::Deserialize<'de> for Assets {
         deserializer.deserialize_struct("kaikosdk.Assets", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for ConstantDurationFuture {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.computed_cdf != 0. {
+            len += 1;
+        }
+        if !self.exchange.is_empty() {
+            len += 1;
+        }
+        if self.front_future.is_some() {
+            len += 1;
+        }
+        if self.back_future.is_some() {
+            len += 1;
+        }
+        if self.constant_duration != 0. {
+            len += 1;
+        }
+        if self.status != 0 {
+            len += 1;
+        }
+        if self.rate_quote_conversion.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.ConstantDurationFuture", len)?;
+        if self.computed_cdf != 0. {
+            struct_ser.serialize_field("computedCdf", &self.computed_cdf)?;
+        }
+        if !self.exchange.is_empty() {
+            struct_ser.serialize_field("exchange", &self.exchange)?;
+        }
+        if let Some(v) = self.front_future.as_ref() {
+            struct_ser.serialize_field("frontFuture", v)?;
+        }
+        if let Some(v) = self.back_future.as_ref() {
+            struct_ser.serialize_field("backFuture", v)?;
+        }
+        if self.constant_duration != 0. {
+            struct_ser.serialize_field("constantDuration", &self.constant_duration)?;
+        }
+        if self.status != 0 {
+            let v = ConstantDurationFutureStatus::from_i32(self.status)
+                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.status)))?;
+            struct_ser.serialize_field("status", &v)?;
+        }
+        if let Some(v) = self.rate_quote_conversion.as_ref() {
+            struct_ser.serialize_field("rateQuoteConversion", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for ConstantDurationFuture {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "computed_cdf",
+            "computedCdf",
+            "exchange",
+            "front_future",
+            "frontFuture",
+            "back_future",
+            "backFuture",
+            "constant_duration",
+            "constantDuration",
+            "status",
+            "rate_quote_conversion",
+            "rateQuoteConversion",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            ComputedCdf,
+            Exchange,
+            FrontFuture,
+            BackFuture,
+            ConstantDuration,
+            Status,
+            RateQuoteConversion,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "computedCdf" | "computed_cdf" => Ok(GeneratedField::ComputedCdf),
+                            "exchange" => Ok(GeneratedField::Exchange),
+                            "frontFuture" | "front_future" => Ok(GeneratedField::FrontFuture),
+                            "backFuture" | "back_future" => Ok(GeneratedField::BackFuture),
+                            "constantDuration" | "constant_duration" => Ok(GeneratedField::ConstantDuration),
+                            "status" => Ok(GeneratedField::Status),
+                            "rateQuoteConversion" | "rate_quote_conversion" => Ok(GeneratedField::RateQuoteConversion),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = ConstantDurationFuture;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.ConstantDurationFuture")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<ConstantDurationFuture, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut computed_cdf__ = None;
+                let mut exchange__ = None;
+                let mut front_future__ = None;
+                let mut back_future__ = None;
+                let mut constant_duration__ = None;
+                let mut status__ = None;
+                let mut rate_quote_conversion__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::ComputedCdf => {
+                            if computed_cdf__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("computedCdf"));
+                            }
+                            computed_cdf__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Exchange => {
+                            if exchange__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("exchange"));
+                            }
+                            exchange__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::FrontFuture => {
+                            if front_future__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("frontFuture"));
+                            }
+                            front_future__ = map.next_value()?;
+                        }
+                        GeneratedField::BackFuture => {
+                            if back_future__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("backFuture"));
+                            }
+                            back_future__ = map.next_value()?;
+                        }
+                        GeneratedField::ConstantDuration => {
+                            if constant_duration__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("constantDuration"));
+                            }
+                            constant_duration__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Status => {
+                            if status__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("status"));
+                            }
+                            status__ = Some(map.next_value::<ConstantDurationFutureStatus>()? as i32);
+                        }
+                        GeneratedField::RateQuoteConversion => {
+                            if rate_quote_conversion__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("rateQuoteConversion"));
+                            }
+                            rate_quote_conversion__ = map.next_value()?;
+                        }
+                    }
+                }
+                Ok(ConstantDurationFuture {
+                    computed_cdf: computed_cdf__.unwrap_or_default(),
+                    exchange: exchange__.unwrap_or_default(),
+                    front_future: front_future__,
+                    back_future: back_future__,
+                    constant_duration: constant_duration__.unwrap_or_default(),
+                    status: status__.unwrap_or_default(),
+                    rate_quote_conversion: rate_quote_conversion__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.ConstantDurationFuture", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for ConstantDurationFutureDetail {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.symbol.is_empty() {
+            len += 1;
+        }
+        if self.price != 0. {
+            len += 1;
+        }
+        if self.expiry.is_some() {
+            len += 1;
+        }
+        if self.timestamp.is_some() {
+            len += 1;
+        }
+        if self.weight != 0. {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.ConstantDurationFutureDetail", len)?;
+        if !self.symbol.is_empty() {
+            struct_ser.serialize_field("symbol", &self.symbol)?;
+        }
+        if self.price != 0. {
+            struct_ser.serialize_field("price", &self.price)?;
+        }
+        if let Some(v) = self.expiry.as_ref() {
+            struct_ser.serialize_field("expiry", v)?;
+        }
+        if let Some(v) = self.timestamp.as_ref() {
+            struct_ser.serialize_field("timestamp", v)?;
+        }
+        if self.weight != 0. {
+            struct_ser.serialize_field("weight", &self.weight)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for ConstantDurationFutureDetail {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "symbol",
+            "price",
+            "expiry",
+            "timestamp",
+            "weight",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Symbol,
+            Price,
+            Expiry,
+            Timestamp,
+            Weight,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "symbol" => Ok(GeneratedField::Symbol),
+                            "price" => Ok(GeneratedField::Price),
+                            "expiry" => Ok(GeneratedField::Expiry),
+                            "timestamp" => Ok(GeneratedField::Timestamp),
+                            "weight" => Ok(GeneratedField::Weight),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = ConstantDurationFutureDetail;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.ConstantDurationFutureDetail")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<ConstantDurationFutureDetail, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut symbol__ = None;
+                let mut price__ = None;
+                let mut expiry__ = None;
+                let mut timestamp__ = None;
+                let mut weight__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Symbol => {
+                            if symbol__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("symbol"));
+                            }
+                            symbol__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Price => {
+                            if price__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("price"));
+                            }
+                            price__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Expiry => {
+                            if expiry__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("expiry"));
+                            }
+                            expiry__ = map.next_value()?;
+                        }
+                        GeneratedField::Timestamp => {
+                            if timestamp__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("timestamp"));
+                            }
+                            timestamp__ = map.next_value()?;
+                        }
+                        GeneratedField::Weight => {
+                            if weight__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("weight"));
+                            }
+                            weight__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                    }
+                }
+                Ok(ConstantDurationFutureDetail {
+                    symbol: symbol__.unwrap_or_default(),
+                    price: price__.unwrap_or_default(),
+                    expiry: expiry__,
+                    timestamp: timestamp__,
+                    weight: weight__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.ConstantDurationFutureDetail", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for ConstantDurationFutureStatus {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let variant = match self {
+            Self::CdfUnknown => "CDF_UNKNOWN",
+            Self::CdfSuccess => "CDF_SUCCESS",
+            Self::CdfError => "CDF_ERROR",
+            Self::CdfNoFuture => "CDF_NO_FUTURE",
+        };
+        serializer.serialize_str(variant)
+    }
+}
+impl<'de> serde::Deserialize<'de> for ConstantDurationFutureStatus {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "CDF_UNKNOWN",
+            "CDF_SUCCESS",
+            "CDF_ERROR",
+            "CDF_NO_FUTURE",
+        ];
+
+        struct GeneratedVisitor;
+
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = ConstantDurationFutureStatus;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                write!(formatter, "expected one of: {:?}", &FIELDS)
+            }
+
+            fn visit_i64<E>(self, v: i64) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                use std::convert::TryFrom;
+                i32::try_from(v)
+                    .ok()
+                    .and_then(ConstantDurationFutureStatus::from_i32)
+                    .ok_or_else(|| {
+                        serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
+                    })
+            }
+
+            fn visit_u64<E>(self, v: u64) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                use std::convert::TryFrom;
+                i32::try_from(v)
+                    .ok()
+                    .and_then(ConstantDurationFutureStatus::from_i32)
+                    .ok_or_else(|| {
+                        serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
+                    })
+            }
+
+            fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                match value {
+                    "CDF_UNKNOWN" => Ok(ConstantDurationFutureStatus::CdfUnknown),
+                    "CDF_SUCCESS" => Ok(ConstantDurationFutureStatus::CdfSuccess),
+                    "CDF_ERROR" => Ok(ConstantDurationFutureStatus::CdfError),
+                    "CDF_NO_FUTURE" => Ok(ConstantDurationFutureStatus::CdfNoFuture),
+                    _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
+                }
+            }
+        }
+        deserializer.deserialize_any(GeneratedVisitor)
+    }
+}
 impl serde::Serialize for DataInterval {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -453,6 +899,133 @@ impl<'de> serde::Deserialize<'de> for Order {
             }
         }
         deserializer.deserialize_struct("kaikosdk.Order", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for RateQuoteConversion {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.index.is_empty() {
+            len += 1;
+        }
+        if self.value != 0. {
+            len += 1;
+        }
+        if self.timestamp.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.RateQuoteConversion", len)?;
+        if !self.index.is_empty() {
+            struct_ser.serialize_field("index", &self.index)?;
+        }
+        if self.value != 0. {
+            struct_ser.serialize_field("value", &self.value)?;
+        }
+        if let Some(v) = self.timestamp.as_ref() {
+            struct_ser.serialize_field("timestamp", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for RateQuoteConversion {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "index",
+            "value",
+            "timestamp",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Index,
+            Value,
+            Timestamp,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "index" => Ok(GeneratedField::Index),
+                            "value" => Ok(GeneratedField::Value),
+                            "timestamp" => Ok(GeneratedField::Timestamp),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = RateQuoteConversion;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.RateQuoteConversion")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<RateQuoteConversion, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut index__ = None;
+                let mut value__ = None;
+                let mut timestamp__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Index => {
+                            if index__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("index"));
+                            }
+                            index__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Value => {
+                            if value__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("value"));
+                            }
+                            value__ = 
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Timestamp => {
+                            if timestamp__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("timestamp"));
+                            }
+                            timestamp__ = map.next_value()?;
+                        }
+                    }
+                }
+                Ok(RateQuoteConversion {
+                    index: index__.unwrap_or_default(),
+                    value: value__.unwrap_or_default(),
+                    timestamp: timestamp__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.RateQuoteConversion", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for SortCriteria {
@@ -3429,6 +4002,443 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesVwapResponseV1 {
             }
         }
         deserializer.deserialize_struct("kaikosdk.StreamAggregatesVWAPResponseV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamConstantDurationIndicesServiceRequestV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.index_code.is_empty() {
+            len += 1;
+        }
+        if !self.commodities.is_empty() {
+            len += 1;
+        }
+        if self.interval.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamConstantDurationIndicesServiceRequestV1", len)?;
+        if !self.index_code.is_empty() {
+            struct_ser.serialize_field("indexCode", &self.index_code)?;
+        }
+        if !self.commodities.is_empty() {
+            let v = self.commodities.iter().cloned().map(|v| {
+                StreamIndexCommodity::from_i32(v)
+                    .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", v)))
+                }).collect::<Result<Vec<_>, _>>()?;
+            struct_ser.serialize_field("commodities", &v)?;
+        }
+        if let Some(v) = self.interval.as_ref() {
+            struct_ser.serialize_field("interval", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamConstantDurationIndicesServiceRequestV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "index_code",
+            "indexCode",
+            "commodities",
+            "interval",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            IndexCode,
+            Commodities,
+            Interval,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "indexCode" | "index_code" => Ok(GeneratedField::IndexCode),
+                            "commodities" => Ok(GeneratedField::Commodities),
+                            "interval" => Ok(GeneratedField::Interval),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamConstantDurationIndicesServiceRequestV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamConstantDurationIndicesServiceRequestV1")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamConstantDurationIndicesServiceRequestV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut index_code__ = None;
+                let mut commodities__ = None;
+                let mut interval__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::IndexCode => {
+                            if index_code__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("indexCode"));
+                            }
+                            index_code__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Commodities => {
+                            if commodities__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("commodities"));
+                            }
+                            commodities__ = Some(map.next_value::<Vec<StreamIndexCommodity>>()?.into_iter().map(|x| x as i32).collect());
+                        }
+                        GeneratedField::Interval => {
+                            if interval__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("interval"));
+                            }
+                            interval__ = map.next_value()?;
+                        }
+                    }
+                }
+                Ok(StreamConstantDurationIndicesServiceRequestV1 {
+                    index_code: index_code__.unwrap_or_default(),
+                    commodities: commodities__.unwrap_or_default(),
+                    interval: interval__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamConstantDurationIndicesServiceRequestV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamConstantDurationIndicesServiceResponseComposition {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.base.is_empty() {
+            len += 1;
+        }
+        if !self.quote.is_empty() {
+            len += 1;
+        }
+        if !self.data.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamConstantDurationIndicesServiceResponseComposition", len)?;
+        if !self.base.is_empty() {
+            struct_ser.serialize_field("base", &self.base)?;
+        }
+        if !self.quote.is_empty() {
+            struct_ser.serialize_field("quote", &self.quote)?;
+        }
+        if !self.data.is_empty() {
+            struct_ser.serialize_field("data", &self.data)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamConstantDurationIndicesServiceResponseComposition {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "base",
+            "quote",
+            "data",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Base,
+            Quote,
+            Data,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "base" => Ok(GeneratedField::Base),
+                            "quote" => Ok(GeneratedField::Quote),
+                            "data" => Ok(GeneratedField::Data),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamConstantDurationIndicesServiceResponseComposition;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamConstantDurationIndicesServiceResponseComposition")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamConstantDurationIndicesServiceResponseComposition, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut base__ = None;
+                let mut quote__ = None;
+                let mut data__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Base => {
+                            if base__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("base"));
+                            }
+                            base__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Quote => {
+                            if quote__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("quote"));
+                            }
+                            quote__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Data => {
+                            if data__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("data"));
+                            }
+                            data__ = Some(map.next_value()?);
+                        }
+                    }
+                }
+                Ok(StreamConstantDurationIndicesServiceResponseComposition {
+                    base: base__.unwrap_or_default(),
+                    quote: quote__.unwrap_or_default(),
+                    data: data__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamConstantDurationIndicesServiceResponseComposition", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamConstantDurationIndicesServiceResponseV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.commodity != 0 {
+            len += 1;
+        }
+        if !self.index_code.is_empty() {
+            len += 1;
+        }
+        if self.composition.is_some() {
+            len += 1;
+        }
+        if self.start_time.is_some() {
+            len += 1;
+        }
+        if self.end_time.is_some() {
+            len += 1;
+        }
+        if self.ts_event.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamConstantDurationIndicesServiceResponseV1", len)?;
+        if self.commodity != 0 {
+            let v = StreamIndexCommodity::from_i32(self.commodity)
+                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
+            struct_ser.serialize_field("commodity", &v)?;
+        }
+        if !self.index_code.is_empty() {
+            struct_ser.serialize_field("indexCode", &self.index_code)?;
+        }
+        if let Some(v) = self.composition.as_ref() {
+            struct_ser.serialize_field("composition", v)?;
+        }
+        if let Some(v) = self.start_time.as_ref() {
+            struct_ser.serialize_field("startTime", v)?;
+        }
+        if let Some(v) = self.end_time.as_ref() {
+            struct_ser.serialize_field("endTime", v)?;
+        }
+        if let Some(v) = self.ts_event.as_ref() {
+            struct_ser.serialize_field("tsEvent", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamConstantDurationIndicesServiceResponseV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "commodity",
+            "index_code",
+            "indexCode",
+            "composition",
+            "start_time",
+            "startTime",
+            "end_time",
+            "endTime",
+            "ts_event",
+            "tsEvent",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Commodity,
+            IndexCode,
+            Composition,
+            StartTime,
+            EndTime,
+            TsEvent,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "commodity" => Ok(GeneratedField::Commodity),
+                            "indexCode" | "index_code" => Ok(GeneratedField::IndexCode),
+                            "composition" => Ok(GeneratedField::Composition),
+                            "startTime" | "start_time" => Ok(GeneratedField::StartTime),
+                            "endTime" | "end_time" => Ok(GeneratedField::EndTime),
+                            "tsEvent" | "ts_event" => Ok(GeneratedField::TsEvent),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamConstantDurationIndicesServiceResponseV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamConstantDurationIndicesServiceResponseV1")
+            }
+
+            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamConstantDurationIndicesServiceResponseV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut commodity__ = None;
+                let mut index_code__ = None;
+                let mut composition__ = None;
+                let mut start_time__ = None;
+                let mut end_time__ = None;
+                let mut ts_event__ = None;
+                while let Some(k) = map.next_key()? {
+                    match k {
+                        GeneratedField::Commodity => {
+                            if commodity__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("commodity"));
+                            }
+                            commodity__ = Some(map.next_value::<StreamIndexCommodity>()? as i32);
+                        }
+                        GeneratedField::IndexCode => {
+                            if index_code__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("indexCode"));
+                            }
+                            index_code__ = Some(map.next_value()?);
+                        }
+                        GeneratedField::Composition => {
+                            if composition__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("composition"));
+                            }
+                            composition__ = map.next_value()?;
+                        }
+                        GeneratedField::StartTime => {
+                            if start_time__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("startTime"));
+                            }
+                            start_time__ = map.next_value()?;
+                        }
+                        GeneratedField::EndTime => {
+                            if end_time__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("endTime"));
+                            }
+                            end_time__ = map.next_value()?;
+                        }
+                        GeneratedField::TsEvent => {
+                            if ts_event__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tsEvent"));
+                            }
+                            ts_event__ = map.next_value()?;
+                        }
+                    }
+                }
+                Ok(StreamConstantDurationIndicesServiceResponseV1 {
+                    commodity: commodity__.unwrap_or_default(),
+                    index_code: index_code__.unwrap_or_default(),
+                    composition: composition__,
+                    start_time: start_time__,
+                    end_time: end_time__,
+                    ts_event: ts_event__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamConstantDurationIndicesServiceResponseV1", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for StreamDerivativesInstrumentCommodityKindV1 {
