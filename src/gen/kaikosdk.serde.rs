@@ -76,25 +76,25 @@ impl<'de> serde::Deserialize<'de> for Assets {
                 formatter.write_str("struct kaikosdk.Assets")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<Assets, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Assets, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut base__ = None;
                 let mut quote__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Base => {
                             if base__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("base"));
                             }
-                            base__ = Some(map.next_value()?);
+                            base__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Quote => {
                             if quote__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("quote"));
                             }
-                            quote__ = Some(map.next_value()?);
+                            quote__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -153,8 +153,8 @@ impl serde::Serialize for ConstantDurationFuture {
             struct_ser.serialize_field("constantDuration", &self.constant_duration)?;
         }
         if self.status != 0 {
-            let v = ConstantDurationFutureStatus::from_i32(self.status)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.status)))?;
+            let v = ConstantDurationFutureStatus::try_from(self.status)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.status)))?;
             struct_ser.serialize_field("status", &v)?;
         }
         if let Some(v) = self.rate_quote_conversion.as_ref() {
@@ -236,7 +236,7 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFuture {
                 formatter.write_str("struct kaikosdk.ConstantDurationFuture")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<ConstantDurationFuture, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ConstantDurationFuture, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -247,53 +247,53 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFuture {
                 let mut constant_duration__ = None;
                 let mut status__ = None;
                 let mut rate_quote_conversion__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ComputedCdf => {
                             if computed_cdf__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("computedCdf"));
                             }
                             computed_cdf__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Exchange => {
                             if exchange__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchange"));
                             }
-                            exchange__ = Some(map.next_value()?);
+                            exchange__ = Some(map_.next_value()?);
                         }
                         GeneratedField::FrontFuture => {
                             if front_future__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("frontFuture"));
                             }
-                            front_future__ = map.next_value()?;
+                            front_future__ = map_.next_value()?;
                         }
                         GeneratedField::BackFuture => {
                             if back_future__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("backFuture"));
                             }
-                            back_future__ = map.next_value()?;
+                            back_future__ = map_.next_value()?;
                         }
                         GeneratedField::ConstantDuration => {
                             if constant_duration__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("constantDuration"));
                             }
                             constant_duration__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Status => {
                             if status__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("status"));
                             }
-                            status__ = Some(map.next_value::<ConstantDurationFutureStatus>()? as i32);
+                            status__ = Some(map_.next_value::<ConstantDurationFutureStatus>()? as i32);
                         }
                         GeneratedField::RateQuoteConversion => {
                             if rate_quote_conversion__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("rateQuoteConversion"));
                             }
-                            rate_quote_conversion__ = map.next_value()?;
+                            rate_quote_conversion__ = map_.next_value()?;
                         }
                     }
                 }
@@ -415,7 +415,7 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFutureDetail {
                 formatter.write_str("struct kaikosdk.ConstantDurationFutureDetail")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<ConstantDurationFutureDetail, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ConstantDurationFutureDetail, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -424,40 +424,40 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFutureDetail {
                 let mut expiry__ = None;
                 let mut timestamp__ = None;
                 let mut weight__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Symbol => {
                             if symbol__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("symbol"));
                             }
-                            symbol__ = Some(map.next_value()?);
+                            symbol__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
                             price__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Expiry => {
                             if expiry__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("expiry"));
                             }
-                            expiry__ = map.next_value()?;
+                            expiry__ = map_.next_value()?;
                         }
                         GeneratedField::Timestamp => {
                             if timestamp__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
-                            timestamp__ = map.next_value()?;
+                            timestamp__ = map_.next_value()?;
                         }
                         GeneratedField::Weight => {
                             if weight__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("weight"));
                             }
                             weight__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -515,10 +515,9 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFutureStatus {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(ConstantDurationFutureStatus::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -528,10 +527,9 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFutureStatus {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(ConstantDurationFutureStatus::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -632,25 +630,25 @@ impl<'de> serde::Deserialize<'de> for DataInterval {
                 formatter.write_str("struct kaikosdk.DataInterval")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<DataInterval, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<DataInterval, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut start_time__ = None;
                 let mut end_time__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::StartTime => {
                             if start_time__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("startTime"));
                             }
-                            start_time__ = map.next_value()?;
+                            start_time__ = map_.next_value()?;
                         }
                         GeneratedField::EndTime => {
                             if end_time__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("endTime"));
                             }
-                            end_time__ = map.next_value()?;
+                            end_time__ = map_.next_value()?;
                         }
                     }
                 }
@@ -750,32 +748,32 @@ impl<'de> serde::Deserialize<'de> for InstrumentCriteria {
                 formatter.write_str("struct kaikosdk.InstrumentCriteria")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<InstrumentCriteria, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<InstrumentCriteria, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut exchange__ = None;
                 let mut instrument_class__ = None;
                 let mut code__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Exchange => {
                             if exchange__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchange"));
                             }
-                            exchange__ = Some(map.next_value()?);
+                            exchange__ = Some(map_.next_value()?);
                         }
                         GeneratedField::InstrumentClass => {
                             if instrument_class__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instrumentClass"));
                             }
-                            instrument_class__ = Some(map.next_value()?);
+                            instrument_class__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Code => {
                             if code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("code"));
                             }
-                            code__ = Some(map.next_value()?);
+                            code__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -866,20 +864,20 @@ impl<'de> serde::Deserialize<'de> for Order {
                 formatter.write_str("struct kaikosdk.Order")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<Order, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Order, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut amount__ = None;
                 let mut price__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Amount => {
                             if amount__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("amount"));
                             }
                             amount__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Price => {
@@ -887,7 +885,7 @@ impl<'de> serde::Deserialize<'de> for Order {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
                             price__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -987,34 +985,34 @@ impl<'de> serde::Deserialize<'de> for RateQuoteConversion {
                 formatter.write_str("struct kaikosdk.RateQuoteConversion")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<RateQuoteConversion, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<RateQuoteConversion, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut index__ = None;
                 let mut value__ = None;
                 let mut timestamp__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Index => {
                             if index__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("index"));
                             }
-                            index__ = Some(map.next_value()?);
+                            index__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Value => {
                             if value__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("value"));
                             }
                             value__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Timestamp => {
                             if timestamp__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
-                            timestamp__ = map.next_value()?;
+                            timestamp__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1067,10 +1065,9 @@ impl<'de> serde::Deserialize<'de> for SortCriteria {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(SortCriteria::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -1080,10 +1077,9 @@ impl<'de> serde::Deserialize<'de> for SortCriteria {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(SortCriteria::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -1181,25 +1177,25 @@ impl<'de> serde::Deserialize<'de> for Source {
                 formatter.write_str("struct kaikosdk.Source")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<Source, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Source, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut data__ = None;
                 let mut price__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Data => {
                             if data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
-                            data__ = Some(map.next_value()?);
+                            data__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
-                            price__ = Some(map.next_value()?);
+                            price__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1237,6 +1233,8 @@ impl serde::Serialize for SourceData {
             struct_ser.serialize_field("exchangeCode", &self.exchange_code)?;
         }
         if self.count != 0 {
+            #[allow(clippy::needless_borrow)]
+            #[allow(clippy::needless_borrows_for_generic_args)]
             struct_ser.serialize_field("count", ToString::to_string(&self.count).as_str())?;
         }
         if !self.price.is_empty() {
@@ -1308,7 +1306,7 @@ impl<'de> serde::Deserialize<'de> for SourceData {
                 formatter.write_str("struct kaikosdk.SourceData")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<SourceData, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SourceData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1316,33 +1314,33 @@ impl<'de> serde::Deserialize<'de> for SourceData {
                 let mut count__ = None;
                 let mut price__ = None;
                 let mut volume__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ExchangeCode => {
                             if exchange_code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchangeCode"));
                             }
-                            exchange_code__ = Some(map.next_value()?);
+                            exchange_code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Count => {
                             if count__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("count"));
                             }
                             count__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
-                            price__ = Some(map.next_value()?);
+                            price__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Volume => {
                             if volume__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("volume"));
                             }
-                            volume__ = Some(map.next_value()?);
+                            volume__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1444,32 +1442,32 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedPriceRequestV1 {
                 formatter.write_str("struct kaikosdk.StreamAggregatedPriceRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatedPriceRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatedPriceRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut instrument_class__ = None;
                 let mut code__ = None;
                 let mut interval__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::InstrumentClass => {
                             if instrument_class__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instrumentClass"));
                             }
-                            instrument_class__ = Some(map.next_value()?);
+                            instrument_class__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Code => {
                             if code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("code"));
                             }
-                            code__ = Some(map.next_value()?);
+                            code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Interval => {
                             if interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interval"));
                             }
-                            interval__ = map.next_value()?;
+                            interval__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1523,8 +1521,8 @@ impl serde::Serialize for StreamAggregatedPriceResponseV1 {
             struct_ser.serialize_field("value", v)?;
         }
         if self.event_type != 0 {
-            let v = stream_aggregated_price_response_v1::EventType::from_i32(self.event_type)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.event_type)))?;
+            let v = stream_aggregated_price_response_v1::EventType::try_from(self.event_type)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.event_type)))?;
             struct_ser.serialize_field("eventType", &v)?;
         }
         if let Some(v) = self.ts_event.as_ref() {
@@ -1601,7 +1599,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedPriceResponseV1 {
                 formatter.write_str("struct kaikosdk.StreamAggregatedPriceResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatedPriceResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatedPriceResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1611,43 +1609,43 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedPriceResponseV1 {
                 let mut value__ = None;
                 let mut event_type__ = None;
                 let mut ts_event__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Aggregate => {
                             if aggregate__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("aggregate"));
                             }
-                            aggregate__ = Some(map.next_value()?);
+                            aggregate__ = Some(map_.next_value()?);
                         }
                         GeneratedField::InstrumentClass => {
                             if instrument_class__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instrumentClass"));
                             }
-                            instrument_class__ = Some(map.next_value()?);
+                            instrument_class__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Code => {
                             if code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("code"));
                             }
-                            code__ = Some(map.next_value()?);
+                            code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Value => {
                             if value__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("value"));
                             }
-                            value__ = map.next_value()?;
+                            value__ = map_.next_value()?;
                         }
                         GeneratedField::EventType => {
                             if event_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("eventType"));
                             }
-                            event_type__ = Some(map.next_value::<stream_aggregated_price_response_v1::EventType>()? as i32);
+                            event_type__ = Some(map_.next_value::<stream_aggregated_price_response_v1::EventType>()? as i32);
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1703,10 +1701,9 @@ impl<'de> serde::Deserialize<'de> for stream_aggregated_price_response_v1::Event
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(stream_aggregated_price_response_v1::EventType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -1716,10 +1713,9 @@ impl<'de> serde::Deserialize<'de> for stream_aggregated_price_response_v1::Event
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(stream_aggregated_price_response_v1::EventType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -1817,25 +1813,25 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedPriceValue {
                 formatter.write_str("struct kaikosdk.StreamAggregatedPriceValue")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatedPriceValue, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatedPriceValue, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut price__ = None;
                 let mut volume__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
-                            price__ = Some(map.next_value()?);
+                            price__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Volume => {
                             if volume__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("volume"));
                             }
-                            volume__ = Some(map.next_value()?);
+                            volume__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1945,7 +1941,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedQuoteRequestV2 {
                 formatter.write_str("struct kaikosdk.StreamAggregatedQuoteRequestV2")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatedQuoteRequestV2, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatedQuoteRequestV2, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1953,31 +1949,31 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedQuoteRequestV2 {
                 let mut code__ = None;
                 let mut interval__ = None;
                 let mut include_unvetted_price__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::InstrumentClass => {
                             if instrument_class__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instrumentClass"));
                             }
-                            instrument_class__ = Some(map.next_value()?);
+                            instrument_class__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Code => {
                             if code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("code"));
                             }
-                            code__ = Some(map.next_value()?);
+                            code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Interval => {
                             if interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interval"));
                             }
-                            interval__ = map.next_value()?;
+                            interval__ = map_.next_value()?;
                         }
                         GeneratedField::IncludeUnvettedPrice => {
                             if include_unvetted_price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("includeUnvettedPrice"));
                             }
-                            include_unvetted_price__ = Some(map.next_value()?);
+                            include_unvetted_price__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2032,8 +2028,8 @@ impl serde::Serialize for StreamAggregatedQuoteResponseV2 {
             struct_ser.serialize_field("code", &self.code)?;
         }
         if self.event_type != 0 {
-            let v = stream_aggregated_quote_response_v2::EventType::from_i32(self.event_type)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.event_type)))?;
+            let v = stream_aggregated_quote_response_v2::EventType::try_from(self.event_type)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.event_type)))?;
             struct_ser.serialize_field("eventType", &v)?;
         }
         if let Some(v) = self.ts_event.as_ref() {
@@ -2119,7 +2115,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedQuoteResponseV2 {
                 formatter.write_str("struct kaikosdk.StreamAggregatedQuoteResponseV2")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatedQuoteResponseV2, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatedQuoteResponseV2, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2130,49 +2126,49 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedQuoteResponseV2 {
                 let mut ts_event__ = None;
                 let mut vetted__ = None;
                 let mut unvetted__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Aggregate => {
                             if aggregate__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("aggregate"));
                             }
-                            aggregate__ = Some(map.next_value()?);
+                            aggregate__ = Some(map_.next_value()?);
                         }
                         GeneratedField::InstrumentClass => {
                             if instrument_class__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instrumentClass"));
                             }
-                            instrument_class__ = Some(map.next_value()?);
+                            instrument_class__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Code => {
                             if code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("code"));
                             }
-                            code__ = Some(map.next_value()?);
+                            code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::EventType => {
                             if event_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("eventType"));
                             }
-                            event_type__ = Some(map.next_value::<stream_aggregated_quote_response_v2::EventType>()? as i32);
+                            event_type__ = Some(map_.next_value::<stream_aggregated_quote_response_v2::EventType>()? as i32);
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                         GeneratedField::Vetted => {
                             if vetted__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("vetted"));
                             }
-                            vetted__ = map.next_value()?;
+                            vetted__ = map_.next_value()?;
                         }
                         GeneratedField::Unvetted => {
                             if unvetted__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("unvetted"));
                             }
-                            unvetted__ = map.next_value()?;
+                            unvetted__ = map_.next_value()?;
                         }
                     }
                 }
@@ -2229,10 +2225,9 @@ impl<'de> serde::Deserialize<'de> for stream_aggregated_quote_response_v2::Event
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(stream_aggregated_quote_response_v2::EventType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -2242,10 +2237,9 @@ impl<'de> serde::Deserialize<'de> for stream_aggregated_quote_response_v2::Event
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(stream_aggregated_quote_response_v2::EventType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -2343,25 +2337,25 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedQuoteValue {
                 formatter.write_str("struct kaikosdk.StreamAggregatedQuoteValue")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatedQuoteValue, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatedQuoteValue, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut price__ = None;
                 let mut volume__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
-                            price__ = Some(map.next_value()?);
+                            price__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Volume => {
                             if volume__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("volume"));
                             }
-                            volume__ = Some(map.next_value()?);
+                            volume__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2442,18 +2436,18 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedStatePriceRequestV1 {
                 formatter.write_str("struct kaikosdk.StreamAggregatedStatePriceRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatedStatePriceRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatedStatePriceRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut assets__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Assets => {
                             if assets__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("assets"));
                             }
-                            assets__ = Some(map.next_value()?);
+                            assets__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2582,7 +2576,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedStatePriceResponseV1 {
                 formatter.write_str("struct kaikosdk.StreamAggregatedStatePriceResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatedStatePriceResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatedStatePriceResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2592,43 +2586,43 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedStatePriceResponseV1 {
                 let mut aggregated_price_lst__ = None;
                 let mut ts_event__ = None;
                 let mut lst_quote__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Datetime => {
                             if datetime__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("datetime"));
                             }
-                            datetime__ = map.next_value()?;
+                            datetime__ = map_.next_value()?;
                         }
                         GeneratedField::Base => {
                             if base__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("base"));
                             }
-                            base__ = Some(map.next_value()?);
+                            base__ = Some(map_.next_value()?);
                         }
                         GeneratedField::AggregatedPriceUsd => {
                             if aggregated_price_usd__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("aggregatedPriceUsd"));
                             }
-                            aggregated_price_usd__ = Some(map.next_value()?);
+                            aggregated_price_usd__ = Some(map_.next_value()?);
                         }
                         GeneratedField::AggregatedPriceLst => {
                             if aggregated_price_lst__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("aggregatedPriceLst"));
                             }
-                            aggregated_price_lst__ = Some(map.next_value()?);
+                            aggregated_price_lst__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                         GeneratedField::LstQuote => {
                             if lst_quote__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("lstQuote"));
                             }
-                            lst_quote__ = Some(map.next_value()?);
+                            lst_quote__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2752,7 +2746,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV2Reques
                 formatter.write_str("struct kaikosdk.StreamAggregatesDirectExchangeRateV2RequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesDirectExchangeRateV2RequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatesDirectExchangeRateV2RequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2761,37 +2755,37 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV2Reques
                 let mut include_exchanges__ = None;
                 let mut exclude_exchanges__ = None;
                 let mut update_frequency__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Assets => {
                             if assets__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("assets"));
                             }
-                            assets__ = map.next_value()?;
+                            assets__ = map_.next_value()?;
                         }
                         GeneratedField::Window => {
                             if window__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("window"));
                             }
-                            window__ = map.next_value()?;
+                            window__ = map_.next_value()?;
                         }
                         GeneratedField::IncludeExchanges => {
                             if include_exchanges__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("includeExchanges"));
                             }
-                            include_exchanges__ = Some(map.next_value()?);
+                            include_exchanges__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ExcludeExchanges => {
                             if exclude_exchanges__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("excludeExchanges"));
                             }
-                            exclude_exchanges__ = Some(map.next_value()?);
+                            exclude_exchanges__ = Some(map_.next_value()?);
                         }
                         GeneratedField::UpdateFrequency => {
                             if update_frequency__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("updateFrequency"));
                             }
-                            update_frequency__ = map.next_value()?;
+                            update_frequency__ = map_.next_value()?;
                         }
                     }
                 }
@@ -2912,7 +2906,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV2Respon
                 formatter.write_str("struct kaikosdk.StreamAggregatesDirectExchangeRateV2ResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesDirectExchangeRateV2ResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatesDirectExchangeRateV2ResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2921,39 +2915,39 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesDirectExchangeRateV2Respon
                 let mut timestamp__ = None;
                 let mut window__ = None;
                 let mut no_trade__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Assets => {
                             if assets__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("assets"));
                             }
-                            assets__ = map.next_value()?;
+                            assets__ = map_.next_value()?;
                         }
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
                             price__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Timestamp => {
                             if timestamp__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
-                            timestamp__ = map.next_value()?;
+                            timestamp__ = map_.next_value()?;
                         }
                         GeneratedField::Window => {
                             if window__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("window"));
                             }
-                            window__ = map.next_value()?;
+                            window__ = map_.next_value()?;
                         }
                         GeneratedField::NoTrade => {
                             if no_trade__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("noTrade"));
                             }
-                            no_trade__ = Some(map.next_value()?);
+                            no_trade__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3047,25 +3041,25 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesOhlcvRequestV1 {
                 formatter.write_str("struct kaikosdk.StreamAggregatesOHLCVRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesOhlcvRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatesOhlcvRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut instrument_criteria__ = None;
                 let mut aggregate__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::InstrumentCriteria => {
                             if instrument_criteria__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instrumentCriteria"));
                             }
-                            instrument_criteria__ = map.next_value()?;
+                            instrument_criteria__ = map_.next_value()?;
                         }
                         GeneratedField::Aggregate => {
                             if aggregate__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("aggregate"));
                             }
-                            aggregate__ = Some(map.next_value()?);
+                            aggregate__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3246,7 +3240,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesOhlcvResponseV1 {
                 formatter.write_str("struct kaikosdk.StreamAggregatesOHLCVResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesOhlcvResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatesOhlcvResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -3262,79 +3256,79 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesOhlcvResponseV1 {
                 let mut timestamp__ = None;
                 let mut uid__ = None;
                 let mut volume__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Aggregate => {
                             if aggregate__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("aggregate"));
                             }
-                            aggregate__ = Some(map.next_value()?);
+                            aggregate__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Class => {
                             if class__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("class"));
                             }
-                            class__ = Some(map.next_value()?);
+                            class__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Close => {
                             if close__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("close"));
                             }
-                            close__ = Some(map.next_value()?);
+                            close__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Exchange => {
                             if exchange__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchange"));
                             }
-                            exchange__ = Some(map.next_value()?);
+                            exchange__ = Some(map_.next_value()?);
                         }
                         GeneratedField::High => {
                             if high__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("high"));
                             }
-                            high__ = Some(map.next_value()?);
+                            high__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Low => {
                             if low__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("low"));
                             }
-                            low__ = Some(map.next_value()?);
+                            low__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Open => {
                             if open__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("open"));
                             }
-                            open__ = Some(map.next_value()?);
+                            open__ = Some(map_.next_value()?);
                         }
                         GeneratedField::SequenceId => {
                             if sequence_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequenceId"));
                             }
-                            sequence_id__ = Some(map.next_value()?);
+                            sequence_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Code => {
                             if code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("code"));
                             }
-                            code__ = Some(map.next_value()?);
+                            code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Timestamp => {
                             if timestamp__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
-                            timestamp__ = map.next_value()?;
+                            timestamp__ = map_.next_value()?;
                         }
                         GeneratedField::Uid => {
                             if uid__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("uid"));
                             }
-                            uid__ = Some(map.next_value()?);
+                            uid__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Volume => {
                             if volume__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("volume"));
                             }
-                            volume__ = Some(map.next_value()?);
+                            volume__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3464,7 +3458,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV2RequestV
                 formatter.write_str("struct kaikosdk.StreamAggregatesSpotExchangeRateV2RequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesSpotExchangeRateV2RequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatesSpotExchangeRateV2RequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -3473,37 +3467,37 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV2RequestV
                 let mut include_exchanges__ = None;
                 let mut exclude_exchanges__ = None;
                 let mut update_frequency__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Assets => {
                             if assets__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("assets"));
                             }
-                            assets__ = map.next_value()?;
+                            assets__ = map_.next_value()?;
                         }
                         GeneratedField::Window => {
                             if window__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("window"));
                             }
-                            window__ = map.next_value()?;
+                            window__ = map_.next_value()?;
                         }
                         GeneratedField::IncludeExchanges => {
                             if include_exchanges__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("includeExchanges"));
                             }
-                            include_exchanges__ = Some(map.next_value()?);
+                            include_exchanges__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ExcludeExchanges => {
                             if exclude_exchanges__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("excludeExchanges"));
                             }
-                            exclude_exchanges__ = Some(map.next_value()?);
+                            exclude_exchanges__ = Some(map_.next_value()?);
                         }
                         GeneratedField::UpdateFrequency => {
                             if update_frequency__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("updateFrequency"));
                             }
-                            update_frequency__ = map.next_value()?;
+                            update_frequency__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3624,7 +3618,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV2Response
                 formatter.write_str("struct kaikosdk.StreamAggregatesSpotExchangeRateV2ResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesSpotExchangeRateV2ResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatesSpotExchangeRateV2ResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -3633,39 +3627,39 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesSpotExchangeRateV2Response
                 let mut timestamp__ = None;
                 let mut window__ = None;
                 let mut no_trade__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Assets => {
                             if assets__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("assets"));
                             }
-                            assets__ = map.next_value()?;
+                            assets__ = map_.next_value()?;
                         }
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
                             price__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Timestamp => {
                             if timestamp__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
-                            timestamp__ = map.next_value()?;
+                            timestamp__ = map_.next_value()?;
                         }
                         GeneratedField::Window => {
                             if window__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("window"));
                             }
-                            window__ = map.next_value()?;
+                            window__ = map_.next_value()?;
                         }
                         GeneratedField::NoTrade => {
                             if no_trade__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("noTrade"));
                             }
-                            no_trade__ = Some(map.next_value()?);
+                            no_trade__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3759,25 +3753,25 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesVwapRequestV1 {
                 formatter.write_str("struct kaikosdk.StreamAggregatesVWAPRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesVwapRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatesVwapRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut instrument_criteria__ = None;
                 let mut aggregate__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::InstrumentCriteria => {
                             if instrument_criteria__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instrumentCriteria"));
                             }
-                            instrument_criteria__ = map.next_value()?;
+                            instrument_criteria__ = map_.next_value()?;
                         }
                         GeneratedField::Aggregate => {
                             if aggregate__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("aggregate"));
                             }
-                            aggregate__ = Some(map.next_value()?);
+                            aggregate__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3923,7 +3917,7 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesVwapResponseV1 {
                 formatter.write_str("struct kaikosdk.StreamAggregatesVWAPResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamAggregatesVwapResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamAggregatesVwapResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -3935,57 +3929,57 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesVwapResponseV1 {
                 let mut price__ = None;
                 let mut ts_event__ = None;
                 let mut uid__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Aggregate => {
                             if aggregate__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("aggregate"));
                             }
-                            aggregate__ = Some(map.next_value()?);
+                            aggregate__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Class => {
                             if class__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("class"));
                             }
-                            class__ = Some(map.next_value()?);
+                            class__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Code => {
                             if code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("code"));
                             }
-                            code__ = Some(map.next_value()?);
+                            code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Exchange => {
                             if exchange__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchange"));
                             }
-                            exchange__ = Some(map.next_value()?);
+                            exchange__ = Some(map_.next_value()?);
                         }
                         GeneratedField::SequenceId => {
                             if sequence_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequenceId"));
                             }
-                            sequence_id__ = Some(map.next_value()?);
+                            sequence_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
                             price__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                         GeneratedField::Uid => {
                             if uid__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("uid"));
                             }
-                            uid__ = Some(map.next_value()?);
+                            uid__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -4027,9 +4021,9 @@ impl serde::Serialize for StreamConstantDurationIndicesServiceRequestV1 {
         }
         if !self.commodities.is_empty() {
             let v = self.commodities.iter().cloned().map(|v| {
-                StreamIndexCommodity::from_i32(v)
-                    .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", v)))
-                }).collect::<Result<Vec<_>, _>>()?;
+                StreamIndexCommodity::try_from(v)
+                    .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", v)))
+                }).collect::<std::result::Result<Vec<_>, _>>()?;
             struct_ser.serialize_field("commodities", &v)?;
         }
         if let Some(v) = self.interval.as_ref() {
@@ -4095,32 +4089,32 @@ impl<'de> serde::Deserialize<'de> for StreamConstantDurationIndicesServiceReques
                 formatter.write_str("struct kaikosdk.StreamConstantDurationIndicesServiceRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamConstantDurationIndicesServiceRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamConstantDurationIndicesServiceRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut index_code__ = None;
                 let mut commodities__ = None;
                 let mut interval__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IndexCode => {
                             if index_code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("indexCode"));
                             }
-                            index_code__ = Some(map.next_value()?);
+                            index_code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Commodities => {
                             if commodities__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodities"));
                             }
-                            commodities__ = Some(map.next_value::<Vec<StreamIndexCommodity>>()?.into_iter().map(|x| x as i32).collect());
+                            commodities__ = Some(map_.next_value::<Vec<StreamIndexCommodity>>()?.into_iter().map(|x| x as i32).collect());
                         }
                         GeneratedField::Interval => {
                             if interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interval"));
                             }
-                            interval__ = map.next_value()?;
+                            interval__ = map_.next_value()?;
                         }
                     }
                 }
@@ -4220,32 +4214,32 @@ impl<'de> serde::Deserialize<'de> for StreamConstantDurationIndicesServiceRespon
                 formatter.write_str("struct kaikosdk.StreamConstantDurationIndicesServiceResponseComposition")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamConstantDurationIndicesServiceResponseComposition, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamConstantDurationIndicesServiceResponseComposition, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut base__ = None;
                 let mut quote__ = None;
                 let mut data__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Base => {
                             if base__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("base"));
                             }
-                            base__ = Some(map.next_value()?);
+                            base__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Quote => {
                             if quote__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("quote"));
                             }
-                            quote__ = Some(map.next_value()?);
+                            quote__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Data => {
                             if data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
-                            data__ = Some(map.next_value()?);
+                            data__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -4287,8 +4281,8 @@ impl serde::Serialize for StreamConstantDurationIndicesServiceResponseV1 {
         }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamConstantDurationIndicesServiceResponseV1", len)?;
         if self.commodity != 0 {
-            let v = StreamIndexCommodity::from_i32(self.commodity)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
+            let v = StreamIndexCommodity::try_from(self.commodity)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
             struct_ser.serialize_field("commodity", &v)?;
         }
         if !self.index_code.is_empty() {
@@ -4378,7 +4372,7 @@ impl<'de> serde::Deserialize<'de> for StreamConstantDurationIndicesServiceRespon
                 formatter.write_str("struct kaikosdk.StreamConstantDurationIndicesServiceResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamConstantDurationIndicesServiceResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamConstantDurationIndicesServiceResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -4388,43 +4382,43 @@ impl<'de> serde::Deserialize<'de> for StreamConstantDurationIndicesServiceRespon
                 let mut start_time__ = None;
                 let mut end_time__ = None;
                 let mut ts_event__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Commodity => {
                             if commodity__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodity"));
                             }
-                            commodity__ = Some(map.next_value::<StreamIndexCommodity>()? as i32);
+                            commodity__ = Some(map_.next_value::<StreamIndexCommodity>()? as i32);
                         }
                         GeneratedField::IndexCode => {
                             if index_code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("indexCode"));
                             }
-                            index_code__ = Some(map.next_value()?);
+                            index_code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Composition => {
                             if composition__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("composition"));
                             }
-                            composition__ = map.next_value()?;
+                            composition__ = map_.next_value()?;
                         }
                         GeneratedField::StartTime => {
                             if start_time__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("startTime"));
                             }
-                            start_time__ = map.next_value()?;
+                            start_time__ = map_.next_value()?;
                         }
                         GeneratedField::EndTime => {
                             if end_time__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("endTime"));
                             }
-                            end_time__ = map.next_value()?;
+                            end_time__ = map_.next_value()?;
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                     }
                 }
@@ -4480,10 +4474,9 @@ impl<'de> serde::Deserialize<'de> for StreamDerivativesInstrumentCommodityKindV1
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(StreamDerivativesInstrumentCommodityKindV1::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -4493,10 +4486,9 @@ impl<'de> serde::Deserialize<'de> for StreamDerivativesInstrumentCommodityKindV1
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(StreamDerivativesInstrumentCommodityKindV1::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -4537,9 +4529,9 @@ impl serde::Serialize for StreamDerivativesInstrumentMetricsRequestV1 {
         }
         if !self.commodities.is_empty() {
             let v = self.commodities.iter().cloned().map(|v| {
-                StreamDerivativesInstrumentCommodityKindV1::from_i32(v)
-                    .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", v)))
-                }).collect::<Result<Vec<_>, _>>()?;
+                StreamDerivativesInstrumentCommodityKindV1::try_from(v)
+                    .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", v)))
+                }).collect::<std::result::Result<Vec<_>, _>>()?;
             struct_ser.serialize_field("commodities", &v)?;
         }
         struct_ser.end()
@@ -4599,25 +4591,25 @@ impl<'de> serde::Deserialize<'de> for StreamDerivativesInstrumentMetricsRequestV
                 formatter.write_str("struct kaikosdk.StreamDerivativesInstrumentMetricsRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamDerivativesInstrumentMetricsRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamDerivativesInstrumentMetricsRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut instrument_criteria__ = None;
                 let mut commodities__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::InstrumentCriteria => {
                             if instrument_criteria__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instrumentCriteria"));
                             }
-                            instrument_criteria__ = map.next_value()?;
+                            instrument_criteria__ = map_.next_value()?;
                         }
                         GeneratedField::Commodities => {
                             if commodities__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodities"));
                             }
-                            commodities__ = Some(map.next_value::<Vec<StreamDerivativesInstrumentCommodityKindV1>>()?.into_iter().map(|x| x as i32).collect());
+                            commodities__ = Some(map_.next_value::<Vec<StreamDerivativesInstrumentCommodityKindV1>>()?.into_iter().map(|x| x as i32).collect());
                         }
                     }
                 }
@@ -4673,8 +4665,8 @@ impl serde::Serialize for StreamDerivativesInstrumentMetricsResponseV1 {
             struct_ser.serialize_field("commodity", &self.commodity)?;
         }
         if self.commodity_kind != 0 {
-            let v = StreamDerivativesInstrumentCommodityKindV1::from_i32(self.commodity_kind)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity_kind)))?;
+            let v = StreamDerivativesInstrumentCommodityKindV1::try_from(self.commodity_kind)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity_kind)))?;
             struct_ser.serialize_field("commodityKind", &v)?;
         }
         if let Some(v) = self.ts_collection.as_ref() {
@@ -4758,7 +4750,7 @@ impl<'de> serde::Deserialize<'de> for StreamDerivativesInstrumentMetricsResponse
                 formatter.write_str("struct kaikosdk.StreamDerivativesInstrumentMetricsResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamDerivativesInstrumentMetricsResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamDerivativesInstrumentMetricsResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -4769,49 +4761,49 @@ impl<'de> serde::Deserialize<'de> for StreamDerivativesInstrumentMetricsResponse
                 let mut commodity_kind__ = None;
                 let mut ts_collection__ = None;
                 let mut ts_event__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Value => {
                             if value__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("value"));
                             }
-                            value__ = Some(map.next_value()?);
+                            value__ = Some(map_.next_value()?);
                         }
                         GeneratedField::LegacySymbol => {
                             if legacy_symbol__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("legacySymbol"));
                             }
-                            legacy_symbol__ = Some(map.next_value()?);
+                            legacy_symbol__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Exchange => {
                             if exchange__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchange"));
                             }
-                            exchange__ = Some(map.next_value()?);
+                            exchange__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Commodity => {
                             if commodity__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodity"));
                             }
-                            commodity__ = Some(map.next_value()?);
+                            commodity__ = Some(map_.next_value()?);
                         }
                         GeneratedField::CommodityKind => {
                             if commodity_kind__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodityKind"));
                             }
-                            commodity_kind__ = Some(map.next_value::<StreamDerivativesInstrumentCommodityKindV1>()? as i32);
+                            commodity_kind__ = Some(map_.next_value::<StreamDerivativesInstrumentCommodityKindV1>()? as i32);
                         }
                         GeneratedField::TsCollection => {
                             if ts_collection__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsCollection"));
                             }
-                            ts_collection__ = map.next_value()?;
+                            ts_collection__ = map_.next_value()?;
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                     }
                 }
@@ -4868,10 +4860,9 @@ impl<'de> serde::Deserialize<'de> for StreamExoticIndicesPosition {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(StreamExoticIndicesPosition::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -4881,10 +4872,9 @@ impl<'de> serde::Deserialize<'de> for StreamExoticIndicesPosition {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(StreamExoticIndicesPosition::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -4928,9 +4918,9 @@ impl serde::Serialize for StreamExoticIndicesServiceRequestV1 {
         }
         if !self.commodities.is_empty() {
             let v = self.commodities.iter().cloned().map(|v| {
-                StreamIndexCommodity::from_i32(v)
-                    .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", v)))
-                }).collect::<Result<Vec<_>, _>>()?;
+                StreamIndexCommodity::try_from(v)
+                    .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", v)))
+                }).collect::<std::result::Result<Vec<_>, _>>()?;
             struct_ser.serialize_field("commodities", &v)?;
         }
         if let Some(v) = self.interval.as_ref() {
@@ -4996,32 +4986,32 @@ impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceRequestV1 {
                 formatter.write_str("struct kaikosdk.StreamExoticIndicesServiceRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamExoticIndicesServiceRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamExoticIndicesServiceRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut index_code__ = None;
                 let mut commodities__ = None;
                 let mut interval__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IndexCode => {
                             if index_code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("indexCode"));
                             }
-                            index_code__ = Some(map.next_value()?);
+                            index_code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Commodities => {
                             if commodities__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodities"));
                             }
-                            commodities__ = Some(map.next_value::<Vec<StreamIndexCommodity>>()?.into_iter().map(|x| x as i32).collect());
+                            commodities__ = Some(map_.next_value::<Vec<StreamIndexCommodity>>()?.into_iter().map(|x| x as i32).collect());
                         }
                         GeneratedField::Interval => {
                             if interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interval"));
                             }
-                            interval__ = map.next_value()?;
+                            interval__ = map_.next_value()?;
                         }
                     }
                 }
@@ -5142,7 +5132,7 @@ impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponseComposit
                 formatter.write_str("struct kaikosdk.StreamExoticIndicesServiceResponseComposition")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamExoticIndicesServiceResponseComposition, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamExoticIndicesServiceResponseComposition, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -5151,37 +5141,37 @@ impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponseComposit
                 let mut quote__ = None;
                 let mut currency_conversion__ = None;
                 let mut ts_event__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::UnderlyingInstrument => {
                             if underlying_instrument__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("underlyingInstrument"));
                             }
-                            underlying_instrument__ = Some(map.next_value()?);
+                            underlying_instrument__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Base => {
                             if base__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("base"));
                             }
-                            base__ = Some(map.next_value()?);
+                            base__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Quote => {
                             if quote__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("quote"));
                             }
-                            quote__ = Some(map.next_value()?);
+                            quote__ = Some(map_.next_value()?);
                         }
                         GeneratedField::CurrencyConversion => {
                             if currency_conversion__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("currencyConversion"));
                             }
-                            currency_conversion__ = Some(map.next_value()?);
+                            currency_conversion__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                     }
                 }
@@ -5240,8 +5230,8 @@ impl serde::Serialize for StreamExoticIndicesServiceResponsePair {
             struct_ser.serialize_field("currencyConversionFactor", &self.currency_conversion_factor)?;
         }
         if self.position != 0 {
-            let v = StreamExoticIndicesPosition::from_i32(self.position)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.position)))?;
+            let v = StreamExoticIndicesPosition::try_from(self.position)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.position)))?;
             struct_ser.serialize_field("position", &v)?;
         }
         struct_ser.end()
@@ -5317,7 +5307,7 @@ impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponsePair {
                 formatter.write_str("struct kaikosdk.StreamExoticIndicesServiceResponsePair")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamExoticIndicesServiceResponsePair, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamExoticIndicesServiceResponsePair, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -5327,26 +5317,26 @@ impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponsePair {
                 let mut capping_factor__ = None;
                 let mut currency_conversion_factor__ = None;
                 let mut position__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::UnderlyingInstrument => {
                             if underlying_instrument__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("underlyingInstrument"));
                             }
-                            underlying_instrument__ = Some(map.next_value()?);
+                            underlying_instrument__ = Some(map_.next_value()?);
                         }
                         GeneratedField::UnderlyingPrice => {
                             if underlying_price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("underlyingPrice"));
                             }
-                            underlying_price__ = map.next_value()?;
+                            underlying_price__ = map_.next_value()?;
                         }
                         GeneratedField::WeightingFactor => {
                             if weighting_factor__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("weightingFactor"));
                             }
                             weighting_factor__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::CappingFactor => {
@@ -5354,7 +5344,7 @@ impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponsePair {
                                 return Err(serde::de::Error::duplicate_field("cappingFactor"));
                             }
                             capping_factor__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::CurrencyConversionFactor => {
@@ -5362,14 +5352,14 @@ impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponsePair {
                                 return Err(serde::de::Error::duplicate_field("currencyConversionFactor"));
                             }
                             currency_conversion_factor__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Position => {
                             if position__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("position"));
                             }
-                            position__ = Some(map.next_value::<StreamExoticIndicesPosition>()? as i32);
+                            position__ = Some(map_.next_value::<StreamExoticIndicesPosition>()? as i32);
                         }
                     }
                 }
@@ -5473,21 +5463,21 @@ impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponsePrices {
                 formatter.write_str("struct kaikosdk.StreamExoticIndicesServiceResponsePrices")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamExoticIndicesServiceResponsePrices, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamExoticIndicesServiceResponsePrices, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut index_value__ = None;
                 let mut divisor__ = None;
                 let mut pairs__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IndexValue => {
                             if index_value__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("indexValue"));
                             }
                             index_value__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Divisor => {
@@ -5495,14 +5485,14 @@ impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponsePrices {
                                 return Err(serde::de::Error::duplicate_field("divisor"));
                             }
                             divisor__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Pairs => {
                             if pairs__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pairs"));
                             }
-                            pairs__ = Some(map.next_value()?);
+                            pairs__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -5550,8 +5540,8 @@ impl serde::Serialize for StreamExoticIndicesServiceResponseV1 {
         }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamExoticIndicesServiceResponseV1", len)?;
         if self.commodity != 0 {
-            let v = StreamIndexCommodity::from_i32(self.commodity)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
+            let v = StreamIndexCommodity::try_from(self.commodity)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
             struct_ser.serialize_field("commodity", &v)?;
         }
         if !self.index_code.is_empty() {
@@ -5653,7 +5643,7 @@ impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponseV1 {
                 formatter.write_str("struct kaikosdk.StreamExoticIndicesServiceResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamExoticIndicesServiceResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamExoticIndicesServiceResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -5665,55 +5655,55 @@ impl<'de> serde::Deserialize<'de> for StreamExoticIndicesServiceResponseV1 {
                 let mut price__ = None;
                 let mut ts_event__ = None;
                 let mut ts_compute__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Commodity => {
                             if commodity__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodity"));
                             }
-                            commodity__ = Some(map.next_value::<StreamIndexCommodity>()? as i32);
+                            commodity__ = Some(map_.next_value::<StreamIndexCommodity>()? as i32);
                         }
                         GeneratedField::IndexCode => {
                             if index_code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("indexCode"));
                             }
-                            index_code__ = Some(map.next_value()?);
+                            index_code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Interval => {
                             if interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interval"));
                             }
-                            interval__ = map.next_value()?;
+                            interval__ = map_.next_value()?;
                         }
                         GeneratedField::MainQuote => {
                             if main_quote__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("mainQuote"));
                             }
-                            main_quote__ = Some(map.next_value()?);
+                            main_quote__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Compositions => {
                             if compositions__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("compositions"));
                             }
-                            compositions__ = Some(map.next_value()?);
+                            compositions__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
-                            price__ = map.next_value()?;
+                            price__ = map_.next_value()?;
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                         GeneratedField::TsCompute => {
                             if ts_compute__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsCompute"));
                             }
-                            ts_compute__ = map.next_value()?;
+                            ts_compute__ = map_.next_value()?;
                         }
                     }
                 }
@@ -5819,34 +5809,34 @@ impl<'de> serde::Deserialize<'de> for StreamForexIndexDetail {
                 formatter.write_str("struct kaikosdk.StreamForexIndexDetail")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamForexIndexDetail, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamForexIndexDetail, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
                 let mut price__ = None;
                 let mut ts_event__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = Some(map.next_value()?);
+                            name__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
                             price__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                     }
                 }
@@ -5938,25 +5928,25 @@ impl<'de> serde::Deserialize<'de> for StreamForexIndexPublic {
                 formatter.write_str("struct kaikosdk.StreamForexIndexPublic")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamForexIndexPublic, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamForexIndexPublic, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
                 let mut ts_event__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = Some(map.next_value()?);
+                            name__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6046,25 +6036,25 @@ impl<'de> serde::Deserialize<'de> for StreamForexIndexServiceResponseDetail {
                 formatter.write_str("struct kaikosdk.StreamForexIndexServiceResponseDetail")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamForexIndexServiceResponseDetail, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamForexIndexServiceResponseDetail, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut underlying__ = None;
                 let mut fxrate__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Underlying => {
                             if underlying__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("underlying"));
                             }
-                            underlying__ = map.next_value()?;
+                            underlying__ = map_.next_value()?;
                         }
                         GeneratedField::Fxrate => {
                             if fxrate__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fxrate"));
                             }
-                            fxrate__ = map.next_value()?;
+                            fxrate__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6154,25 +6144,25 @@ impl<'de> serde::Deserialize<'de> for StreamForexIndexServiceResponsePublic {
                 formatter.write_str("struct kaikosdk.StreamForexIndexServiceResponsePublic")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamForexIndexServiceResponsePublic, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamForexIndexServiceResponsePublic, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut underlying__ = None;
                 let mut fxrate__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Underlying => {
                             if underlying__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("underlying"));
                             }
-                            underlying__ = map.next_value()?;
+                            underlying__ = map_.next_value()?;
                         }
                         GeneratedField::Fxrate => {
                             if fxrate__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fxrate"));
                             }
-                            fxrate__ = map.next_value()?;
+                            fxrate__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6224,10 +6214,9 @@ impl<'de> serde::Deserialize<'de> for StreamIndexCommodity {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(StreamIndexCommodity::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -6237,10 +6226,9 @@ impl<'de> serde::Deserialize<'de> for StreamIndexCommodity {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(StreamIndexCommodity::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -6339,25 +6327,25 @@ impl<'de> serde::Deserialize<'de> for StreamIndexForexRateServiceRequestV1 {
                 formatter.write_str("struct kaikosdk.StreamIndexForexRateServiceRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexForexRateServiceRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexForexRateServiceRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut index_code__ = None;
                 let mut interval__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IndexCode => {
                             if index_code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("indexCode"));
                             }
-                            index_code__ = Some(map.next_value()?);
+                            index_code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Interval => {
                             if interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interval"));
                             }
-                            interval__ = map.next_value()?;
+                            interval__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6404,8 +6392,8 @@ impl serde::Serialize for StreamIndexForexRateServiceResponseV1 {
             struct_ser.serialize_field("indexCode", &self.index_code)?;
         }
         if self.commodity != 0 {
-            let v = StreamIndexCommodity::from_i32(self.commodity)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
+            let v = StreamIndexCommodity::try_from(self.commodity)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
             struct_ser.serialize_field("commodity", &v)?;
         }
         if let Some(v) = self.interval.as_ref() {
@@ -6496,7 +6484,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexForexRateServiceResponseV1 {
                 formatter.write_str("struct kaikosdk.StreamIndexForexRateServiceResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexForexRateServiceResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexForexRateServiceResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -6507,51 +6495,51 @@ impl<'de> serde::Deserialize<'de> for StreamIndexForexRateServiceResponseV1 {
                 let mut price__ = None;
                 let mut ts_event__ = None;
                 let mut detail__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IndexCode => {
                             if index_code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("indexCode"));
                             }
-                            index_code__ = Some(map.next_value()?);
+                            index_code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Commodity => {
                             if commodity__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodity"));
                             }
-                            commodity__ = Some(map.next_value::<StreamIndexCommodity>()? as i32);
+                            commodity__ = Some(map_.next_value::<StreamIndexCommodity>()? as i32);
                         }
                         GeneratedField::Interval => {
                             if interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interval"));
                             }
-                            interval__ = map.next_value()?;
+                            interval__ = map_.next_value()?;
                         }
                         GeneratedField::Composition => {
                             if composition__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("composition"));
                             }
-                            composition__ = map.next_value()?;
+                            composition__ = map_.next_value()?;
                         }
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
                             price__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                         GeneratedField::Detail => {
                             if detail__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("detail"));
                             }
-                            detail__ = map.next_value()?;
+                            detail__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6592,9 +6580,9 @@ impl serde::Serialize for StreamIndexMultiAssetsServiceRequestV1 {
         }
         if !self.commodities.is_empty() {
             let v = self.commodities.iter().cloned().map(|v| {
-                StreamIndexCommodity::from_i32(v)
-                    .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", v)))
-                }).collect::<Result<Vec<_>, _>>()?;
+                StreamIndexCommodity::try_from(v)
+                    .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", v)))
+                }).collect::<std::result::Result<Vec<_>, _>>()?;
             struct_ser.serialize_field("commodities", &v)?;
         }
         if let Some(v) = self.interval.as_ref() {
@@ -6660,32 +6648,32 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceRequestV1 {
                 formatter.write_str("struct kaikosdk.StreamIndexMultiAssetsServiceRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexMultiAssetsServiceRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexMultiAssetsServiceRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut index_code__ = None;
                 let mut commodities__ = None;
                 let mut interval__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IndexCode => {
                             if index_code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("indexCode"));
                             }
-                            index_code__ = Some(map.next_value()?);
+                            index_code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Commodities => {
                             if commodities__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodities"));
                             }
-                            commodities__ = Some(map.next_value::<Vec<StreamIndexCommodity>>()?.into_iter().map(|x| x as i32).collect());
+                            commodities__ = Some(map_.next_value::<Vec<StreamIndexCommodity>>()?.into_iter().map(|x| x as i32).collect());
                         }
                         GeneratedField::Interval => {
                             if interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interval"));
                             }
-                            interval__ = map.next_value()?;
+                            interval__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6825,7 +6813,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseCompo
                 formatter.write_str("struct kaikosdk.StreamIndexMultiAssetsServiceResponseComposition")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexMultiAssetsServiceResponseComposition, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexMultiAssetsServiceResponseComposition, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -6836,49 +6824,49 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseCompo
                 let mut instrument_interval__ = None;
                 let mut currency_conversion__ = None;
                 let mut ts_event__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::UnderlyingInstrument => {
                             if underlying_instrument__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("underlyingInstrument"));
                             }
-                            underlying_instrument__ = Some(map.next_value()?);
+                            underlying_instrument__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Base => {
                             if base__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("base"));
                             }
-                            base__ = Some(map.next_value()?);
+                            base__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Quote => {
                             if quote__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("quote"));
                             }
-                            quote__ = Some(map.next_value()?);
+                            quote__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Exchanges => {
                             if exchanges__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchanges"));
                             }
-                            exchanges__ = Some(map.next_value()?);
+                            exchanges__ = Some(map_.next_value()?);
                         }
                         GeneratedField::InstrumentInterval => {
                             if instrument_interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instrumentInterval"));
                             }
-                            instrument_interval__ = map.next_value()?;
+                            instrument_interval__ = map_.next_value()?;
                         }
                         GeneratedField::CurrencyConversion => {
                             if currency_conversion__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("currencyConversion"));
                             }
-                            currency_conversion__ = Some(map.next_value()?);
+                            currency_conversion__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                     }
                 }
@@ -7005,7 +6993,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponsePair 
                 formatter.write_str("struct kaikosdk.StreamIndexMultiAssetsServiceResponsePair")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexMultiAssetsServiceResponsePair, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexMultiAssetsServiceResponsePair, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -7014,26 +7002,26 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponsePair 
                 let mut weighting_factor__ = None;
                 let mut capping_factor__ = None;
                 let mut currency_conversion_factor__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::UnderlyingInstrument => {
                             if underlying_instrument__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("underlyingInstrument"));
                             }
-                            underlying_instrument__ = Some(map.next_value()?);
+                            underlying_instrument__ = Some(map_.next_value()?);
                         }
                         GeneratedField::UnderlyingPrice => {
                             if underlying_price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("underlyingPrice"));
                             }
-                            underlying_price__ = map.next_value()?;
+                            underlying_price__ = map_.next_value()?;
                         }
                         GeneratedField::WeightingFactor => {
                             if weighting_factor__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("weightingFactor"));
                             }
                             weighting_factor__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::CappingFactor => {
@@ -7041,7 +7029,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponsePair 
                                 return Err(serde::de::Error::duplicate_field("cappingFactor"));
                             }
                             capping_factor__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::CurrencyConversionFactor => {
@@ -7049,7 +7037,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponsePair 
                                 return Err(serde::de::Error::duplicate_field("currencyConversionFactor"));
                             }
                             currency_conversion_factor__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -7153,21 +7141,21 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponsePrice
                 formatter.write_str("struct kaikosdk.StreamIndexMultiAssetsServiceResponsePrices")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexMultiAssetsServiceResponsePrices, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexMultiAssetsServiceResponsePrices, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut index_value__ = None;
                 let mut divisor__ = None;
                 let mut pairs__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IndexValue => {
                             if index_value__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("indexValue"));
                             }
                             index_value__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Divisor => {
@@ -7175,14 +7163,14 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponsePrice
                                 return Err(serde::de::Error::duplicate_field("divisor"));
                             }
                             divisor__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Pairs => {
                             if pairs__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pairs"));
                             }
-                            pairs__ = Some(map.next_value()?);
+                            pairs__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -7230,8 +7218,8 @@ impl serde::Serialize for StreamIndexMultiAssetsServiceResponseV1 {
         }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamIndexMultiAssetsServiceResponseV1", len)?;
         if self.commodity != 0 {
-            let v = StreamIndexCommodity::from_i32(self.commodity)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
+            let v = StreamIndexCommodity::try_from(self.commodity)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
             struct_ser.serialize_field("commodity", &v)?;
         }
         if !self.index_code.is_empty() {
@@ -7333,7 +7321,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
                 formatter.write_str("struct kaikosdk.StreamIndexMultiAssetsServiceResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexMultiAssetsServiceResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexMultiAssetsServiceResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -7345,55 +7333,55 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
                 let mut price__ = None;
                 let mut ts_event__ = None;
                 let mut ts_compute__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Commodity => {
                             if commodity__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodity"));
                             }
-                            commodity__ = Some(map.next_value::<StreamIndexCommodity>()? as i32);
+                            commodity__ = Some(map_.next_value::<StreamIndexCommodity>()? as i32);
                         }
                         GeneratedField::IndexCode => {
                             if index_code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("indexCode"));
                             }
-                            index_code__ = Some(map.next_value()?);
+                            index_code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Interval => {
                             if interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interval"));
                             }
-                            interval__ = map.next_value()?;
+                            interval__ = map_.next_value()?;
                         }
                         GeneratedField::MainQuote => {
                             if main_quote__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("mainQuote"));
                             }
-                            main_quote__ = Some(map.next_value()?);
+                            main_quote__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Compositions => {
                             if compositions__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("compositions"));
                             }
-                            compositions__ = Some(map.next_value()?);
+                            compositions__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
-                            price__ = map.next_value()?;
+                            price__ = map_.next_value()?;
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                         GeneratedField::TsCompute => {
                             if ts_compute__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsCompute"));
                             }
-                            ts_compute__ = map.next_value()?;
+                            ts_compute__ = map_.next_value()?;
                         }
                     }
                 }
@@ -7435,9 +7423,9 @@ impl serde::Serialize for StreamIndexServiceRequestV1 {
         }
         if !self.commodities.is_empty() {
             let v = self.commodities.iter().cloned().map(|v| {
-                StreamIndexCommodity::from_i32(v)
-                    .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", v)))
-                }).collect::<Result<Vec<_>, _>>()?;
+                StreamIndexCommodity::try_from(v)
+                    .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", v)))
+                }).collect::<std::result::Result<Vec<_>, _>>()?;
             struct_ser.serialize_field("commodities", &v)?;
         }
         if let Some(v) = self.interval.as_ref() {
@@ -7503,32 +7491,32 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceRequestV1 {
                 formatter.write_str("struct kaikosdk.StreamIndexServiceRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexServiceRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexServiceRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut index_code__ = None;
                 let mut commodities__ = None;
                 let mut interval__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IndexCode => {
                             if index_code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("indexCode"));
                             }
-                            index_code__ = Some(map.next_value()?);
+                            index_code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Commodities => {
                             if commodities__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodities"));
                             }
-                            commodities__ = Some(map.next_value::<Vec<StreamIndexCommodity>>()?.into_iter().map(|x| x as i32).collect());
+                            commodities__ = Some(map_.next_value::<Vec<StreamIndexCommodity>>()?.into_iter().map(|x| x as i32).collect());
                         }
                         GeneratedField::Interval => {
                             if interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interval"));
                             }
-                            interval__ = map.next_value()?;
+                            interval__ = map_.next_value()?;
                         }
                     }
                 }
@@ -7619,26 +7607,26 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseBaseAsset {
                 formatter.write_str("struct kaikosdk.StreamIndexServiceResponseBaseAsset")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexServiceResponseBaseAsset, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexServiceResponseBaseAsset, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut asset__ = None;
                 let mut weight__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Asset => {
                             if asset__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("asset"));
                             }
-                            asset__ = Some(map.next_value()?);
+                            asset__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Weight => {
                             if weight__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("weight"));
                             }
                             weight__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -7686,6 +7674,8 @@ impl serde::Serialize for StreamIndexServiceResponseInstruments {
             struct_ser.serialize_field("volume", &self.volume)?;
         }
         if self.count != 0 {
+            #[allow(clippy::needless_borrow)]
+            #[allow(clippy::needless_borrows_for_generic_args)]
             struct_ser.serialize_field("count", ToString::to_string(&self.count).as_str())?;
         }
         if let Some(v) = self.underlying_trade.as_ref() {
@@ -7757,7 +7747,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseInstruments {
                 formatter.write_str("struct kaikosdk.StreamIndexServiceResponseInstruments")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexServiceResponseInstruments, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexServiceResponseInstruments, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -7766,20 +7756,20 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseInstruments {
                 let mut volume__ = None;
                 let mut count__ = None;
                 let mut underlying_trade__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Partition => {
                             if partition__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("partition"));
                             }
-                            partition__ = Some(map.next_value()?);
+                            partition__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
                             price__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Volume => {
@@ -7787,7 +7777,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseInstruments {
                                 return Err(serde::de::Error::duplicate_field("volume"));
                             }
                             volume__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Count => {
@@ -7795,14 +7785,14 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseInstruments {
                                 return Err(serde::de::Error::duplicate_field("count"));
                             }
                             count__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::UnderlyingTrade => {
                             if underlying_trade__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("underlyingTrade"));
                             }
-                            underlying_trade__ = map.next_value()?;
+                            underlying_trade__ = map_.next_value()?;
                         }
                     }
                 }
@@ -7904,34 +7894,34 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponsePairs {
                 formatter.write_str("struct kaikosdk.StreamIndexServiceResponsePairs")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexServiceResponsePairs, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexServiceResponsePairs, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut pair__ = None;
                 let mut weight__ = None;
                 let mut instruments__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Pair => {
                             if pair__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pair"));
                             }
-                            pair__ = Some(map.next_value()?);
+                            pair__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Weight => {
                             if weight__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("weight"));
                             }
                             weight__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Instruments => {
                             if instruments__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instruments"));
                             }
-                            instruments__ = Some(map.next_value()?);
+                            instruments__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -8031,21 +8021,21 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponsePercentage {
                 formatter.write_str("struct kaikosdk.StreamIndexServiceResponsePercentage")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexServiceResponsePercentage, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexServiceResponsePercentage, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut percentage__ = None;
                 let mut price__ = None;
                 let mut pairs__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Percentage => {
                             if percentage__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("percentage"));
                             }
                             percentage__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Price => {
@@ -8053,14 +8043,14 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponsePercentage {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
                             price__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Pairs => {
                             if pairs__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pairs"));
                             }
-                            pairs__ = Some(map.next_value()?);
+                            pairs__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -8117,8 +8107,8 @@ impl serde::Serialize for StreamIndexServiceResponseV1 {
             struct_ser.serialize_field("indexCode", &self.index_code)?;
         }
         if self.commodity != 0 {
-            let v = StreamIndexCommodity::from_i32(self.commodity)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
+            let v = StreamIndexCommodity::try_from(self.commodity)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
             struct_ser.serialize_field("commodity", &v)?;
         }
         if let Some(v) = self.interval.as_ref() {
@@ -8229,7 +8219,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                 formatter.write_str("struct kaikosdk.StreamIndexServiceResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexServiceResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexServiceResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -8243,67 +8233,67 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                 let mut ts_event__ = None;
                 let mut sequence_id__ = None;
                 let mut last_ingest_time__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IndexCode => {
                             if index_code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("indexCode"));
                             }
-                            index_code__ = Some(map.next_value()?);
+                            index_code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Commodity => {
                             if commodity__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodity"));
                             }
-                            commodity__ = Some(map.next_value::<StreamIndexCommodity>()? as i32);
+                            commodity__ = Some(map_.next_value::<StreamIndexCommodity>()? as i32);
                         }
                         GeneratedField::Interval => {
                             if interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interval"));
                             }
-                            interval__ = map.next_value()?;
+                            interval__ = map_.next_value()?;
                         }
                         GeneratedField::Quote => {
                             if quote__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("quote"));
                             }
-                            quote__ = Some(map.next_value()?);
+                            quote__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Bases => {
                             if bases__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("bases"));
                             }
-                            bases__ = Some(map.next_value()?);
+                            bases__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Exchanges => {
                             if exchanges__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchanges"));
                             }
-                            exchanges__ = Some(map.next_value()?);
+                            exchanges__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Percentages => {
                             if percentages__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("percentages"));
                             }
-                            percentages__ = Some(map.next_value()?);
+                            percentages__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                         GeneratedField::SequenceId => {
                             if sequence_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequenceId"));
                             }
-                            sequence_id__ = Some(map.next_value()?);
+                            sequence_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::LastIngestTime => {
                             if last_ingest_time__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("lastIngestTime"));
                             }
-                            last_ingest_time__ = map.next_value()?;
+                            last_ingest_time__ = map_.next_value()?;
                         }
                     }
                 }
@@ -8419,7 +8409,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceUnderlyingTrade {
                 formatter.write_str("struct kaikosdk.StreamIndexServiceUnderlyingTrade")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIndexServiceUnderlyingTrade, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIndexServiceUnderlyingTrade, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -8427,33 +8417,33 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceUnderlyingTrade {
                 let mut exchange__ = None;
                 let mut id__ = None;
                 let mut datetime__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Volume => {
                             if volume__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("volume"));
                             }
                             volume__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Exchange => {
                             if exchange__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchange"));
                             }
-                            exchange__ = Some(map.next_value()?);
+                            exchange__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Id => {
                             if id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("id"));
                             }
-                            id__ = Some(map.next_value()?);
+                            id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Datetime => {
                             if datetime__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("datetime"));
                             }
-                            datetime__ = map.next_value()?;
+                            datetime__ = map_.next_value()?;
                         }
                     }
                 }
@@ -8545,25 +8535,25 @@ impl<'de> serde::Deserialize<'de> for StreamIvSviParametersRequestV1 {
                 formatter.write_str("struct kaikosdk.StreamIvSviParametersRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIvSviParametersRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIvSviParametersRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut assets__ = None;
                 let mut exchanges__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Assets => {
                             if assets__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("assets"));
                             }
-                            assets__ = map.next_value()?;
+                            assets__ = map_.next_value()?;
                         }
                         GeneratedField::Exchanges => {
                             if exchanges__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchanges"));
                             }
-                            exchanges__ = Some(map.next_value()?);
+                            exchanges__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -8781,7 +8771,7 @@ impl<'de> serde::Deserialize<'de> for StreamIvSviParametersResponseV1 {
                 formatter.write_str("struct kaikosdk.StreamIvSviParametersResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamIvSviParametersResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamIvSviParametersResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -8800,97 +8790,97 @@ impl<'de> serde::Deserialize<'de> for StreamIvSviParametersResponseV1 {
                 let mut current_spot__ = None;
                 let mut interest_rate__ = None;
                 let mut ts_event__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::DataStartTime => {
                             if data_start_time__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("dataStartTime"));
                             }
-                            data_start_time__ = map.next_value()?;
+                            data_start_time__ = map_.next_value()?;
                         }
                         GeneratedField::DataEndTime => {
                             if data_end_time__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("dataEndTime"));
                             }
-                            data_end_time__ = map.next_value()?;
+                            data_end_time__ = map_.next_value()?;
                         }
                         GeneratedField::Expiry => {
                             if expiry__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("expiry"));
                             }
-                            expiry__ = map.next_value()?;
+                            expiry__ = map_.next_value()?;
                         }
                         GeneratedField::Exchanges => {
                             if exchanges__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchanges"));
                             }
-                            exchanges__ = Some(map.next_value()?);
+                            exchanges__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Base => {
                             if base__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("base"));
                             }
-                            base__ = Some(map.next_value()?);
+                            base__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Quote => {
                             if quote__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("quote"));
                             }
-                            quote__ = Some(map.next_value()?);
+                            quote__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TimeToExpiry => {
                             if time_to_expiry__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timeToExpiry"));
                             }
-                            time_to_expiry__ = Some(map.next_value()?);
+                            time_to_expiry__ = Some(map_.next_value()?);
                         }
                         GeneratedField::AtmImpliedVariance => {
                             if atm_implied_variance__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("atmImpliedVariance"));
                             }
-                            atm_implied_variance__ = Some(map.next_value()?);
+                            atm_implied_variance__ = Some(map_.next_value()?);
                         }
                         GeneratedField::AtmSkew => {
                             if atm_skew__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("atmSkew"));
                             }
-                            atm_skew__ = Some(map.next_value()?);
+                            atm_skew__ = Some(map_.next_value()?);
                         }
                         GeneratedField::LeftSlope => {
                             if left_slope__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("leftSlope"));
                             }
-                            left_slope__ = Some(map.next_value()?);
+                            left_slope__ = Some(map_.next_value()?);
                         }
                         GeneratedField::RightSlope => {
                             if right_slope__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("rightSlope"));
                             }
-                            right_slope__ = Some(map.next_value()?);
+                            right_slope__ = Some(map_.next_value()?);
                         }
                         GeneratedField::MinImpliedVariance => {
                             if min_implied_variance__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("minImpliedVariance"));
                             }
-                            min_implied_variance__ = Some(map.next_value()?);
+                            min_implied_variance__ = Some(map_.next_value()?);
                         }
                         GeneratedField::CurrentSpot => {
                             if current_spot__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("currentSpot"));
                             }
-                            current_spot__ = Some(map.next_value()?);
+                            current_spot__ = Some(map_.next_value()?);
                         }
                         GeneratedField::InterestRate => {
                             if interest_rate__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interestRate"));
                             }
-                            interest_rate__ = Some(map.next_value()?);
+                            interest_rate__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                     }
                 }
@@ -8957,10 +8947,9 @@ impl<'de> serde::Deserialize<'de> for StreamMarketUpdateCommodity {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(StreamMarketUpdateCommodity::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -8970,10 +8959,9 @@ impl<'de> serde::Deserialize<'de> for StreamMarketUpdateCommodity {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(StreamMarketUpdateCommodity::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -9021,17 +9009,17 @@ impl serde::Serialize for StreamMarketUpdateRequestV1 {
         }
         if !self.commodities.is_empty() {
             let v = self.commodities.iter().cloned().map(|v| {
-                StreamMarketUpdateCommodity::from_i32(v)
-                    .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", v)))
-                }).collect::<Result<Vec<_>, _>>()?;
+                StreamMarketUpdateCommodity::try_from(v)
+                    .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", v)))
+                }).collect::<std::result::Result<Vec<_>, _>>()?;
             struct_ser.serialize_field("commodities", &v)?;
         }
         if let Some(v) = self.interval.as_ref() {
             struct_ser.serialize_field("interval", v)?;
         }
         if self.snapshot_type != 0 {
-            let v = stream_market_update_request_v1::OrderbookSnapshotType::from_i32(self.snapshot_type)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.snapshot_type)))?;
+            let v = stream_market_update_request_v1::OrderbookSnapshotType::try_from(self.snapshot_type)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.snapshot_type)))?;
             struct_ser.serialize_field("snapshotType", &v)?;
         }
         struct_ser.end()
@@ -9098,7 +9086,7 @@ impl<'de> serde::Deserialize<'de> for StreamMarketUpdateRequestV1 {
                 formatter.write_str("struct kaikosdk.StreamMarketUpdateRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamMarketUpdateRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamMarketUpdateRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -9106,31 +9094,31 @@ impl<'de> serde::Deserialize<'de> for StreamMarketUpdateRequestV1 {
                 let mut commodities__ = None;
                 let mut interval__ = None;
                 let mut snapshot_type__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::InstrumentCriteria => {
                             if instrument_criteria__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instrumentCriteria"));
                             }
-                            instrument_criteria__ = map.next_value()?;
+                            instrument_criteria__ = map_.next_value()?;
                         }
                         GeneratedField::Commodities => {
                             if commodities__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodities"));
                             }
-                            commodities__ = Some(map.next_value::<Vec<StreamMarketUpdateCommodity>>()?.into_iter().map(|x| x as i32).collect());
+                            commodities__ = Some(map_.next_value::<Vec<StreamMarketUpdateCommodity>>()?.into_iter().map(|x| x as i32).collect());
                         }
                         GeneratedField::Interval => {
                             if interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interval"));
                             }
-                            interval__ = map.next_value()?;
+                            interval__ = map_.next_value()?;
                         }
                         GeneratedField::SnapshotType => {
                             if snapshot_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("snapshotType"));
                             }
-                            snapshot_type__ = Some(map.next_value::<stream_market_update_request_v1::OrderbookSnapshotType>()? as i32);
+                            snapshot_type__ = Some(map_.next_value::<stream_market_update_request_v1::OrderbookSnapshotType>()? as i32);
                         }
                     }
                 }
@@ -9184,10 +9172,9 @@ impl<'de> serde::Deserialize<'de> for stream_market_update_request_v1::Orderbook
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(stream_market_update_request_v1::OrderbookSnapshotType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -9197,10 +9184,9 @@ impl<'de> serde::Deserialize<'de> for stream_market_update_request_v1::Orderbook
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(stream_market_update_request_v1::OrderbookSnapshotType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -9273,8 +9259,8 @@ impl serde::Serialize for StreamMarketUpdateResponseV1 {
         }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamMarketUpdateResponseV1", len)?;
         if self.commodity != 0 {
-            let v = StreamMarketUpdateCommodity::from_i32(self.commodity)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
+            let v = StreamMarketUpdateCommodity::try_from(self.commodity)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.commodity)))?;
             struct_ser.serialize_field("commodity", &v)?;
         }
         if self.amount != 0. {
@@ -9308,8 +9294,8 @@ impl serde::Serialize for StreamMarketUpdateResponseV1 {
             struct_ser.serialize_field("tsEvent", v)?;
         }
         if self.update_type != 0 {
-            let v = stream_market_update_response_v1::StreamMarketUpdateType::from_i32(self.update_type)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.update_type)))?;
+            let v = stream_market_update_response_v1::StreamMarketUpdateType::try_from(self.update_type)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.update_type)))?;
             struct_ser.serialize_field("updateType", &v)?;
         }
         if let Some(v) = self.snapshot.as_ref() {
@@ -9416,7 +9402,7 @@ impl<'de> serde::Deserialize<'de> for StreamMarketUpdateResponseV1 {
                 formatter.write_str("struct kaikosdk.StreamMarketUpdateResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamMarketUpdateResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamMarketUpdateResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -9434,96 +9420,96 @@ impl<'de> serde::Deserialize<'de> for StreamMarketUpdateResponseV1 {
                 let mut update_type__ = None;
                 let mut snapshot__ = None;
                 let mut additional_properties__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Commodity => {
                             if commodity__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commodity"));
                             }
-                            commodity__ = Some(map.next_value::<StreamMarketUpdateCommodity>()? as i32);
+                            commodity__ = Some(map_.next_value::<StreamMarketUpdateCommodity>()? as i32);
                         }
                         GeneratedField::Amount => {
                             if amount__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("amount"));
                             }
                             amount__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Class => {
                             if class__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("class"));
                             }
-                            class__ = Some(map.next_value()?);
+                            class__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Code => {
                             if code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("code"));
                             }
-                            code__ = Some(map.next_value()?);
+                            code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Exchange => {
                             if exchange__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchange"));
                             }
-                            exchange__ = Some(map.next_value()?);
+                            exchange__ = Some(map_.next_value()?);
                         }
                         GeneratedField::SequenceId => {
                             if sequence_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequenceId"));
                             }
-                            sequence_id__ = Some(map.next_value()?);
+                            sequence_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Id => {
                             if id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("id"));
                             }
-                            id__ = Some(map.next_value()?);
+                            id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
                             price__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::TsExchange => {
                             if ts_exchange__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsExchange"));
                             }
-                            ts_exchange__ = map.next_value()?;
+                            ts_exchange__ = map_.next_value()?;
                         }
                         GeneratedField::TsCollection => {
                             if ts_collection__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsCollection"));
                             }
-                            ts_collection__ = map.next_value()?;
+                            ts_collection__ = map_.next_value()?;
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                         GeneratedField::UpdateType => {
                             if update_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("updateType"));
                             }
-                            update_type__ = Some(map.next_value::<stream_market_update_response_v1::StreamMarketUpdateType>()? as i32);
+                            update_type__ = Some(map_.next_value::<stream_market_update_response_v1::StreamMarketUpdateType>()? as i32);
                         }
                         GeneratedField::Snapshot => {
                             if snapshot__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("snapshot"));
                             }
-                            snapshot__ = map.next_value()?;
+                            snapshot__ = map_.next_value()?;
                         }
                         GeneratedField::AdditionalProperties => {
                             if additional_properties__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("additionalProperties"));
                             }
                             additional_properties__ = Some(
-                                map.next_value::<std::collections::HashMap<_, _>>()?
+                                map_.next_value::<std::collections::HashMap<_, _>>()?
                             );
                         }
                     }
@@ -9626,25 +9612,25 @@ impl<'de> serde::Deserialize<'de> for stream_market_update_response_v1::Snapshot
                 formatter.write_str("struct kaikosdk.StreamMarketUpdateResponseV1.Snapshot")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<stream_market_update_response_v1::Snapshot, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<stream_market_update_response_v1::Snapshot, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut asks__ = None;
                 let mut bids__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Asks => {
                             if asks__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("asks"));
                             }
-                            asks__ = Some(map.next_value()?);
+                            asks__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Bids => {
                             if bids__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("bids"));
                             }
-                            bids__ = Some(map.next_value()?);
+                            bids__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -9734,20 +9720,20 @@ impl<'de> serde::Deserialize<'de> for stream_market_update_response_v1::snapshot
                 formatter.write_str("struct kaikosdk.StreamMarketUpdateResponseV1.Snapshot.Order")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<stream_market_update_response_v1::snapshot::Order, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<stream_market_update_response_v1::snapshot::Order, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut amount__ = None;
                 let mut price__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Amount => {
                             if amount__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("amount"));
                             }
                             amount__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Price => {
@@ -9755,7 +9741,7 @@ impl<'de> serde::Deserialize<'de> for stream_market_update_response_v1::snapshot
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
                             price__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -9822,10 +9808,9 @@ impl<'de> serde::Deserialize<'de> for stream_market_update_response_v1::StreamMa
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(stream_market_update_response_v1::StreamMarketUpdateType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -9835,10 +9820,9 @@ impl<'de> serde::Deserialize<'de> for stream_market_update_response_v1::StreamMa
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(stream_market_update_response_v1::StreamMarketUpdateType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -9944,25 +9928,25 @@ impl<'de> serde::Deserialize<'de> for StreamOrderBookL2ReplayRequestV1 {
                 formatter.write_str("struct kaikosdk.StreamOrderBookL2ReplayRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamOrderBookL2ReplayRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamOrderBookL2ReplayRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut instrument_criteria__ = None;
                 let mut interval__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::InstrumentCriteria => {
                             if instrument_criteria__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instrumentCriteria"));
                             }
-                            instrument_criteria__ = map.next_value()?;
+                            instrument_criteria__ = map_.next_value()?;
                         }
                         GeneratedField::Interval => {
                             if interval__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interval"));
                             }
-                            interval__ = map.next_value()?;
+                            interval__ = map_.next_value()?;
                         }
                     }
                 }
@@ -10044,18 +10028,18 @@ impl<'de> serde::Deserialize<'de> for StreamOrderBookL2RequestV1 {
                 formatter.write_str("struct kaikosdk.StreamOrderBookL2RequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamOrderBookL2RequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamOrderBookL2RequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut instrument_criteria__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::InstrumentCriteria => {
                             if instrument_criteria__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instrumentCriteria"));
                             }
-                            instrument_criteria__ = map.next_value()?;
+                            instrument_criteria__ = map_.next_value()?;
                         }
                     }
                 }
@@ -10122,8 +10106,8 @@ impl serde::Serialize for StreamOrderBookL2ResponseV1 {
             struct_ser.serialize_field("sequenceId", &self.sequence_id)?;
         }
         if self.update_type != 0 {
-            let v = StreamOrderBookL2UpdateType::from_i32(self.update_type)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.update_type)))?;
+            let v = StreamOrderBookL2UpdateType::try_from(self.update_type)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.update_type)))?;
             struct_ser.serialize_field("updateType", &v)?;
         }
         if !self.asks.is_empty() {
@@ -10233,7 +10217,7 @@ impl<'de> serde::Deserialize<'de> for StreamOrderBookL2ResponseV1 {
                 formatter.write_str("struct kaikosdk.StreamOrderBookL2ResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamOrderBookL2ResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamOrderBookL2ResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -10248,74 +10232,74 @@ impl<'de> serde::Deserialize<'de> for StreamOrderBookL2ResponseV1 {
                 let mut ts_collection__ = None;
                 let mut ts_event__ = None;
                 let mut additional_properties__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Class => {
                             if class__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("class"));
                             }
-                            class__ = Some(map.next_value()?);
+                            class__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Code => {
                             if code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("code"));
                             }
-                            code__ = Some(map.next_value()?);
+                            code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Exchange => {
                             if exchange__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchange"));
                             }
-                            exchange__ = Some(map.next_value()?);
+                            exchange__ = Some(map_.next_value()?);
                         }
                         GeneratedField::SequenceId => {
                             if sequence_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequenceId"));
                             }
-                            sequence_id__ = Some(map.next_value()?);
+                            sequence_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::UpdateType => {
                             if update_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("updateType"));
                             }
-                            update_type__ = Some(map.next_value::<StreamOrderBookL2UpdateType>()? as i32);
+                            update_type__ = Some(map_.next_value::<StreamOrderBookL2UpdateType>()? as i32);
                         }
                         GeneratedField::Asks => {
                             if asks__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("asks"));
                             }
-                            asks__ = Some(map.next_value()?);
+                            asks__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Bids => {
                             if bids__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("bids"));
                             }
-                            bids__ = Some(map.next_value()?);
+                            bids__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TsExchange => {
                             if ts_exchange__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsExchange"));
                             }
-                            ts_exchange__ = map.next_value()?;
+                            ts_exchange__ = map_.next_value()?;
                         }
                         GeneratedField::TsCollection => {
                             if ts_collection__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsCollection"));
                             }
-                            ts_collection__ = map.next_value()?;
+                            ts_collection__ = map_.next_value()?;
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                         GeneratedField::AdditionalProperties => {
                             if additional_properties__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("additionalProperties"));
                             }
                             additional_properties__ = Some(
-                                map.next_value::<std::collections::HashMap<_, _>>()?
+                                map_.next_value::<std::collections::HashMap<_, _>>()?
                             );
                         }
                     }
@@ -10377,10 +10361,9 @@ impl<'de> serde::Deserialize<'de> for StreamOrderBookL2UpdateType {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(StreamOrderBookL2UpdateType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -10390,10 +10373,9 @@ impl<'de> serde::Deserialize<'de> for StreamOrderBookL2UpdateType {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(StreamOrderBookL2UpdateType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -10483,18 +10465,18 @@ impl<'de> serde::Deserialize<'de> for StreamTradesRequestV1 {
                 formatter.write_str("struct kaikosdk.StreamTradesRequestV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamTradesRequestV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamTradesRequestV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut instrument_criteria__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::InstrumentCriteria => {
                             if instrument_criteria__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("instrumentCriteria"));
                             }
-                            instrument_criteria__ = map.next_value()?;
+                            instrument_criteria__ = map_.next_value()?;
                         }
                     }
                 }
@@ -10576,8 +10558,8 @@ impl serde::Serialize for StreamTradesResponseV1 {
             struct_ser.serialize_field("price", &self.price)?;
         }
         if self.side != 0 {
-            let v = stream_trades_response_v1::TradeSide::from_i32(self.side)
-                .ok_or_else(|| serde::ser::Error::custom(format!("Invalid variant {}", self.side)))?;
+            let v = stream_trades_response_v1::TradeSide::try_from(self.side)
+                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.side)))?;
             struct_ser.serialize_field("side", &v)?;
         }
         if let Some(v) = self.ts_exchange.as_ref() {
@@ -10680,7 +10662,7 @@ impl<'de> serde::Deserialize<'de> for StreamTradesResponseV1 {
                 formatter.write_str("struct kaikosdk.StreamTradesResponseV1")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<StreamTradesResponseV1, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamTradesResponseV1, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -10696,14 +10678,14 @@ impl<'de> serde::Deserialize<'de> for StreamTradesResponseV1 {
                 let mut ts_exchange__ = None;
                 let mut ts_collection__ = None;
                 let mut ts_event__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::AdditionalProperties => {
                             if additional_properties__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("additionalProperties"));
                             }
                             additional_properties__ = Some(
-                                map.next_value::<std::collections::HashMap<_, _>>()?
+                                map_.next_value::<std::collections::HashMap<_, _>>()?
                             );
                         }
                         GeneratedField::Amount => {
@@ -10711,70 +10693,70 @@ impl<'de> serde::Deserialize<'de> for StreamTradesResponseV1 {
                                 return Err(serde::de::Error::duplicate_field("amount"));
                             }
                             amount__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Class => {
                             if class__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("class"));
                             }
-                            class__ = Some(map.next_value()?);
+                            class__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Code => {
                             if code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("code"));
                             }
-                            code__ = Some(map.next_value()?);
+                            code__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Exchange => {
                             if exchange__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("exchange"));
                             }
-                            exchange__ = Some(map.next_value()?);
+                            exchange__ = Some(map_.next_value()?);
                         }
                         GeneratedField::SequenceId => {
                             if sequence_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequenceId"));
                             }
-                            sequence_id__ = Some(map.next_value()?);
+                            sequence_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Id => {
                             if id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("id"));
                             }
-                            id__ = Some(map.next_value()?);
+                            id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Price => {
                             if price__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("price"));
                             }
                             price__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Side => {
                             if side__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("side"));
                             }
-                            side__ = Some(map.next_value::<stream_trades_response_v1::TradeSide>()? as i32);
+                            side__ = Some(map_.next_value::<stream_trades_response_v1::TradeSide>()? as i32);
                         }
                         GeneratedField::TsExchange => {
                             if ts_exchange__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsExchange"));
                             }
-                            ts_exchange__ = map.next_value()?;
+                            ts_exchange__ = map_.next_value()?;
                         }
                         GeneratedField::TsCollection => {
                             if ts_collection__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsCollection"));
                             }
-                            ts_collection__ = map.next_value()?;
+                            ts_collection__ = map_.next_value()?;
                         }
                         GeneratedField::TsEvent => {
                             if ts_event__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tsEvent"));
                             }
-                            ts_event__ = map.next_value()?;
+                            ts_event__ = map_.next_value()?;
                         }
                     }
                 }
@@ -10836,10 +10818,9 @@ impl<'de> serde::Deserialize<'de> for stream_trades_response_v1::TradeSide {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(stream_trades_response_v1::TradeSide::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -10849,10 +10830,9 @@ impl<'de> serde::Deserialize<'de> for stream_trades_response_v1::TradeSide {
             where
                 E: serde::de::Error,
             {
-                use std::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(stream_trades_response_v1::TradeSide::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -10941,18 +10921,18 @@ impl<'de> serde::Deserialize<'de> for TimestampValue {
                 formatter.write_str("struct kaikosdk.TimestampValue")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<TimestampValue, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<TimestampValue, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut value__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Value => {
                             if value__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("value"));
                             }
-                            value__ = map.next_value()?;
+                            value__ = map_.next_value()?;
                         }
                     }
                 }
@@ -11052,32 +11032,32 @@ impl<'de> serde::Deserialize<'de> for Window {
                 formatter.write_str("struct kaikosdk.Window")
             }
 
-            fn visit_map<V>(self, mut map: V) -> std::result::Result<Window, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Window, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut start_time__ = None;
                 let mut end_time__ = None;
                 let mut duration__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::StartTime => {
                             if start_time__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("startTime"));
                             }
-                            start_time__ = map.next_value()?;
+                            start_time__ = map_.next_value()?;
                         }
                         GeneratedField::EndTime => {
                             if end_time__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("endTime"));
                             }
-                            end_time__ = map.next_value()?;
+                            end_time__ = map_.next_value()?;
                         }
                         GeneratedField::Duration => {
                             if duration__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("duration"));
                             }
-                            duration__ = map.next_value()?;
+                            duration__ = map_.next_value()?;
                         }
                     }
                 }
