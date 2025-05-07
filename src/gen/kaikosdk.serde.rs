@@ -2485,6 +2485,12 @@ impl serde::Serialize for StreamAggregatedStatePriceResponseV1 {
         if !self.lst_quote.is_empty() {
             len += 1;
         }
+        if !self.aggregated_market_depth_m1_usd.is_empty() {
+            len += 1;
+        }
+        if !self.aggregated_market_depth_p1_usd.is_empty() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamAggregatedStatePriceResponseV1", len)?;
         if let Some(v) = self.datetime.as_ref() {
             struct_ser.serialize_field("datetime", v)?;
@@ -2503,6 +2509,12 @@ impl serde::Serialize for StreamAggregatedStatePriceResponseV1 {
         }
         if !self.lst_quote.is_empty() {
             struct_ser.serialize_field("lstQuote", &self.lst_quote)?;
+        }
+        if !self.aggregated_market_depth_m1_usd.is_empty() {
+            struct_ser.serialize_field("aggregatedMarketDepthM1Usd", &self.aggregated_market_depth_m1_usd)?;
+        }
+        if !self.aggregated_market_depth_p1_usd.is_empty() {
+            struct_ser.serialize_field("aggregatedMarketDepthP1Usd", &self.aggregated_market_depth_p1_usd)?;
         }
         struct_ser.end()
     }
@@ -2524,6 +2536,10 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedStatePriceResponseV1 {
             "tsEvent",
             "lst_quote",
             "lstQuote",
+            "aggregated_market_depth_m1_usd",
+            "aggregatedMarketDepthM1Usd",
+            "aggregated_market_depth_p1_usd",
+            "aggregatedMarketDepthP1Usd",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -2534,6 +2550,8 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedStatePriceResponseV1 {
             AggregatedPriceLst,
             TsEvent,
             LstQuote,
+            AggregatedMarketDepthM1Usd,
+            AggregatedMarketDepthP1Usd,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -2561,6 +2579,8 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedStatePriceResponseV1 {
                             "aggregatedPriceLst" | "aggregated_price_lst" => Ok(GeneratedField::AggregatedPriceLst),
                             "tsEvent" | "ts_event" => Ok(GeneratedField::TsEvent),
                             "lstQuote" | "lst_quote" => Ok(GeneratedField::LstQuote),
+                            "aggregatedMarketDepthM1Usd" | "aggregated_market_depth_m1_usd" => Ok(GeneratedField::AggregatedMarketDepthM1Usd),
+                            "aggregatedMarketDepthP1Usd" | "aggregated_market_depth_p1_usd" => Ok(GeneratedField::AggregatedMarketDepthP1Usd),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -2586,6 +2606,8 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedStatePriceResponseV1 {
                 let mut aggregated_price_lst__ = None;
                 let mut ts_event__ = None;
                 let mut lst_quote__ = None;
+                let mut aggregated_market_depth_m1_usd__ = None;
+                let mut aggregated_market_depth_p1_usd__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Datetime => {
@@ -2624,6 +2646,18 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedStatePriceResponseV1 {
                             }
                             lst_quote__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::AggregatedMarketDepthM1Usd => {
+                            if aggregated_market_depth_m1_usd__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("aggregatedMarketDepthM1Usd"));
+                            }
+                            aggregated_market_depth_m1_usd__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::AggregatedMarketDepthP1Usd => {
+                            if aggregated_market_depth_p1_usd__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("aggregatedMarketDepthP1Usd"));
+                            }
+                            aggregated_market_depth_p1_usd__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(StreamAggregatedStatePriceResponseV1 {
@@ -2633,6 +2667,8 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatedStatePriceResponseV1 {
                     aggregated_price_lst: aggregated_price_lst__.unwrap_or_default(),
                     ts_event: ts_event__,
                     lst_quote: lst_quote__.unwrap_or_default(),
+                    aggregated_market_depth_m1_usd: aggregated_market_depth_m1_usd__.unwrap_or_default(),
+                    aggregated_market_depth_p1_usd: aggregated_market_depth_p1_usd__.unwrap_or_default(),
                 })
             }
         }
