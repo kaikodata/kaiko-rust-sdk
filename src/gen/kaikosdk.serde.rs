@@ -136,6 +136,9 @@ impl serde::Serialize for ConstantDurationFuture {
         if self.rate_quote_conversion.is_some() {
             len += 1;
         }
+        if self.forecast.is_some() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.ConstantDurationFuture", len)?;
         if self.computed_cdf != 0. {
             struct_ser.serialize_field("computedCdf", &self.computed_cdf)?;
@@ -160,6 +163,9 @@ impl serde::Serialize for ConstantDurationFuture {
         if let Some(v) = self.rate_quote_conversion.as_ref() {
             struct_ser.serialize_field("rateQuoteConversion", v)?;
         }
+        if let Some(v) = self.forecast.as_ref() {
+            struct_ser.serialize_field("forecast", v)?;
+        }
         struct_ser.end()
     }
 }
@@ -182,6 +188,7 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFuture {
             "status",
             "rate_quote_conversion",
             "rateQuoteConversion",
+            "forecast",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -193,6 +200,7 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFuture {
             ConstantDuration,
             Status,
             RateQuoteConversion,
+            Forecast,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -221,6 +229,7 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFuture {
                             "constantDuration" | "constant_duration" => Ok(GeneratedField::ConstantDuration),
                             "status" => Ok(GeneratedField::Status),
                             "rateQuoteConversion" | "rate_quote_conversion" => Ok(GeneratedField::RateQuoteConversion),
+                            "forecast" => Ok(GeneratedField::Forecast),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -247,6 +256,7 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFuture {
                 let mut constant_duration__ = None;
                 let mut status__ = None;
                 let mut rate_quote_conversion__ = None;
+                let mut forecast__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ComputedCdf => {
@@ -295,6 +305,12 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFuture {
                             }
                             rate_quote_conversion__ = map_.next_value()?;
                         }
+                        GeneratedField::Forecast => {
+                            if forecast__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("forecast"));
+                            }
+                            forecast__ = map_.next_value()?;
+                        }
                     }
                 }
                 Ok(ConstantDurationFuture {
@@ -305,6 +321,7 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFuture {
                     constant_duration: constant_duration__.unwrap_or_default(),
                     status: status__.unwrap_or_default(),
                     rate_quote_conversion: rate_quote_conversion__,
+                    forecast: forecast__,
                 })
             }
         }
@@ -472,6 +489,151 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFutureDetail {
             }
         }
         deserializer.deserialize_struct("kaikosdk.ConstantDurationFutureDetail", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for ConstantDurationFutureForecast {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.exchange.is_empty() {
+            len += 1;
+        }
+        if self.future_date.is_some() {
+            len += 1;
+        }
+        if self.front_future.is_some() {
+            len += 1;
+        }
+        if self.back_future.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.ConstantDurationFutureForecast", len)?;
+        if !self.exchange.is_empty() {
+            struct_ser.serialize_field("exchange", &self.exchange)?;
+        }
+        if let Some(v) = self.future_date.as_ref() {
+            struct_ser.serialize_field("futureDate", v)?;
+        }
+        if let Some(v) = self.front_future.as_ref() {
+            struct_ser.serialize_field("frontFuture", v)?;
+        }
+        if let Some(v) = self.back_future.as_ref() {
+            struct_ser.serialize_field("backFuture", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for ConstantDurationFutureForecast {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "exchange",
+            "future_date",
+            "futureDate",
+            "front_future",
+            "frontFuture",
+            "back_future",
+            "backFuture",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Exchange,
+            FutureDate,
+            FrontFuture,
+            BackFuture,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "exchange" => Ok(GeneratedField::Exchange),
+                            "futureDate" | "future_date" => Ok(GeneratedField::FutureDate),
+                            "frontFuture" | "front_future" => Ok(GeneratedField::FrontFuture),
+                            "backFuture" | "back_future" => Ok(GeneratedField::BackFuture),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = ConstantDurationFutureForecast;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.ConstantDurationFutureForecast")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ConstantDurationFutureForecast, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut exchange__ = None;
+                let mut future_date__ = None;
+                let mut front_future__ = None;
+                let mut back_future__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Exchange => {
+                            if exchange__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("exchange"));
+                            }
+                            exchange__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::FutureDate => {
+                            if future_date__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("futureDate"));
+                            }
+                            future_date__ = map_.next_value()?;
+                        }
+                        GeneratedField::FrontFuture => {
+                            if front_future__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("frontFuture"));
+                            }
+                            front_future__ = map_.next_value()?;
+                        }
+                        GeneratedField::BackFuture => {
+                            if back_future__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("backFuture"));
+                            }
+                            back_future__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(ConstantDurationFutureForecast {
+                    exchange: exchange__.unwrap_or_default(),
+                    future_date: future_date__,
+                    front_future: front_future__,
+                    back_future: back_future__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.ConstantDurationFutureForecast", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for ConstantDurationFutureStatus {
