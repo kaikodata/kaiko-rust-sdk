@@ -823,6 +823,134 @@ impl<'de> serde::Deserialize<'de> for DataInterval {
         deserializer.deserialize_struct("kaikosdk.DataInterval", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for FallbackInfo {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.fallback_used.is_some() {
+            len += 1;
+        }
+        if self.fallback_source.is_some() {
+            len += 1;
+        }
+        if self.fallback_timestamp.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.FallbackInfo", len)?;
+        if let Some(v) = self.fallback_used.as_ref() {
+            struct_ser.serialize_field("fallbackUsed", v)?;
+        }
+        if let Some(v) = self.fallback_source.as_ref() {
+            struct_ser.serialize_field("fallbackSource", v)?;
+        }
+        if let Some(v) = self.fallback_timestamp.as_ref() {
+            struct_ser.serialize_field("fallbackTimestamp", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for FallbackInfo {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "fallback_used",
+            "fallbackUsed",
+            "fallback_source",
+            "fallbackSource",
+            "fallback_timestamp",
+            "fallbackTimestamp",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            FallbackUsed,
+            FallbackSource,
+            FallbackTimestamp,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "fallbackUsed" | "fallback_used" => Ok(GeneratedField::FallbackUsed),
+                            "fallbackSource" | "fallback_source" => Ok(GeneratedField::FallbackSource),
+                            "fallbackTimestamp" | "fallback_timestamp" => Ok(GeneratedField::FallbackTimestamp),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = FallbackInfo;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.FallbackInfo")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<FallbackInfo, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut fallback_used__ = None;
+                let mut fallback_source__ = None;
+                let mut fallback_timestamp__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::FallbackUsed => {
+                            if fallback_used__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("fallbackUsed"));
+                            }
+                            fallback_used__ = map_.next_value()?;
+                        }
+                        GeneratedField::FallbackSource => {
+                            if fallback_source__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("fallbackSource"));
+                            }
+                            fallback_source__ = map_.next_value()?;
+                        }
+                        GeneratedField::FallbackTimestamp => {
+                            if fallback_timestamp__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("fallbackTimestamp"));
+                            }
+                            fallback_timestamp__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(FallbackInfo {
+                    fallback_used: fallback_used__,
+                    fallback_source: fallback_source__,
+                    fallback_timestamp: fallback_timestamp__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.FallbackInfo", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for InstrumentCriteria {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -8875,6 +9003,9 @@ impl serde::Serialize for StreamIndexServiceResponseV1 {
         if self.last_anomaly_ingest_time.is_some() {
             len += 1;
         }
+        if self.fallback_info.is_some() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamIndexServiceResponseV1", len)?;
         if !self.index_code.is_empty() {
             struct_ser.serialize_field("indexCode", &self.index_code)?;
@@ -8911,6 +9042,9 @@ impl serde::Serialize for StreamIndexServiceResponseV1 {
         if let Some(v) = self.last_anomaly_ingest_time.as_ref() {
             struct_ser.serialize_field("lastAnomalyIngestTime", v)?;
         }
+        if let Some(v) = self.fallback_info.as_ref() {
+            struct_ser.serialize_field("fallbackInfo", v)?;
+        }
         struct_ser.end()
     }
 }
@@ -8937,6 +9071,8 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
             "lastIngestTime",
             "last_anomaly_ingest_time",
             "lastAnomalyIngestTime",
+            "fallback_info",
+            "fallbackInfo",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -8952,6 +9088,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
             SequenceId,
             LastIngestTime,
             LastAnomalyIngestTime,
+            FallbackInfo,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -8984,6 +9121,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                             "sequenceId" | "sequence_id" => Ok(GeneratedField::SequenceId),
                             "lastIngestTime" | "last_ingest_time" => Ok(GeneratedField::LastIngestTime),
                             "lastAnomalyIngestTime" | "last_anomaly_ingest_time" => Ok(GeneratedField::LastAnomalyIngestTime),
+                            "fallbackInfo" | "fallback_info" => Ok(GeneratedField::FallbackInfo),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -9014,6 +9152,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                 let mut sequence_id__ = None;
                 let mut last_ingest_time__ = None;
                 let mut last_anomaly_ingest_time__ = None;
+                let mut fallback_info__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IndexCode => {
@@ -9082,6 +9221,12 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                             }
                             last_anomaly_ingest_time__ = map_.next_value()?;
                         }
+                        GeneratedField::FallbackInfo => {
+                            if fallback_info__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("fallbackInfo"));
+                            }
+                            fallback_info__ = map_.next_value()?;
+                        }
                     }
                 }
                 Ok(StreamIndexServiceResponseV1 {
@@ -9096,6 +9241,7 @@ impl<'de> serde::Deserialize<'de> for StreamIndexServiceResponseV1 {
                     sequence_id: sequence_id__.unwrap_or_default(),
                     last_ingest_time: last_ingest_time__,
                     last_anomaly_ingest_time: last_anomaly_ingest_time__,
+                    fallback_info: fallback_info__,
                 })
             }
         }
