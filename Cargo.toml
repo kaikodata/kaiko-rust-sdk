@@ -7,12 +7,13 @@ edition = "2024"
 name = "kaikosdk"
 
 [dependencies]
-prost = { version = "0.13.1", default-features = false }
-pbjson = { version = "0.7.0", default-features = false }
-pbjson-types = { version = "0.7.0", default-features = false }
+prost = { version = "0.14.3", default-features = false }
+pbjson = { version = "0.9.0", default-features = false }
+pbjson-types = { version = "0.9.0", default-features = false }
 serde = { version = "1.0", default-features = false }
-tonic = { version = "0.12.3", default-features = false, features = [
+tonic = { version = "0.14.5", features = [
     "transport",
-    "prost",
     "codegen",
+    "gzip"
 ] } #currently equivalent to default-features
+tonic-prost = { version = "0.14.5", default-features = false }

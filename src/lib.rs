@@ -1,1 +1,1 @@
-include!("gen/kaikosdk.rs");
+include!("gen/kaikosdk/kaikosdk.rs");
