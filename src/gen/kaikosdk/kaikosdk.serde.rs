@@ -107,6 +107,541 @@ impl<'de> serde::Deserialize<'de> for Assets {
         deserializer.deserialize_struct("kaikosdk.Assets", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for CantonOracleDataV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.name.is_empty() {
+            len += 1;
+        }
+        if self.value.is_some() {
+            len += 1;
+        }
+        if self.decimal != 0 {
+            len += 1;
+        }
+        if self.timestamp != 0 {
+            len += 1;
+        }
+        if !self.signature.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.CantonOracleDataV1", len)?;
+        if !self.name.is_empty() {
+            struct_ser.serialize_field("name", &self.name)?;
+        }
+        if let Some(v) = self.value.as_ref() {
+            #[allow(clippy::needless_borrow)]
+            #[allow(clippy::needless_borrows_for_generic_args)]
+            struct_ser.serialize_field("value", ToString::to_string(&v).as_str())?;
+        }
+        if self.decimal != 0 {
+            struct_ser.serialize_field("decimal", &self.decimal)?;
+        }
+        if self.timestamp != 0 {
+            #[allow(clippy::needless_borrow)]
+            #[allow(clippy::needless_borrows_for_generic_args)]
+            struct_ser.serialize_field("timestamp", ToString::to_string(&self.timestamp).as_str())?;
+        }
+        if !self.signature.is_empty() {
+            struct_ser.serialize_field("signature", &self.signature)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for CantonOracleDataV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "name",
+            "value",
+            "decimal",
+            "timestamp",
+            "signature",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Name,
+            Value,
+            Decimal,
+            Timestamp,
+            Signature,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "name" => Ok(GeneratedField::Name),
+                            "value" => Ok(GeneratedField::Value),
+                            "decimal" => Ok(GeneratedField::Decimal),
+                            "timestamp" => Ok(GeneratedField::Timestamp),
+                            "signature" => Ok(GeneratedField::Signature),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = CantonOracleDataV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.CantonOracleDataV1")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<CantonOracleDataV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut name__ = None;
+                let mut value__ = None;
+                let mut decimal__ = None;
+                let mut timestamp__ = None;
+                let mut signature__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Name => {
+                            if name__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("name"));
+                            }
+                            name__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Value => {
+                            if value__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("value"));
+                            }
+                            value__ = 
+                                map_.next_value::<::std::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                            ;
+                        }
+                        GeneratedField::Decimal => {
+                            if decimal__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("decimal"));
+                            }
+                            decimal__ = 
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Timestamp => {
+                            if timestamp__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("timestamp"));
+                            }
+                            timestamp__ = 
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Signature => {
+                            if signature__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("signature"));
+                            }
+                            signature__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(CantonOracleDataV1 {
+                    name: name__.unwrap_or_default(),
+                    value: value__,
+                    decimal: decimal__.unwrap_or_default(),
+                    timestamp: timestamp__.unwrap_or_default(),
+                    signature: signature__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.CantonOracleDataV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for CantonOracleFeedV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.feed_category.is_empty() {
+            len += 1;
+        }
+        if !self.feed_id.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.CantonOracleFeedV1", len)?;
+        if !self.feed_category.is_empty() {
+            struct_ser.serialize_field("feedCategory", &self.feed_category)?;
+        }
+        if !self.feed_id.is_empty() {
+            struct_ser.serialize_field("feedId", &self.feed_id)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for CantonOracleFeedV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "feed_category",
+            "feedCategory",
+            "feed_id",
+            "feedId",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            FeedCategory,
+            FeedId,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "feedCategory" | "feed_category" => Ok(GeneratedField::FeedCategory),
+                            "feedId" | "feed_id" => Ok(GeneratedField::FeedId),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = CantonOracleFeedV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.CantonOracleFeedV1")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<CantonOracleFeedV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut feed_category__ = None;
+                let mut feed_id__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::FeedCategory => {
+                            if feed_category__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("feedCategory"));
+                            }
+                            feed_category__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::FeedId => {
+                            if feed_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("feedId"));
+                            }
+                            feed_id__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(CantonOracleFeedV1 {
+                    feed_category: feed_category__.unwrap_or_default(),
+                    feed_id: feed_id__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.CantonOracleFeedV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for CantonOracleFeedV2 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.feed_category.is_empty() {
+            len += 1;
+        }
+        if !self.feed_id.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.CantonOracleFeedV2", len)?;
+        if !self.feed_category.is_empty() {
+            struct_ser.serialize_field("feedCategory", &self.feed_category)?;
+        }
+        if !self.feed_id.is_empty() {
+            struct_ser.serialize_field("feedId", &self.feed_id)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for CantonOracleFeedV2 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "feed_category",
+            "feedCategory",
+            "feed_id",
+            "feedId",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            FeedCategory,
+            FeedId,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "feedCategory" | "feed_category" => Ok(GeneratedField::FeedCategory),
+                            "feedId" | "feed_id" => Ok(GeneratedField::FeedId),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = CantonOracleFeedV2;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.CantonOracleFeedV2")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<CantonOracleFeedV2, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut feed_category__ = None;
+                let mut feed_id__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::FeedCategory => {
+                            if feed_category__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("feedCategory"));
+                            }
+                            feed_category__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::FeedId => {
+                            if feed_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("feedId"));
+                            }
+                            feed_id__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(CantonOracleFeedV2 {
+                    feed_category: feed_category__.unwrap_or_default(),
+                    feed_id: feed_id__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.CantonOracleFeedV2", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for CantonOraclePayloadV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.template_id.is_empty() {
+            len += 1;
+        }
+        if !self.contract_id.is_empty() {
+            len += 1;
+        }
+        if !self.synchronizer_id.is_empty() {
+            len += 1;
+        }
+        if !self.created_event_blob.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.CantonOraclePayloadV1", len)?;
+        if !self.template_id.is_empty() {
+            struct_ser.serialize_field("templateId", &self.template_id)?;
+        }
+        if !self.contract_id.is_empty() {
+            struct_ser.serialize_field("contractId", &self.contract_id)?;
+        }
+        if !self.synchronizer_id.is_empty() {
+            struct_ser.serialize_field("synchronizerId", &self.synchronizer_id)?;
+        }
+        if !self.created_event_blob.is_empty() {
+            struct_ser.serialize_field("createdEventBlob", &self.created_event_blob)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for CantonOraclePayloadV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "template_id",
+            "templateId",
+            "contract_id",
+            "contractId",
+            "synchronizer_id",
+            "synchronizerId",
+            "created_event_blob",
+            "createdEventBlob",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            TemplateId,
+            ContractId,
+            SynchronizerId,
+            CreatedEventBlob,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "templateId" | "template_id" => Ok(GeneratedField::TemplateId),
+                            "contractId" | "contract_id" => Ok(GeneratedField::ContractId),
+                            "synchronizerId" | "synchronizer_id" => Ok(GeneratedField::SynchronizerId),
+                            "createdEventBlob" | "created_event_blob" => Ok(GeneratedField::CreatedEventBlob),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = CantonOraclePayloadV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.CantonOraclePayloadV1")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<CantonOraclePayloadV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut template_id__ = None;
+                let mut contract_id__ = None;
+                let mut synchronizer_id__ = None;
+                let mut created_event_blob__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::TemplateId => {
+                            if template_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("templateId"));
+                            }
+                            template_id__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::ContractId => {
+                            if contract_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("contractId"));
+                            }
+                            contract_id__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::SynchronizerId => {
+                            if synchronizer_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("synchronizerId"));
+                            }
+                            synchronizer_id__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::CreatedEventBlob => {
+                            if created_event_blob__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("createdEventBlob"));
+                            }
+                            created_event_blob__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(CantonOraclePayloadV1 {
+                    template_id: template_id__.unwrap_or_default(),
+                    contract_id: contract_id__.unwrap_or_default(),
+                    synchronizer_id: synchronizer_id__.unwrap_or_default(),
+                    created_event_blob: created_event_blob__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.CantonOraclePayloadV1", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for ConstantDurationFuture {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -713,6 +1248,114 @@ impl<'de> serde::Deserialize<'de> for ConstantDurationFutureStatus {
         deserializer.deserialize_any(GeneratedVisitor)
     }
 }
+impl serde::Serialize for CostV2 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.fee.is_empty() {
+            len += 1;
+        }
+        if self.instrument.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.CostV2", len)?;
+        if !self.fee.is_empty() {
+            struct_ser.serialize_field("fee", &self.fee)?;
+        }
+        if let Some(v) = self.instrument.as_ref() {
+            struct_ser.serialize_field("instrument", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for CostV2 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "fee",
+            "instrument",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Fee,
+            Instrument,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "fee" => Ok(GeneratedField::Fee),
+                            "instrument" => Ok(GeneratedField::Instrument),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = CostV2;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.CostV2")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<CostV2, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut fee__ = None;
+                let mut instrument__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Fee => {
+                            if fee__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("fee"));
+                            }
+                            fee__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Instrument => {
+                            if instrument__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("instrument"));
+                            }
+                            instrument__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(CostV2 {
+                    fee: fee__.unwrap_or_default(),
+                    instrument: instrument__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.CostV2", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for DataInterval {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1077,6 +1720,114 @@ impl<'de> serde::Deserialize<'de> for InstrumentCriteria {
         deserializer.deserialize_struct("kaikosdk.InstrumentCriteria", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for InstrumentIdV2 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.admin.is_empty() {
+            len += 1;
+        }
+        if !self.id.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.InstrumentIdV2", len)?;
+        if !self.admin.is_empty() {
+            struct_ser.serialize_field("admin", &self.admin)?;
+        }
+        if !self.id.is_empty() {
+            struct_ser.serialize_field("id", &self.id)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for InstrumentIdV2 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "admin",
+            "id",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Admin,
+            Id,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "admin" => Ok(GeneratedField::Admin),
+                            "id" => Ok(GeneratedField::Id),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = InstrumentIdV2;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.InstrumentIdV2")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<InstrumentIdV2, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut admin__ = None;
+                let mut id__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Admin => {
+                            if admin__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("admin"));
+                            }
+                            admin__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Id => {
+                            if id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("id"));
+                            }
+                            id__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(InstrumentIdV2 {
+                    admin: admin__.unwrap_or_default(),
+                    id: id__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.InstrumentIdV2", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for Order {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1187,6 +1938,131 @@ impl<'de> serde::Deserialize<'de> for Order {
             }
         }
         deserializer.deserialize_struct("kaikosdk.Order", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for QuoteV2 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.feed_id.is_empty() {
+            len += 1;
+        }
+        if !self.price.is_empty() {
+            len += 1;
+        }
+        if !self.price_time.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.QuoteV2", len)?;
+        if !self.feed_id.is_empty() {
+            struct_ser.serialize_field("feedId", &self.feed_id)?;
+        }
+        if !self.price.is_empty() {
+            struct_ser.serialize_field("price", &self.price)?;
+        }
+        if !self.price_time.is_empty() {
+            struct_ser.serialize_field("priceTime", &self.price_time)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QuoteV2 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "feedId",
+            "price",
+            "priceTime",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            FeedId,
+            Price,
+            PriceTime,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "feedId" => Ok(GeneratedField::FeedId),
+                            "price" => Ok(GeneratedField::Price),
+                            "priceTime" => Ok(GeneratedField::PriceTime),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QuoteV2;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.QuoteV2")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QuoteV2, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut feed_id__ = None;
+                let mut price__ = None;
+                let mut price_time__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::FeedId => {
+                            if feed_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("feedId"));
+                            }
+                            feed_id__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Price => {
+                            if price__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("price"));
+                            }
+                            price__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::PriceTime => {
+                            if price_time__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("priceTime"));
+                            }
+                            price_time__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(QuoteV2 {
+                    feed_id: feed_id__.unwrap_or_default(),
+                    price: price__.unwrap_or_default(),
+                    price_time: price_time__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.QuoteV2", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for RateQuoteConversion {
@@ -1314,6 +2190,165 @@ impl<'de> serde::Deserialize<'de> for RateQuoteConversion {
             }
         }
         deserializer.deserialize_struct("kaikosdk.RateQuoteConversion", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for SignedPayloadV2 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.published_at.is_empty() {
+            len += 1;
+        }
+        if !self.expires_at.is_empty() {
+            len += 1;
+        }
+        if self.cost.is_some() {
+            len += 1;
+        }
+        if self.quote.is_some() {
+            len += 1;
+        }
+        if !self.payee.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.SignedPayloadV2", len)?;
+        if !self.published_at.is_empty() {
+            struct_ser.serialize_field("publishedAt", &self.published_at)?;
+        }
+        if !self.expires_at.is_empty() {
+            struct_ser.serialize_field("expiresAt", &self.expires_at)?;
+        }
+        if let Some(v) = self.cost.as_ref() {
+            struct_ser.serialize_field("cost", v)?;
+        }
+        if let Some(v) = self.quote.as_ref() {
+            struct_ser.serialize_field("quote", v)?;
+        }
+        if !self.payee.is_empty() {
+            struct_ser.serialize_field("payee", &self.payee)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for SignedPayloadV2 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "publishedAt",
+            "expiresAt",
+            "cost",
+            "quote",
+            "payee",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            PublishedAt,
+            ExpiresAt,
+            Cost,
+            Quote,
+            Payee,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "publishedAt" => Ok(GeneratedField::PublishedAt),
+                            "expiresAt" => Ok(GeneratedField::ExpiresAt),
+                            "cost" => Ok(GeneratedField::Cost),
+                            "quote" => Ok(GeneratedField::Quote),
+                            "payee" => Ok(GeneratedField::Payee),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = SignedPayloadV2;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.SignedPayloadV2")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SignedPayloadV2, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut published_at__ = None;
+                let mut expires_at__ = None;
+                let mut cost__ = None;
+                let mut quote__ = None;
+                let mut payee__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::PublishedAt => {
+                            if published_at__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("publishedAt"));
+                            }
+                            published_at__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::ExpiresAt => {
+                            if expires_at__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("expiresAt"));
+                            }
+                            expires_at__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Cost => {
+                            if cost__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("cost"));
+                            }
+                            cost__ = map_.next_value()?;
+                        }
+                        GeneratedField::Quote => {
+                            if quote__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("quote"));
+                            }
+                            quote__ = map_.next_value()?;
+                        }
+                        GeneratedField::Payee => {
+                            if payee__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("payee"));
+                            }
+                            payee__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(SignedPayloadV2 {
+                    published_at: published_at__.unwrap_or_default(),
+                    expires_at: expires_at__.unwrap_or_default(),
+                    cost: cost__,
+                    quote: quote__,
+                    payee: payee__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.SignedPayloadV2", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for SortCriteria {
@@ -4965,6 +6000,528 @@ impl<'de> serde::Deserialize<'de> for StreamAggregatesVwapResponseV1 {
             }
         }
         deserializer.deserialize_struct("kaikosdk.StreamAggregatesVWAPResponseV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamCantonOracleServiceRequestV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.feeds.is_empty() {
+            len += 1;
+        }
+        if !self.network.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamCantonOracleServiceRequestV1", len)?;
+        if !self.feeds.is_empty() {
+            struct_ser.serialize_field("feeds", &self.feeds)?;
+        }
+        if !self.network.is_empty() {
+            struct_ser.serialize_field("network", &self.network)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamCantonOracleServiceRequestV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "feeds",
+            "network",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Feeds,
+            Network,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "feeds" => Ok(GeneratedField::Feeds),
+                            "network" => Ok(GeneratedField::Network),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamCantonOracleServiceRequestV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamCantonOracleServiceRequestV1")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamCantonOracleServiceRequestV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut feeds__ = None;
+                let mut network__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Feeds => {
+                            if feeds__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("feeds"));
+                            }
+                            feeds__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Network => {
+                            if network__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("network"));
+                            }
+                            network__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(StreamCantonOracleServiceRequestV1 {
+                    feeds: feeds__.unwrap_or_default(),
+                    network: network__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamCantonOracleServiceRequestV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamCantonOracleServiceRequestV2 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.feeds.is_empty() {
+            len += 1;
+        }
+        if !self.network.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamCantonOracleServiceRequestV2", len)?;
+        if !self.feeds.is_empty() {
+            struct_ser.serialize_field("feeds", &self.feeds)?;
+        }
+        if !self.network.is_empty() {
+            struct_ser.serialize_field("network", &self.network)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamCantonOracleServiceRequestV2 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "feeds",
+            "network",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Feeds,
+            Network,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "feeds" => Ok(GeneratedField::Feeds),
+                            "network" => Ok(GeneratedField::Network),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamCantonOracleServiceRequestV2;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamCantonOracleServiceRequestV2")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamCantonOracleServiceRequestV2, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut feeds__ = None;
+                let mut network__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Feeds => {
+                            if feeds__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("feeds"));
+                            }
+                            feeds__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Network => {
+                            if network__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("network"));
+                            }
+                            network__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(StreamCantonOracleServiceRequestV2 {
+                    feeds: feeds__.unwrap_or_default(),
+                    network: network__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamCantonOracleServiceRequestV2", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamCantonOracleServiceResponseV1 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.data.is_some() {
+            len += 1;
+        }
+        if self.canton_oracle.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamCantonOracleServiceResponseV1", len)?;
+        if let Some(v) = self.data.as_ref() {
+            struct_ser.serialize_field("data", v)?;
+        }
+        if let Some(v) = self.canton_oracle.as_ref() {
+            struct_ser.serialize_field("cantonOracle", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamCantonOracleServiceResponseV1 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "data",
+            "canton_oracle",
+            "cantonOracle",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Data,
+            CantonOracle,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "data" => Ok(GeneratedField::Data),
+                            "cantonOracle" | "canton_oracle" => Ok(GeneratedField::CantonOracle),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamCantonOracleServiceResponseV1;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamCantonOracleServiceResponseV1")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamCantonOracleServiceResponseV1, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut data__ = None;
+                let mut canton_oracle__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Data => {
+                            if data__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("data"));
+                            }
+                            data__ = map_.next_value()?;
+                        }
+                        GeneratedField::CantonOracle => {
+                            if canton_oracle__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("cantonOracle"));
+                            }
+                            canton_oracle__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(StreamCantonOracleServiceResponseV1 {
+                    data: data__,
+                    canton_oracle: canton_oracle__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamCantonOracleServiceResponseV1", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for StreamCantonOracleServiceResponseV2 {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.network.is_empty() {
+            len += 1;
+        }
+        if !self.feed_category.is_empty() {
+            len += 1;
+        }
+        if !self.feed_id.is_empty() {
+            len += 1;
+        }
+        if self.payload.is_some() {
+            len += 1;
+        }
+        if !self.signature.is_empty() {
+            len += 1;
+        }
+        if !self.canonical_hash.is_empty() {
+            len += 1;
+        }
+        if !self.verifier_disclosure.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamCantonOracleServiceResponseV2", len)?;
+        if !self.network.is_empty() {
+            struct_ser.serialize_field("network", &self.network)?;
+        }
+        if !self.feed_category.is_empty() {
+            struct_ser.serialize_field("feedCategory", &self.feed_category)?;
+        }
+        if !self.feed_id.is_empty() {
+            struct_ser.serialize_field("feedId", &self.feed_id)?;
+        }
+        if let Some(v) = self.payload.as_ref() {
+            struct_ser.serialize_field("payload", v)?;
+        }
+        if !self.signature.is_empty() {
+            struct_ser.serialize_field("signature", &self.signature)?;
+        }
+        if !self.canonical_hash.is_empty() {
+            struct_ser.serialize_field("canonicalHash", &self.canonical_hash)?;
+        }
+        if !self.verifier_disclosure.is_empty() {
+            struct_ser.serialize_field("verifierDisclosure", &self.verifier_disclosure)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for StreamCantonOracleServiceResponseV2 {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "network",
+            "feed_category",
+            "feedCategory",
+            "feed_id",
+            "feedId",
+            "payload",
+            "signature",
+            "canonical_hash",
+            "canonicalHash",
+            "verifier_disclosure",
+            "verifierDisclosure",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Network,
+            FeedCategory,
+            FeedId,
+            Payload,
+            Signature,
+            CanonicalHash,
+            VerifierDisclosure,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "network" => Ok(GeneratedField::Network),
+                            "feedCategory" | "feed_category" => Ok(GeneratedField::FeedCategory),
+                            "feedId" | "feed_id" => Ok(GeneratedField::FeedId),
+                            "payload" => Ok(GeneratedField::Payload),
+                            "signature" => Ok(GeneratedField::Signature),
+                            "canonicalHash" | "canonical_hash" => Ok(GeneratedField::CanonicalHash),
+                            "verifierDisclosure" | "verifier_disclosure" => Ok(GeneratedField::VerifierDisclosure),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StreamCantonOracleServiceResponseV2;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct kaikosdk.StreamCantonOracleServiceResponseV2")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StreamCantonOracleServiceResponseV2, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut network__ = None;
+                let mut feed_category__ = None;
+                let mut feed_id__ = None;
+                let mut payload__ = None;
+                let mut signature__ = None;
+                let mut canonical_hash__ = None;
+                let mut verifier_disclosure__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Network => {
+                            if network__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("network"));
+                            }
+                            network__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::FeedCategory => {
+                            if feed_category__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("feedCategory"));
+                            }
+                            feed_category__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::FeedId => {
+                            if feed_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("feedId"));
+                            }
+                            feed_id__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Payload => {
+                            if payload__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("payload"));
+                            }
+                            payload__ = map_.next_value()?;
+                        }
+                        GeneratedField::Signature => {
+                            if signature__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("signature"));
+                            }
+                            signature__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::CanonicalHash => {
+                            if canonical_hash__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("canonicalHash"));
+                            }
+                            canonical_hash__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::VerifierDisclosure => {
+                            if verifier_disclosure__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("verifierDisclosure"));
+                            }
+                            verifier_disclosure__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(StreamCantonOracleServiceResponseV2 {
+                    network: network__.unwrap_or_default(),
+                    feed_category: feed_category__.unwrap_or_default(),
+                    feed_id: feed_id__.unwrap_or_default(),
+                    payload: payload__,
+                    signature: signature__.unwrap_or_default(),
+                    canonical_hash: canonical_hash__.unwrap_or_default(),
+                    verifier_disclosure: verifier_disclosure__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("kaikosdk.StreamCantonOracleServiceResponseV2", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for StreamCompositeIndicesServiceRequestV1 {
