@@ -85,6 +85,10 @@ All services expose a `subscribe` method that returns a server-side streaming RP
 | `StreamExoticIndicesServiceV1` | Exotic indices |
 | `StreamDerivativesInstrumentMetricsServiceV1` | Derivatives instrument metrics |
 | `StreamIvSviParametersServiceV1` | IV SVI parameters |
+| `StreamStakingRatesServiceV1` | Staking rates |
+| `StreamCantonOracleServiceV1` | Signed Canton pull-oracle data (crypto / NAV feeds) |
+| `StreamCantonOracleServiceV2` | Signed Canton pull-oracle payloads V2 |
+| `StreamEvmOracleServiceV1` | EVM pull-oracle EIP-712 signed prices |
 
 ## Examples
 
