@@ -11557,6 +11557,18 @@ impl serde::Serialize for StreamIndexMultiAssetsServiceResponseV1 {
         if self.ts_compute.is_some() {
             len += 1;
         }
+        if self.restatement_status.is_some() {
+            len += 1;
+        }
+        if self.correction_id.is_some() {
+            len += 1;
+        }
+        if self.initial_publication_ts.is_some() {
+            len += 1;
+        }
+        if self.incident_id.is_some() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("kaikosdk.StreamIndexMultiAssetsServiceResponseV1", len)?;
         if self.commodity != 0 {
             let v = StreamIndexCommodity::try_from(self.commodity)
@@ -11584,6 +11596,18 @@ impl serde::Serialize for StreamIndexMultiAssetsServiceResponseV1 {
         if let Some(v) = self.ts_compute.as_ref() {
             struct_ser.serialize_field("tsCompute", v)?;
         }
+        if let Some(v) = self.restatement_status.as_ref() {
+            struct_ser.serialize_field("restatementStatus", v)?;
+        }
+        if let Some(v) = self.correction_id.as_ref() {
+            struct_ser.serialize_field("correctionId", v)?;
+        }
+        if let Some(v) = self.initial_publication_ts.as_ref() {
+            struct_ser.serialize_field("initialPublicationTs", v)?;
+        }
+        if let Some(v) = self.incident_id.as_ref() {
+            struct_ser.serialize_field("incidentId", v)?;
+        }
         struct_ser.end()
     }
 }
@@ -11606,6 +11630,14 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
             "tsEvent",
             "ts_compute",
             "tsCompute",
+            "restatement_status",
+            "restatementStatus",
+            "correction_id",
+            "correctionId",
+            "initial_publication_ts",
+            "initialPublicationTs",
+            "incident_id",
+            "incidentId",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -11618,6 +11650,10 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
             Price,
             TsEvent,
             TsCompute,
+            RestatementStatus,
+            CorrectionId,
+            InitialPublicationTs,
+            IncidentId,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -11647,6 +11683,10 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
                             "price" => Ok(GeneratedField::Price),
                             "tsEvent" | "ts_event" => Ok(GeneratedField::TsEvent),
                             "tsCompute" | "ts_compute" => Ok(GeneratedField::TsCompute),
+                            "restatementStatus" | "restatement_status" => Ok(GeneratedField::RestatementStatus),
+                            "correctionId" | "correction_id" => Ok(GeneratedField::CorrectionId),
+                            "initialPublicationTs" | "initial_publication_ts" => Ok(GeneratedField::InitialPublicationTs),
+                            "incidentId" | "incident_id" => Ok(GeneratedField::IncidentId),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -11674,6 +11714,10 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
                 let mut price__ = None;
                 let mut ts_event__ = None;
                 let mut ts_compute__ = None;
+                let mut restatement_status__ = None;
+                let mut correction_id__ = None;
+                let mut initial_publication_ts__ = None;
+                let mut incident_id__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Commodity => {
@@ -11724,6 +11768,30 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
                             }
                             ts_compute__ = map_.next_value()?;
                         }
+                        GeneratedField::RestatementStatus => {
+                            if restatement_status__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("restatementStatus"));
+                            }
+                            restatement_status__ = map_.next_value()?;
+                        }
+                        GeneratedField::CorrectionId => {
+                            if correction_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("correctionId"));
+                            }
+                            correction_id__ = map_.next_value()?;
+                        }
+                        GeneratedField::InitialPublicationTs => {
+                            if initial_publication_ts__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("initialPublicationTs"));
+                            }
+                            initial_publication_ts__ = map_.next_value()?;
+                        }
+                        GeneratedField::IncidentId => {
+                            if incident_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("incidentId"));
+                            }
+                            incident_id__ = map_.next_value()?;
+                        }
                     }
                 }
                 Ok(StreamIndexMultiAssetsServiceResponseV1 {
@@ -11735,6 +11803,10 @@ impl<'de> serde::Deserialize<'de> for StreamIndexMultiAssetsServiceResponseV1 {
                     price: price__,
                     ts_event: ts_event__,
                     ts_compute: ts_compute__,
+                    restatement_status: restatement_status__,
+                    correction_id: correction_id__,
+                    initial_publication_ts: initial_publication_ts__,
+                    incident_id: incident_id__,
                 })
             }
         }
